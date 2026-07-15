@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Learning Portal — Learn HTML Interactively</title>
+<meta name="description" content="A complete interactive platform for learning HTML: tutorials, a live code editor, quizzes, a searchable tag reference, and progress tracking.">
+
+<!-- Bootstrap 5 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Site styles -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<header id="siteHeader">
+  <nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><span class="brk">&lt;</span>HTML Learning Portal<span class="brk">/&gt;</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="tutorial.html">Tutorials</a></li>
+          <li class="nav-item"><a class="nav-link" href="practice.html">Practice</a></li>
+          <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="playground.html">Playground</a></li>
+          <li class="nav-item"><a class="nav-link" href="reference.html">Reference</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item">
+            <button id="themeToggle" class="btn btn-icon" aria-label="Toggle dark mode" title="Toggle dark / light mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </li>
+          <li class="nav-item">
+            <a href="tutorial.html" class="btn btn-tag btn-sm ms-lg-2">Start Learning</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-6">
+        <div class="eyebrow">intro</div>
+        <h1>Learn HTML the way<br>browsers read it.</h1>
+        <p class="lead-text">A complete, classroom-ready platform: read a concept, edit real markup in a live editor, and watch it render — then prove what you learned with a quiz. Built for undergraduates taking their first course in web technologies.</p>
+        <div class="d-flex gap-3 flex-wrap mb-4">
+          <a href="tutorial.html" class="btn btn-primary-lg">Start Learning <i class="fa-solid fa-arrow-right ms-1"></i></a>
+          <a href="playground.html" class="btn btn-outline-lg">Open Playground</a>
+        </div>
+        <div class="hero-stats d-flex flex-wrap gap-4">
+          <div><b>16</b><span>Topics covered</span></div>
+          <div><b>150+</b><span>Code examples</span></div>
+          <div><b>Live</b><span>Editor + preview</span></div>
+          <div><b>Free</b><span>No account needed</span></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="code-mock">
+          <div class="code-mock-bar">
+            <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="code-mock-title">index.html</span>
+          </div>
+          <pre class="code-mock-body"><code><span class="tk-brk">&lt;!DOCTYPE</span> <span class="tk-attr">html</span><span class="tk-brk">&gt;</span>
+<span class="tk-brk">&lt;</span><span class="tk-tag">html</span> <span class="tk-attr">lang</span>=<span class="tk-str">"en"</span><span class="tk-brk">&gt;</span>
+  <span class="tk-brk">&lt;</span><span class="tk-tag">head</span><span class="tk-brk">&gt;</span>
+    <span class="tk-brk">&lt;</span><span class="tk-tag">title</span><span class="tk-brk">&gt;</span>My First Page<span class="tk-brk">&lt;/</span><span class="tk-tag">title</span><span class="tk-brk">&gt;</span>
+  <span class="tk-brk">&lt;/</span><span class="tk-tag">head</span><span class="tk-brk">&gt;</span>
+  <span class="tk-brk">&lt;</span><span class="tk-tag">body</span><span class="tk-brk">&gt;</span>
+    <span class="tk-brk">&lt;</span><span class="tk-tag">h1</span><span class="tk-brk">&gt;</span>Hello, Web!<span class="tk-brk">&lt;/</span><span class="tk-tag">h1</span><span class="tk-brk">&gt;</span>
+  <span class="tk-brk">&lt;/</span><span class="tk-tag">body</span><span class="tk-brk">&gt;</span>
+<span class="tk-brk">&lt;/</span><span class="tk-tag">html</span><span class="tk-brk">&gt;</span></code></pre>
+          <div class="code-mock-render">
+            <h1>Hello, Web!</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="section-pad">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">platform</div>
+      <h2>Everything you need in one place</h2>
+      <p>No installs, no setup — tutorials, an editor, quizzes, and a reference, ready in your browser.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-code"></i></div>
+          <h3>Live Code Editor</h3>
+          <p>A full Monaco-powered editor with syntax highlighting, autocompletion, and line numbers — the same engine behind VS Code.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-display"></i></div>
+          <h3>Real-Time Preview</h3>
+          <p>Every keystroke re-renders instantly in a split-screen preview pane, so you always see what your markup actually produces.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h3>150+ Examples</h3>
+          <p>Every topic ships with runnable, editable examples pulled from a structured tutorial library — not static screenshots.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-circle-question"></i></div>
+          <h3>Quizzes After Every Topic</h3>
+          <p>Multiple-choice checks with instant feedback confirm your understanding before you move on.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3>Progress Tracking</h3>
+          <p>A dashboard tracks completed topics, quiz scores, and overall course completion as you work.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <h3>Searchable Tag Reference</h3>
+          <p>Look up any HTML element or attribute instantly, with syntax, description, and a live example.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOPICS OVERVIEW ============ -->
+<section class="section-pad section-alt" id="topics">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">curriculum</div>
+      <h2>16 topics, in teaching order</h2>
+      <p>Each topic opens in the Tutorials page with its full lesson, live examples, and a quiz.</p>
+    </div>
+    <div class="row g-3" id="topicGrid">
+      <!-- Populated by js/app.js from data/tutorials.json -->
+      <div class="col-12 text-center py-5 text-muted" id="topicGridFallback">
+        <i class="fa-solid fa-spinner fa-spin me-2"></i>Loading curriculum…
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRESS PREVIEW ============ -->
+<section class="section-pad">
+  <div class="container">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <div class="eyebrow">dashboard</div>
+        <h2>Track your progress as you go</h2>
+        <p class="lead-text">Every completed topic and quiz updates your dashboard automatically. Pick up exactly where you left off.</p>
+        <a href="tutorial.html" class="btn btn-primary-lg">View my dashboard</a>
+      </div>
+      <div class="col-lg-6">
+        <div class="dash-preview-card">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <b>Course completion</b>
+            <span id="homeProgressPct">0%</span>
+          </div>
+          <div class="progress-outer"><div class="progress-inner" id="homeProgressBar" style="width:0%;"></div></div>
+          <p class="small text-muted mb-0 mt-2" id="homeProgressLabel">0 of 16 topics completed</p>
+          <div class="badge-row mt-3">
+            <span class="badge-pill" id="badge-explorer"><i class="fa-solid fa-seedling"></i> Explorer</span>
+            <span class="badge-pill" id="badge-builder"><i class="fa-solid fa-hammer"></i> Builder</span>
+            <span class="badge-pill" id="badge-architect"><i class="fa-solid fa-drafting-compass"></i> Architect</span>
+            <span class="badge-pill" id="badge-master"><i class="fa-solid fa-graduation-cap"></i> Master</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section class="cta-banner">
+  <div class="container text-center">
+    <h2>Ready to start building?</h2>
+    <p>Jump straight into the first module, or open the free-form playground.</p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a href="tutorial.html" class="btn btn-light-lg">Start with Module 1</a>
+      <a href="playground.html" class="btn btn-outline-light-lg">Open Playground</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="siteFooter">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-4">
+        <div class="navbar-brand mb-2 d-inline-block"><span class="brk">&lt;</span>HTML Learning Portal<span class="brk">/&gt;</span></div>
+        <p class="text-muted small">A self-contained teaching platform for undergraduate web technology courses. Built with HTML5, CSS3, vanilla JavaScript, and Bootstrap 5.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Learn</h6>
+        <ul class="footer-links">
+          <li><a href="tutorial.html">Tutorials</a></li>
+          <li><a href="practice.html">Practice</a></li>
+          <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Tools</h6>
+        <ul class="footer-links">
+          <li><a href="playground.html">Playground</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>About</h6>
+        <ul class="footer-links">
+          <li><a href="about.html">About the project</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Follow</h6>
+        <div class="d-flex gap-2">
+          <a href="#" class="btn btn-icon" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="#" class="btn btn-icon" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <p class="text-center small text-muted mb-0">© 2026 HTML Learning Portal. Built for classroom and self-paced learning.</p>
+  </div>
+</footer>
+
+<!-- Bootstrap bundle -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<!-- Site scripts -->
+<script src="js/app.js"></script>
+</body>
+</html>
