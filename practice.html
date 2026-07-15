@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice — HTML Learning Portal</title>
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<meta name="description" content="Hands-on HTML exercises: read a brief, write real markup, and get instant feedback.">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.47.0/min/editor/editor.main.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+
+<header id="siteHeader">
+  <nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><span class="brk">&lt;</span>HTML Learning Portal<span class="brk">/&gt;</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="tutorial.html">Tutorials</a></li>
+          <li class="nav-item"><a class="nav-link" href="practice.html">Practice</a></li>
+          <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="playground.html">Playground</a></li>
+          <li class="nav-item"><a class="nav-link" href="reference.html">Reference</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item">
+            <button id="themeToggle" class="btn btn-icon" aria-label="Toggle dark mode" title="Toggle dark / light mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="container studio-wrap">
+  <div class="studio-toolbar">
+    <div>
+      <h1><i class="fa-solid fa-dumbbell me-2"></i>Practice exercises</h1>
+      <p class="text-muted">Pick a task, write the markup, and click Check to get instant feedback.</p>
+    </div>
+  </div>
+
+  <div class="exercise-picker" id="exercisePicker"></div>
+
+  <div class="exercise-brief" id="exerciseBrief"></div>
+
+  <div class="studio-grid">
+    <div class="studio-pane">
+      <div class="studio-pane-head">
+        <b><i class="fa-solid fa-code me-1"></i> Your code</b>
+        <div class="editor-toolbar">
+          <button class="icon-btn" id="btnRun"><i class="fa-solid fa-play"></i> Run</button>
+          <button class="icon-btn" id="btnReset"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+          <button class="icon-btn" id="btnCopy"><i class="fa-regular fa-copy"></i> Copy</button>
+          <button class="icon-btn" id="btnCheck"><i class="fa-solid fa-check"></i> Check my work</button>
+        </div>
+      </div>
+      <div id="monacoContainer" class="monaco-mount"></div>
+    </div>
+    <div class="studio-pane">
+      <div class="studio-pane-head"><b><i class="fa-solid fa-display me-1"></i> Preview</b></div>
+      <iframe id="previewFrame" title="Exercise preview" sandbox="allow-scripts"></iframe>
+    </div>
+  </div>
+
+  <div class="check-result" id="checkResult"></div>
+</div>
+
+<footer id="siteFooter">
+  <div class="container">
+    <p class="text-center small text-muted mb-0">© 2026 HTML Learning Portal. Built for classroom and self-paced learning.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.47.0/min/vs/loader.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/editor.js"></script>
+</body>
+</html>

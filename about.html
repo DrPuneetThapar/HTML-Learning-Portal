@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — HTML Learning Portal</title>
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<meta name="description" content="About the HTML Learning Portal: what it is, how it works, and the technology behind it.">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="siteHeader">
+  <nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><span class="brk">&lt;</span>HTML Learning Portal<span class="brk">/&gt;</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="tutorial.html">Tutorials</a></li>
+          <li class="nav-item"><a class="nav-link" href="practice.html">Practice</a></li>
+          <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="playground.html">Playground</a></li>
+          <li class="nav-item"><a class="nav-link" href="reference.html">Reference</a></li>
+          <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+          <li class="nav-item">
+            <button id="themeToggle" class="btn btn-icon" aria-label="Toggle dark mode" title="Toggle dark / light mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<section class="section-pad">
+  <div class="container" style="max-width:820px;">
+    <div class="eyebrow">about</div>
+    <h1>About the HTML Learning Portal</h1>
+    <p class="lead-text">A self-contained, classroom-ready platform for teaching HTML to undergraduates — built entirely with static files, so it can be hosted anywhere with no backend.</p>
+
+    <h2 class="mt-5">What's inside</h2>
+    <ul class="outcomes" style="grid-template-columns:1fr;">
+      <li>16 topics covering everything from how the Internet works to HTML best practices.</li>
+      <li>152+ runnable, copyable code examples across the tutorials.</li>
+      <li>A Monaco-powered live editor (the same engine behind VS Code) in the Playground and Practice pages.</li>
+      <li>48 quiz questions with instant feedback, plus a mixed-topic challenge mode.</li>
+      <li>A searchable reference of 76 common HTML tags.</li>
+      <li>Progress tracking, badges, and bookmarks that persist in your browser.</li>
+    </ul>
+
+    <h2 class="mt-5">How progress tracking works</h2>
+    <p>Your completed topics, quiz scores, bookmarks, and notes are saved to your browser's local storage under a single key. Nothing is sent to a server — it's private to your device and this browser. Clearing your browser data will reset your progress.</p>
+
+    <h2 class="mt-5">Technology</h2>
+    <div class="row g-3 mt-1">
+      <div class="col-sm-6 col-lg-4">
+        <div class="feature-card"><div class="feature-icon"><i class="fa-brands fa-html5"></i></div><h3>HTML5 &amp; CSS3</h3><p class="mb-0">Semantic, hand-written markup and a custom design system — no framework CSS overrides needed beyond Bootstrap's grid.</p></div>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <div class="feature-card"><div class="feature-icon"><i class="fa-brands fa-js"></i></div><h3>Vanilla JavaScript</h3><p class="mb-0">No build step, no framework — plain ES6+ modules loaded directly by the browser.</p></div>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <div class="feature-card"><div class="feature-icon"><i class="fa-brands fa-bootstrap"></i></div><h3>Bootstrap 5</h3><p class="mb-0">Grid, navbar, and responsive utilities, layered under a custom visual theme.</p></div>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-icons"></i></div><h3>Font Awesome</h3><p class="mb-0">Iconography throughout the navigation, feature cards, and toolbars.</p></div>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-laptop-code"></i></div><h3>Monaco Editor</h3><p class="mb-0">The same code-editing engine as VS Code, loaded from CDN for the Playground and Practice pages.</p></div>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-database"></i></div><h3>JSON data files</h3><p class="mb-0">All tutorial, quiz, and reference content lives in <code>/data</code>, decoupled from the page markup.</p></div>
+      </div>
+    </div>
+
+    <h2 class="mt-5">Using this in a classroom</h2>
+    <p>Host the folder on any static file server (GitHub Pages, Netlify, a school's web server, or even a local <code>python -m http.server</code>). Every page works standalone — link students directly to a specific module with <code>tutorial.html?topic=lists</code>, for example.</p>
+
+    <div class="cta-banner mt-5" style="border-radius:20px;">
+      <h2>Ready to explore?</h2>
+      <p>Jump into the first module or open the tag reference.</p>
+      <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <a href="tutorial.html" class="btn btn-light-lg">Start Learning</a>
+        <a href="reference.html" class="btn btn-outline-light-lg">Browse Reference</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="siteFooter">
+  <div class="container">
+    <p class="text-center small text-muted mb-0">© 2026 HTML Learning Portal. Built for classroom and self-paced learning.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

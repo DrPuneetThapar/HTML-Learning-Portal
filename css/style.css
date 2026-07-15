@@ -212,6 +212,19 @@ button{font-family:var(--font-body);}
   *{animation-duration:.001ms !important;transition-duration:.001ms !important;}
 }
 
+/* ---------- 11b. Reference page (search.js output) ---------- */
+.ref-toolbar{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.ref-card{background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);padding:18px;height:100%;box-shadow:var(--shadow);}
+.ref-tag-name{font-family:var(--font-mono);font-size:14px;color:var(--tag);font-weight:700;}
+.ref-desc{font-size:13px;margin:0 0 12px;}
+.ref-label{font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);display:block;margin-bottom:4px;}
+.ref-syntax{margin-bottom:12px;}
+.ref-syntax code{display:block;background:var(--paper);border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-size:12px;color:var(--ink);overflow-x:auto;}
+.ref-example-head{display:flex;justify-content:space-between;align-items:center;}
+.ref-example pre{background:var(--code-bg);color:#D9D6E8;border-radius:7px;padding:10px;font-size:11.5px;margin:4px 0 0;overflow-x:auto;}
+.ref-copy-btn{background:none;border:1px solid var(--line);border-radius:6px;width:26px;height:26px;color:var(--ink-soft);font-size:11px;}
+.ref-copy-btn:hover{border-color:var(--tag);color:var(--tag);}
+
 /* ---------- 12. Responsive ---------- */
 @media (max-width:768px){
   .section-pad{padding:52px 0;}

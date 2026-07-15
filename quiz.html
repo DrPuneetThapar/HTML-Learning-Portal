@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — HTML Learning Portal</title>
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<meta name="description" content="Test your HTML knowledge with topic quizzes or a mixed challenge, with instant feedback and scoring.">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/quiz.css">
+</head>
+<body>
+
+<header id="siteHeader">
+  <nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><span class="brk">&lt;</span>HTML Learning Portal<span class="brk">/&gt;</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="tutorial.html">Tutorials</a></li>
+          <li class="nav-item"><a class="nav-link" href="practice.html">Practice</a></li>
+          <li class="nav-item"><a class="nav-link active" href="quiz.html">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="playground.html">Playground</a></li>
+          <li class="nav-item"><a class="nav-link" href="reference.html">Reference</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item">
+            <button id="themeToggle" class="btn btn-icon" aria-label="Toggle dark mode" title="Toggle dark / light mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="container quiz-wrap">
+
+  <div id="quizPickerScreen">
+    <div class="quiz-picker">
+      <div class="eyebrow">quiz</div>
+      <h1>Test your knowledge</h1>
+      <p class="text-muted mb-0">Choose a single topic, or take a mixed 12-question challenge across the whole course.</p>
+      <div class="quiz-picker-grid" id="quizPickerGrid"></div>
+    </div>
+  </div>
+
+  <div id="quizPlayScreen" class="d-none">
+    <div class="quiz-progress-row">
+      <span id="quizProgressLabel">Question 1 of 5</span>
+      <span id="quizProgressScore">Score: 0/0</span>
+    </div>
+    <div class="quiz-card" id="quizCard"></div>
+  </div>
+
+  <div id="quizResultsScreen" class="d-none">
+    <div class="quiz-card quiz-results">
+      <div class="score-circle" id="scoreCircleText">0/0</div>
+      <h2 id="resultsHeadline">Great work!</h2>
+      <p id="resultsSub" class="text-muted"></p>
+      <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <button class="btn btn-primary-lg" id="quizRetakeBtn">Try another quiz</button>
+        <a href="tutorial.html" class="btn btn-outline-lg">Back to tutorials</a>
+      </div>
+      <div class="quiz-review" id="quizReview"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer id="siteFooter">
+  <div class="container">
+    <p class="text-center small text-muted mb-0">© 2026 HTML Learning Portal. Built for classroom and self-paced learning.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="js/data-tutorials.js"></script>
+<script src="js/data-quizzes.js"></script>
+<script src="js/app.js"></script>
+<script src="js/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="400" height="260">
+  <rect width="400" height="260" rx="18" fill="#211F2E"/>
+  <circle cx="60" cy="40" r="7" fill="#EF5B5B"/>
+  <circle cx="84" cy="40" r="7" fill="#F5C542"/>
+  <circle cx="108" cy="40" r="7" fill="#3F7D5C"/>
+  <text x="40" y="90" font-family="monospace" font-size="18" fill="#C4406B">&lt;h1&gt;</text>
+  <text x="70" y="115" font-family="monospace" font-size="18" fill="#D9D6E8">Hello, Web!</text>
+  <text x="40" y="140" font-family="monospace" font-size="18" fill="#C4406B">&lt;/h1&gt;</text>
+  <text x="40" y="175" font-family="monospace" font-size="18" fill="#B9862E">&lt;p&gt;</text>
+  <text x="65" y="200" font-family="monospace" font-size="16" fill="#D9D6E8">Built with HTML5.</text>
+  <text x="40" y="225" font-family="monospace" font-size="18" fill="#B9862E">&lt;/p&gt;</text>
+</svg>

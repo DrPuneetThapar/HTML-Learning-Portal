@@ -1,0 +1,564 @@
+{
+  "quizzes": {
+    "internet": [
+      {
+        "q": "Which part of a URL tells the browser which protocol to use?",
+        "opts": [
+          "https://",
+          "www.example.com",
+          "/products",
+          "?id=12"
+        ],
+        "answer": 0,
+        "explain": "The scheme (https://) tells the browser which protocol to use to talk to the server."
+      },
+      {
+        "q": "A page generated fresh from a database on every request is called\u2026",
+        "opts": [
+          "A static site",
+          "A dynamic site",
+          "A domain",
+          "A DNS record"
+        ],
+        "answer": 1,
+        "explain": "Dynamic sites build content at request time, often from a database."
+      },
+      {
+        "q": "What does DNS do?",
+        "opts": [
+          "Encrypts traffic",
+          "Maps domain names to IP addresses",
+          "Compresses images",
+          "Validates HTML"
+        ],
+        "answer": 1,
+        "explain": "DNS translates human-readable domain names into numeric IP addresses."
+      }
+    ],
+    "clientserver": [
+      {
+        "q": "Which HTTP status code means the resource wasn't found?",
+        "opts": [
+          "200",
+          "301",
+          "404",
+          "500"
+        ],
+        "answer": 2,
+        "explain": "404 Not Found means the server has no resource at the requested URL."
+      },
+      {
+        "q": "What initiates the request-response cycle?",
+        "opts": [
+          "The server",
+          "The client",
+          "DNS",
+          "The router"
+        ],
+        "answer": 1,
+        "explain": "The client (browser) always sends the first request."
+      },
+      {
+        "q": "Which HTTP method is typically used to submit form data that changes server state?",
+        "opts": [
+          "GET",
+          "POST",
+          "HEAD",
+          "OPTIONS"
+        ],
+        "answer": 1,
+        "explain": "POST is conventionally used for submitting data that creates or changes something server-side."
+      }
+    ],
+    "html5": [
+      {
+        "q": "Which of these is an HTML5 semantic element?",
+        "opts": [
+          "<div>",
+          "<span>",
+          "<article>",
+          "<font>"
+        ],
+        "answer": 2,
+        "explain": "<article> describes self-contained content, a semantic addition in HTML5."
+      },
+      {
+        "q": "What does the HTML5 DOCTYPE declaration do?",
+        "opts": [
+          "Loads a stylesheet",
+          "Puts the browser in standards mode for HTML5",
+          "Runs JavaScript",
+          "Creates a table"
+        ],
+        "answer": 1,
+        "explain": "<!DOCTYPE html> tells the browser to render using modern HTML5 rules."
+      },
+      {
+        "q": "Which HTML5 feature removed the need for Flash in most video embeds?",
+        "opts": [
+          "<canvas>",
+          "<video>",
+          "<iframe>",
+          "<embed>"
+        ],
+        "answer": 1,
+        "explain": "The native <video> element plays media without third-party plugins."
+      }
+    ],
+    "structure": [
+      {
+        "q": "Which element holds content the visitor actually sees?",
+        "opts": [
+          "<head>",
+          "<body>",
+          "<title>",
+          "<meta>"
+        ],
+        "answer": 1,
+        "explain": "<body> contains all visible page content."
+      },
+      {
+        "q": "Where does <title> text appear?",
+        "opts": [
+          "Inside the page body",
+          "In the browser tab and bookmarks",
+          "In the footer",
+          "Nowhere visible"
+        ],
+        "answer": 1,
+        "explain": "<title> sets the text shown in the browser tab and used for bookmarks/search results."
+      },
+      {
+        "q": "Which attribute on <html> declares the page's language?",
+        "opts": [
+          "lang",
+          "language",
+          "locale",
+          "lang-code"
+        ],
+        "answer": 0,
+        "explain": "lang='en' (etc.) declares the document language for accessibility and SEO."
+      }
+    ],
+    "elements": [
+      {
+        "q": "Which attribute must be unique on the page?",
+        "opts": [
+          "class",
+          "style",
+          "id",
+          "title"
+        ],
+        "answer": 2,
+        "explain": "id identifies exactly one element; class can repeat across many elements."
+      },
+      {
+        "q": "Which of these is an empty (void) tag?",
+        "opts": [
+          "<p>",
+          "<div>",
+          "<img>",
+          "<span>"
+        ],
+        "answer": 2,
+        "explain": "<img> has no separate closing tag \u2014 it's a void element."
+      },
+      {
+        "q": "Which of these is a block-level element by default?",
+        "opts": [
+          "<span>",
+          "<a>",
+          "<div>",
+          "<strong>"
+        ],
+        "answer": 2,
+        "explain": "<div> starts on a new line by default, unlike inline elements like <span> or <a>."
+      }
+    ],
+    "attributes": [
+      {
+        "q": "Which attribute adds a tooltip shown on hover?",
+        "opts": [
+          "class",
+          "title",
+          "id",
+          "style"
+        ],
+        "answer": 1,
+        "explain": "title text is displayed as a native tooltip on hover."
+      },
+      {
+        "q": "What prefix identifies a custom attribute intended for scripting?",
+        "opts": [
+          "aria-",
+          "data-",
+          "custom-",
+          "js-"
+        ],
+        "answer": 1,
+        "explain": "data-* attributes are the standard way to attach custom data to an element."
+      },
+      {
+        "q": "Which attribute disables a form control?",
+        "opts": [
+          "disabled",
+          "readonly",
+          "hidden",
+          "required"
+        ],
+        "answer": 0,
+        "explain": "disabled prevents interaction and excludes the field from form submission."
+      }
+    ],
+    "text": [
+      {
+        "q": "Which tag is used for the single most important heading on a page?",
+        "opts": [
+          "<h6>",
+          "<h1>",
+          "<head>",
+          "<strong>"
+        ],
+        "answer": 1,
+        "explain": "<h1> is the top-level heading; there should usually be exactly one per page."
+      },
+      {
+        "q": "Which tag preserves whitespace and line breaks exactly as written?",
+        "opts": [
+          "<blockquote>",
+          "<small>",
+          "<pre>",
+          "<mark>"
+        ],
+        "answer": 2,
+        "explain": "<pre> renders text in a fixed-width font and keeps spacing/line breaks intact."
+      },
+      {
+        "q": "Which tag semantically highlights text, like a highlighter pen?",
+        "opts": [
+          "<em>",
+          "<mark>",
+          "<b>",
+          "<u>"
+        ],
+        "answer": 1,
+        "explain": "<mark> denotes text highlighted for reference or relevance."
+      }
+    ],
+    "lists": [
+      {
+        "q": "Which element pairs a term with its definition?",
+        "opts": [
+          "<ul>",
+          "<ol>",
+          "<dl>",
+          "<li>"
+        ],
+        "answer": 2,
+        "explain": "<dl> uses <dt> for the term and <dd> for its definition."
+      },
+      {
+        "q": "How do you create a sub-list inside a list item?",
+        "opts": [
+          "Add class='sub'",
+          "Nest a <ul> or <ol> inside the <li>",
+          "Use <sublist>",
+          "You can't nest lists"
+        ],
+        "answer": 1,
+        "explain": "Nesting a list element directly inside an <li> creates a sub-list."
+      },
+      {
+        "q": "Which attribute changes what number an ordered list starts at?",
+        "opts": [
+          "start",
+          "begin",
+          "from",
+          "value"
+        ],
+        "answer": 0,
+        "explain": "start='5' makes the list begin counting at 5."
+      }
+    ],
+    "links": [
+      {
+        "q": "Which href value creates an email link?",
+        "opts": [
+          "href='email:x@y.com'",
+          "href='mailto:x@y.com'",
+          "href='#email'",
+          "href='mail://x@y.com'"
+        ],
+        "answer": 1,
+        "explain": "The mailto: scheme opens the visitor's default email client."
+      },
+      {
+        "q": "Which attribute combination safely opens an external link in a new tab?",
+        "opts": [
+          "target='_blank' only",
+          "target='_blank' rel='noopener'",
+          "download",
+          "rel='nofollow' only"
+        ],
+        "answer": 1,
+        "explain": "rel='noopener' prevents the new tab from accessing the opening page via window.opener."
+      },
+      {
+        "q": "What does an href value starting with # link to?",
+        "opts": [
+          "Another domain",
+          "A section on the same page",
+          "An email address",
+          "A downloadable file"
+        ],
+        "answer": 1,
+        "explain": "A #fragment links to an element with a matching id on the current page."
+      }
+    ],
+    "images": [
+      {
+        "q": "What does the alt attribute do?",
+        "opts": [
+          "Sets the image size",
+          "Provides fallback/accessible text",
+          "Adds a border",
+          "Compresses the image"
+        ],
+        "answer": 1,
+        "explain": "alt text is shown if the image fails to load and read aloud by screen readers."
+      },
+      {
+        "q": "Which attribute lets the browser pick the best image for the screen size?",
+        "opts": [
+          "srcset",
+          "sizes only",
+          "alt",
+          "loading"
+        ],
+        "answer": 0,
+        "explain": "srcset lists multiple image candidates so the browser can choose the best fit."
+      },
+      {
+        "q": "What is the purpose of loading='lazy' on an <img>?",
+        "opts": [
+          "Compress the file",
+          "Defer loading offscreen images until needed",
+          "Add a caption",
+          "Change the alt text"
+        ],
+        "answer": 1,
+        "explain": "Lazy loading defers fetching images until they're near the viewport, improving performance."
+      }
+    ],
+    "svg": [
+      {
+        "q": "Why use SVG instead of a JPEG/PNG for simple shapes?",
+        "opts": [
+          "SVG loads slower",
+          "SVG stays crisp at any size",
+          "SVG can't be styled",
+          "SVG is only for photos"
+        ],
+        "answer": 1,
+        "explain": "SVG describes shapes mathematically, so it scales without pixelating."
+      },
+      {
+        "q": "Which element draws a straight line in SVG?",
+        "opts": [
+          "<path>",
+          "<line>",
+          "<stroke>",
+          "<edge>"
+        ],
+        "answer": 1,
+        "explain": "<line x1 y1 x2 y2> draws a straight line between two points."
+      },
+      {
+        "q": "What does the viewBox attribute control?",
+        "opts": [
+          "The fill color",
+          "The coordinate system shapes are drawn in",
+          "The file format",
+          "The stroke width"
+        ],
+        "answer": 1,
+        "explain": "viewBox defines the internal coordinate space, independent of the element's display size."
+      }
+    ],
+    "audio": [
+      {
+        "q": "Which attribute shows native play/pause controls?",
+        "opts": [
+          "controls",
+          "loop",
+          "autoplay",
+          "muted"
+        ],
+        "answer": 0,
+        "explain": "controls displays the browser's built-in audio UI."
+      },
+      {
+        "q": "Why is muted often required alongside autoplay?",
+        "opts": [
+          "It's not required",
+          "Browsers block autoplaying sound without it",
+          "It improves audio quality",
+          "It's an SEO requirement"
+        ],
+        "answer": 1,
+        "explain": "Most browsers block autoplay with sound unless the media is muted."
+      },
+      {
+        "q": "What does the loop attribute do on <audio>?",
+        "opts": [
+          "Downloads the file twice",
+          "Repeats playback continuously",
+          "Mutes the track",
+          "Shows a loading spinner"
+        ],
+        "answer": 1,
+        "explain": "loop restarts playback automatically when the track ends."
+      }
+    ],
+    "video": [
+      {
+        "q": "Which attribute shows a preview image before a video plays?",
+        "opts": [
+          "controls",
+          "poster",
+          "loop",
+          "autoplay"
+        ],
+        "answer": 1,
+        "explain": "poster sets the image shown before playback starts."
+      },
+      {
+        "q": "Which element adds captions to a video?",
+        "opts": [
+          "<caption>",
+          "<track>",
+          "<subtitle>",
+          "<text>"
+        ],
+        "answer": 1,
+        "explain": "<track kind='captions'> links a caption file (e.g. WebVTT) to the video."
+      },
+      {
+        "q": "Why include width and height on a <video>?",
+        "opts": [
+          "Required by HTML5",
+          "To reserve layout space and prevent content shifting",
+          "To compress the file",
+          "To enable autoplay"
+        ],
+        "answer": 1,
+        "explain": "Explicit dimensions reserve space before the video loads, avoiding layout shift."
+      }
+    ],
+    "iframes": [
+      {
+        "q": "What does <iframe> do?",
+        "opts": [
+          "Plays audio only",
+          "Embeds another page/document inside the current one",
+          "Creates a form",
+          "Adds a scrollbar"
+        ],
+        "answer": 1,
+        "explain": "<iframe> nests another HTML document inside the current page."
+      },
+      {
+        "q": "Why does an iframe need a title attribute?",
+        "opts": [
+          "It's purely decorative",
+          "Accessibility \u2014 screen readers announce it",
+          "It sets the file size",
+          "It's required for autoplay"
+        ],
+        "answer": 1,
+        "explain": "title gives assistive technology a readable label for the embedded content."
+      },
+      {
+        "q": "What does the sandbox attribute do on an iframe?",
+        "opts": [
+          "Adds a border",
+          "Restricts what the embedded page is allowed to do",
+          "Increases loading speed",
+          "Enables autoplay"
+        ],
+        "answer": 1,
+        "explain": "sandbox applies a set of restrictions (like disabling scripts) to embedded, less-trusted content."
+      }
+    ],
+    "seo": [
+      {
+        "q": "What does the meta description tag control?",
+        "opts": [
+          "Page color scheme",
+          "The snippet shown under the title in search results",
+          "The page's load speed",
+          "The favicon"
+        ],
+        "answer": 1,
+        "explain": "meta description supplies the summary text search engines often display."
+      },
+      {
+        "q": "Why does alt text help SEO?",
+        "opts": [
+          "It makes images load faster",
+          "It gives search engines readable text describing the image",
+          "It changes the image size",
+          "It's required by HTML syntax"
+        ],
+        "answer": 1,
+        "explain": "Search engines can't 'see' images \u2014 alt text gives them (and screen readers) something to read."
+      },
+      {
+        "q": "What does a canonical link tag prevent?",
+        "opts": [
+          "Slow loading",
+          "Duplicate-content confusion between similar URLs",
+          "Broken images",
+          "Missing meta tags"
+        ],
+        "answer": 1,
+        "explain": "rel='canonical' tells search engines which URL is the authoritative version."
+      }
+    ],
+    "bestpractices": [
+      {
+        "q": "How many <h1> elements should a typical page have?",
+        "opts": [
+          "As many as you like",
+          "Exactly one",
+          "Zero",
+          "One per section"
+        ],
+        "answer": 1,
+        "explain": "A single <h1> gives the page one clear main heading for users and assistive tech."
+      },
+      {
+        "q": "Which is a best practice for long-term maintainability?",
+        "opts": [
+          "Inline styles everywhere",
+          "Semantic tags and consistent indentation",
+          "One giant line of code",
+          "Skipping alt text to save space"
+        ],
+        "answer": 1,
+        "explain": "Semantic structure and readable indentation make markup easier to debug and extend."
+      },
+      {
+        "q": "What does running markup through a validator help catch?",
+        "opts": [
+          "Slow servers",
+          "Unclosed tags and invalid nesting",
+          "Poor color choices",
+          "Missing images only"
+        ],
+        "answer": 1,
+        "explain": "Validators check markup against the HTML spec, flagging structural errors."
+      }
+    ]
+  }
+}
