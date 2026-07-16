@@ -51,9 +51,10 @@
 .example-body{display:grid;grid-template-columns:1fr 1fr;}
 @media (max-width:700px){.example-body{grid-template-columns:1fr;}}
 .example-code{background:var(--code-bg);color:#D9D6E8;padding:16px;font-size:12.5px;line-height:1.7;margin:0;overflow:auto;max-height:280px;}
-.example-preview{background:#fff;border-left:1px solid var(--line);}
+.example-preview{background:#fff;border-left:1px solid var(--line);display:flex;flex-direction:column;}
 @media (max-width:700px){.example-preview{border-left:none;border-top:1px solid var(--line);}}
-.example-preview iframe{width:100%;height:100%;min-height:140px;border:none;}
+.example-preview iframe{width:100%;flex:1;min-height:140px;border:none;}
+.example-sandbox-note{margin:0;padding:6px 10px;font-size:11px;color:var(--ink-soft);border-top:1px solid var(--line);background:var(--bg-soft, rgba(0,0,0,.02));flex:none;}
 .example-card.collapsed .example-body{display:none;}
 
 /* ---------- topic-level quiz block ---------- */

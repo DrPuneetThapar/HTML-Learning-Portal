@@ -115,7 +115,10 @@ function renderLesson(topicId){
       </div>
       <div class="example-body">
         <pre class="example-code">${escapeHtml(ex.code)}</pre>
-        <div class="example-preview"><iframe title="${ex.title} preview" sandbox="allow-scripts"></iframe></div>
+        <div class="example-preview">
+          <iframe title="${ex.title} preview" sandbox="allow-scripts allow-forms allow-popups allow-downloads allow-same-origin"></iframe>
+          <p class="example-sandbox-note">Sandboxed preview: links/forms here won't affect the real site.</p>
+        </div>
       </div>`;
     exWrap.appendChild(card);
     card.querySelector("iframe").srcdoc = ex.code;

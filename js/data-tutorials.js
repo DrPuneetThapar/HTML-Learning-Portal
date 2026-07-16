@@ -423,7 +423,7 @@ window.TUTORIALS_DATA = {
         },
         {
           "title": "Self-closing syntax (valid, optional in HTML5)",
-          "code": "<img src=\"logo.png\" alt=\"Logo\" />",
+          "code": "<img src=\"media/logo.png\" alt=\"Logo\" />",
           "note": ""
         },
         {
@@ -752,12 +752,12 @@ window.TUTORIALS_DATA = {
         },
         {
           "title": "A download link",
-          "code": "<a href=\"/files/syllabus.pdf\" download>Download syllabus (PDF)</a>",
+          "code": "<a href=\"files/syllabus.pdf\" download>Download syllabus (PDF)</a>",
           "note": ""
         },
         {
           "title": "A link wrapping an image (image as a clickable link)",
-          "code": "<a href=\"/gallery\"><img src=\"thumb.jpg\" alt=\"View gallery\"></a>",
+          "code": "<a href=\"/gallery\"><img src=\"media/thumb.jpg\" alt=\"View gallery\"></a>",
           "note": ""
         },
         {
@@ -805,47 +805,47 @@ window.TUTORIALS_DATA = {
       "examples": [
         {
           "title": "A basic image with required alt text",
-          "code": "<img src=\"beans.jpg\" alt=\"Bag of freshly roasted coffee beans\">",
+          "code": "<img src=\"media/beans.jpg\" alt=\"Bag of freshly roasted coffee beans\">",
           "note": ""
         },
         {
           "title": "An image with explicit width and height to avoid layout shift",
-          "code": "<img src=\"hero.jpg\" alt=\"Team photo\" width=\"800\" height=\"400\">",
+          "code": "<img src=\"media/hero.jpg\" alt=\"Team photo\" width=\"800\" height=\"400\">",
           "note": ""
         },
         {
           "title": "A decorative image with empty alt (ignored by screen readers)",
-          "code": "<img src=\"divider-swirl.png\" alt=\"\">",
+          "code": "<img src=\"media/divider-swirl.png\" alt=\"\">",
           "note": ""
         },
         {
           "title": "An image wrapped in a figure with a caption",
-          "code": "<figure>\n  <img src=\"chart.png\" alt=\"Quarterly revenue chart\">\n  <figcaption>Fig. 1 — Revenue grew 18% in Q2.</figcaption>\n</figure>",
+          "code": "<figure>\n  <img src=\"media/chart.png\" alt=\"Quarterly revenue chart\">\n  <figcaption>Fig. 1 — Revenue grew 18% in Q2.</figcaption>\n</figure>",
           "note": ""
         },
         {
           "title": "Responsive images with srcset",
-          "code": "<img src=\"photo-800.jpg\"\n     srcset=\"photo-400.jpg 400w, photo-800.jpg 800w, photo-1200.jpg 1200w\"\n     sizes=\"(max-width: 600px) 400px, 800px\"\n     alt=\"Mountain landscape\">",
+          "code": "<img src=\"media/photo-800.jpg\"\n     srcset=\"media/photo-400.jpg 400w, media/photo-800.jpg 800w, media/photo-1200.jpg 1200w\"\n     sizes=\"(max-width: 600px) 400px, 800px\"\n     alt=\"Mountain landscape\">",
           "note": ""
         },
         {
           "title": "A three-image mini gallery",
-          "code": "<ul class=\"gallery\">\n  <li><img src=\"g1.jpg\" alt=\"Sunset over the bay\"></li>\n  <li><img src=\"g2.jpg\" alt=\"City skyline at night\"></li>\n  <li><img src=\"g3.jpg\" alt=\"Forest trail in autumn\"></li>\n</ul>",
+          "code": "<ul class=\"gallery\">\n  <li><img src=\"media/g1.jpg\" alt=\"Sunset over the bay\"></li>\n  <li><img src=\"media/g2.jpg\" alt=\"City skyline at night\"></li>\n  <li><img src=\"media/g3.jpg\" alt=\"Forest trail in autumn\"></li>\n</ul>",
           "note": ""
         },
         {
           "title": "Lazy-loading an offscreen image",
-          "code": "<img src=\"footer-banner.jpg\" alt=\"Seasonal promotion\" loading=\"lazy\">",
+          "code": "<img src=\"media/footer-banner.jpg\" alt=\"Seasonal promotion\" loading=\"lazy\">",
           "note": ""
         },
         {
           "title": "An image used as a link",
-          "code": "<a href=\"/product/42\"><img src=\"product-42.jpg\" alt=\"Wireless headphones, black\"></a>",
+          "code": "<a href=\"/product/42\"><img src=\"media/product-42.jpg\" alt=\"Wireless headphones, black\"></a>",
           "note": ""
         },
         {
           "title": "The <picture> element for art-directed responsive images",
-          "code": "<picture>\n  <source media=\"(min-width: 800px)\" srcset=\"wide.jpg\">\n  <img src=\"narrow.jpg\" alt=\"Team at the conference\">\n</picture>",
+          "code": "<picture>\n  <source media=\"(min-width: 800px)\" srcset=\"media/wide.jpg\">\n  <img src=\"media/narrow.jpg\" alt=\"Team at the conference\">\n</picture>",
           "note": ""
         },
         {
@@ -1137,7 +1137,7 @@ window.TUTORIALS_DATA = {
         },
         {
           "title": "Descriptive, keyword-relevant alt text",
-          "code": "<img src=\"dark-roast.jpg\" alt=\"250g bag of dark roast coffee beans from Bean & Brew\">",
+          "code": "<img src=\"media/dark-roast.jpg\" alt=\"250g bag of dark roast coffee beans from Bean & Brew\">",
           "note": ""
         },
         {
@@ -1228,7 +1228,7 @@ window.TUTORIALS_DATA = {
         },
         {
           "title": "Accessible image with meaningful alt text",
-          "code": "<img src=\"team.jpg\" alt=\"Five team members standing in front of the office\">",
+          "code": "<img src=\"media/team.jpg\" alt=\"Five team members standing in front of the office\">",
           "note": ""
         },
         {
