@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Event Calendar Widget</title>
+<style>
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#FBF9F3;color:#1C1B22;}
+  .wrap{padding:14px 16px;}
+  h1{font-size:14px;margin:0 0 10px;letter-spacing:.02em;}
+  .day{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid #E4DFD0;font-size:12.5px;}
+  .day:first-of-type{border-top:none;}
+  .date{font-weight:600;color:#1C1B22;}
+  .event{color:#5B586A;}
+  .tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:999px;background:#EFE7D8;color:#5B4636;margin-left:6px;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>📅 Upcoming Events</h1>
+    <div class="day"><span class="date">Jul 21</span><span class="event">Intro to HTML — Live session</span></div>
+    <div class="day"><span class="date">Jul 24</span><span class="event">Quiz: Tags &amp; Elements <span class="tag">graded</span></span></div>
+    <div class="day"><span class="date">Jul 29</span><span class="event">Forms &amp; validation workshop</span></div>
+    <div class="day"><span class="date">Aug 02</span><span class="event">Capstone project due <span class="tag">deadline</span></span></div>
+  </div>
+</body>
+</html>

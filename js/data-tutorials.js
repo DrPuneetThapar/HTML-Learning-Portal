@@ -1059,7 +1059,7 @@ window.TUTORIALS_DATA = {
         },
         {
           "title": "An iframe with a descriptive title (required for accessibility)",
-          "code": "<iframe src=\"/widgets/calendar.html\" title=\"Event calendar widget\" width=\"320\" height=\"240\"></iframe>",
+          "code": "<iframe src=\"widgets/calendar.html\" title=\"Event calendar widget\" width=\"320\" height=\"240\"></iframe>",
           "note": ""
         },
         {
