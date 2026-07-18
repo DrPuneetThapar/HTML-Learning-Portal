@@ -38,12 +38,20 @@ function renderSidebar(){
   const list = document.getElementById("tutSidebarList");
   const query = (document.getElementById("tutSearch").value || "").toLowerCase();
   list.innerHTML = "";
+  let lastUnit = null;
   TUT_TOPICS.forEach(t=>{
     if(query && !(t.title.toLowerCase().includes(query) || t.summary.toLowerCase().includes(query))) return;
+    if(!query && t.unit !== lastUnit){
+      lastUnit = t.unit;
+      const divider = document.createElement("div");
+      divider.className = "tut-unit-divider";
+      divider.textContent = `Unit ${t.unit}`;
+      list.appendChild(divider);
+    }
     const done = ProgressStore.isTopicComplete(t.id);
     const btn = document.createElement("button");
     btn.className = "tut-topic-btn" + (t.id === TUT_ACTIVE ? " active" : "");
-    btn.innerHTML = `<span class="n">${String(t.number).padStart(2,'0')}</span><span>${t.title}</span>${done ? '<i class="fa-solid fa-circle-check check"></i>' : ''}`;
+    btn.innerHTML = `<span class="n">${String(t.number).padStart(2,'0')}</span><span>${escapeHtml(t.title)}</span>${done ? '<i class="fa-solid fa-circle-check check"></i>' : ''}`;
     btn.addEventListener("click", ()=>{
       TUT_ACTIVE = t.id;
       history.replaceState(null, "", "tutorial.html?topic=" + t.id);
@@ -67,15 +75,15 @@ function renderLesson(topicId){
   body.innerHTML = `
     <div class="tut-content-head">
       <div>
-        <div class="num">&lt;${String(t.number).padStart(2,'0')} / 16&gt;</div>
-        <h1>${t.title}</h1>
+        <div class="num">&lt;${String(t.number).padStart(2,'0')} / ${TUT_TOPICS.length}&gt;</div>
+        <h1>${escapeHtml(t.title)}</h1>
       </div>
       <div class="d-flex gap-2">
         <button class="icon-btn" id="tutBookmarkBtn"><i class="fa-${bookmarked?'solid':'regular'} fa-star"></i> ${bookmarked?'Saved':'Save'}</button>
         <button class="icon-btn" id="tutCompleteBtn"><i class="fa-solid fa-circle-check"></i> ${done?'Completed':'Mark complete'}</button>
       </div>
     </div>
-    <p class="tut-summary lead-text">${t.summary}</p>
+    <p class="tut-summary lead-text">${escapeHtml(t.summary)}</p>
 
     <div id="tutLessons"></div>
 
@@ -88,8 +96,8 @@ function renderLesson(topicId){
     </div>
 
     <div class="tut-footer-nav">
-      ${prev ? `<button class="btn btn-outline-lg" id="prevTopicBtn"><i class="fa-solid fa-arrow-left"></i> ${prev.title}</button>` : '<span></span>'}
-      ${next ? `<button class="btn btn-primary-lg" id="nextTopicBtn">${next.title} <i class="fa-solid fa-arrow-right"></i></button>` : '<a href="quiz.html" class="btn btn-primary-lg">Take the full quiz <i class="fa-solid fa-arrow-right"></i></a>'}
+      ${prev ? `<button class="btn btn-outline-lg" id="prevTopicBtn"><i class="fa-solid fa-arrow-left"></i> ${escapeHtml(prev.title)}</button>` : '<span></span>'}
+      ${next ? `<button class="btn btn-primary-lg" id="nextTopicBtn">${escapeHtml(next.title)} <i class="fa-solid fa-arrow-right"></i></button>` : '<a href="quiz.html" class="btn btn-primary-lg">Take the full quiz <i class="fa-solid fa-arrow-right"></i></a>'}
     </div>
   `;
 
@@ -97,7 +105,7 @@ function renderLesson(topicId){
   t.lessons.forEach(l=>{
     const div = document.createElement("div");
     div.className = "lesson-block";
-    div.innerHTML = `<h3>${l.heading}</h3><p>${l.content}</p>`;
+    div.innerHTML = `<h3>${escapeHtml(l.heading)}</h3><p>${l.content}</p>`;
     lessonsWrap.appendChild(div);
   });
 
@@ -107,7 +115,7 @@ function renderLesson(topicId){
     card.className = "example-card";
     card.innerHTML = `
       <div class="example-head">
-        <span>${ex.title}</span>
+        <span>${escapeHtml(ex.title)}</span>
         <div class="example-actions">
           <button class="ex-copy" data-i="${i}"><i class="fa-regular fa-copy"></i> Copy</button>
           <button class="ex-toggle" data-i="${i}"><i class="fa-solid fa-chevron-up"></i> Hide</button>
@@ -116,7 +124,7 @@ function renderLesson(topicId){
       <div class="example-body">
         <pre class="example-code">${escapeHtml(ex.code)}</pre>
         <div class="example-preview">
-          <iframe title="${ex.title} preview" sandbox="allow-scripts allow-forms allow-popups allow-downloads allow-same-origin"></iframe>
+          <iframe title="${escapeHtml(ex.title)} preview" sandbox="allow-scripts allow-forms allow-popups allow-downloads allow-same-origin"></iframe>
           <p class="example-sandbox-note">Sandboxed preview: links/forms here won't affect the real site.</p>
         </div>
       </div>`;
@@ -170,7 +178,7 @@ function renderTopicQuiz(topicId){
   questions.forEach((q, qi)=>{
     const qBlock = document.createElement("div");
     qBlock.className = "tq-q";
-    qBlock.innerHTML = `<p class="qtext">${qi+1}. ${q.q}</p><div class="tq-opts"></div><p class="tq-explain">${q.explain}</p>`;
+    qBlock.innerHTML = `<p class="qtext">${qi+1}. ${escapeHtml(q.q)}</p><div class="tq-opts"></div><p class="tq-explain">${escapeHtml(q.explain)}</p>`;
     const optsWrap = qBlock.querySelector(".tq-opts");
     q.opts.forEach((optText, oi)=>{
       const b = document.createElement("button");

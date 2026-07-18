@@ -25,6 +25,8 @@
 .tut-topic-btn.active .n{color:rgba(255,255,255,.75);}
 .tut-topic-btn .check{margin-left:auto;font-size:12px;color:var(--string);}
 .tut-topic-btn.active .check{color:#fff;}
+.tut-unit-divider{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);padding:14px 10px 6px;}
+.tut-unit-divider:first-child{padding-top:2px;}
 
 /* ---------- lesson content ---------- */
 .tut-content{background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);padding:34px;box-shadow:var(--shadow);}

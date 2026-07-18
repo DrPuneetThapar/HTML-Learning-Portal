@@ -13,7 +13,7 @@
         "explain": "The scheme (https://) tells the browser which protocol to use to talk to the server."
       },
       {
-        "q": "A page generated fresh from a database on every request is called\u2026",
+        "q": "A page generated fresh from a database on every request is called…",
         "opts": [
           "A static site",
           "A dynamic site",
@@ -161,7 +161,7 @@
           "<span>"
         ],
         "answer": 2,
-        "explain": "<img> has no separate closing tag \u2014 it's a void element."
+        "explain": "<img> has no separate closing tag — it's a void element."
       },
       {
         "q": "Which of these is a block-level element by default?",
@@ -471,7 +471,7 @@
         "q": "Why does an iframe need a title attribute?",
         "opts": [
           "It's purely decorative",
-          "Accessibility \u2014 screen readers announce it",
+          "Accessibility — screen readers announce it",
           "It sets the file size",
           "It's required for autoplay"
         ],
@@ -511,7 +511,7 @@
           "It's required by HTML syntax"
         ],
         "answer": 1,
-        "explain": "Search engines can't 'see' images \u2014 alt text gives them (and screen readers) something to read."
+        "explain": "Search engines can't 'see' images — alt text gives them (and screen readers) something to read."
       },
       {
         "q": "What does a canonical link tag prevent?",
@@ -558,6 +558,321 @@
         ],
         "answer": 1,
         "explain": "Validators check markup against the HTML spec, flagging structural errors."
+      }
+    ],
+    "semantics": [
+      {
+        "q": "Which element should appear only once, holding a page's unique content?",
+        "opts": [
+          "<section>",
+          "<main>",
+          "<div>",
+          "<aside>"
+        ],
+        "answer": 1,
+        "explain": "<main> wraps the unique content of a page and should normally appear exactly once."
+      },
+      {
+        "q": "What best describes when to use <article>?",
+        "opts": [
+          "Any wrapper that needs styling",
+          "Content that could stand alone and be redistributed on its own",
+          "Only for news websites",
+          "A synonym for <section>"
+        ],
+        "answer": 1,
+        "explain": "<article> is for self-contained content — a blog post, comment, or news story — that would make sense on its own."
+      },
+      {
+        "q": "Which element creates a disclosure widget with no JavaScript?",
+        "opts": [
+          "<aside>",
+          "<time>",
+          "<details>/<summary>",
+          "<address>"
+        ],
+        "answer": 2,
+        "explain": "<details> with a <summary> child gives a native expand/collapse widget for free."
+      }
+    ],
+    "layout": [
+      {
+        "q": "What ARIA landmark role does <nav> map to automatically?",
+        "opts": [
+          "banner",
+          "navigation",
+          "complementary",
+          "contentinfo"
+        ],
+        "answer": 1,
+        "explain": "<nav> is exposed to assistive technology as the 'navigation' landmark automatically."
+      },
+      {
+        "q": "What is the main purpose of a 'skip to main content' link?",
+        "opts": [
+          "To improve SEO rankings",
+          "To let keyboard/screen-reader users bypass repeated navigation",
+          "To make the page load faster",
+          "To validate HTML"
+        ],
+        "answer": 1,
+        "explain": "It lets users jump straight past a repeated nav menu directly to the unique page content."
+      },
+      {
+        "q": "In CSS Grid, what does `repeat(auto-fit, minmax(200px, 1fr))` do?",
+        "opts": [
+          "Forces exactly 200 columns",
+          "Lets the grid fit as many 200px+ columns as the space allows",
+          "Only works with 1 column",
+          "Disables responsiveness"
+        ],
+        "answer": 1,
+        "explain": "auto-fit with minmax() lets the number of columns adjust automatically to the available width."
+      }
+    ],
+    "a11y-fundamentals": [
+      {
+        "q": "What alt text should a purely decorative image have?",
+        "opts": [
+          "A long, detailed description",
+          "alt=\"\" (empty)",
+          "No alt attribute at all",
+          "The filename"
+        ],
+        "answer": 1,
+        "explain": "Empty alt (alt=\"\") tells screen readers to skip the image entirely, which is correct for purely decorative images."
+      },
+      {
+        "q": "Why should positive tabindex values (like tabindex=\"3\") generally be avoided?",
+        "opts": [
+          "They're deprecated and don't work",
+          "They override the natural tab order and can confuse keyboard users",
+          "They only work in Chrome",
+          "They make elements invisible"
+        ],
+        "answer": 1,
+        "explain": "Positive tabindex values force a custom tab order that rarely matches visual/logical order, creating a confusing experience."
+      },
+      {
+        "q": "What is the first rule of using ARIA?",
+        "opts": [
+          "Add ARIA to every element for safety",
+          "Don't use ARIA if a native HTML element already provides the needed semantics",
+          "Only use ARIA on images",
+          "ARIA replaces the need for alt text"
+        ],
+        "answer": 1,
+        "explain": "Native elements like <button> already have the right role and keyboard behavior built in — ARIA is for filling gaps, not replacing them."
+      }
+    ],
+    "forms": [
+      {
+        "q": "Inside a <form>, what does a plain <button> default to?",
+        "opts": [
+          "type=\"button\"",
+          "type=\"reset\"",
+          "type=\"submit\"",
+          "It does nothing until scripted"
+        ],
+        "answer": 2,
+        "explain": "A <button> with no type attribute defaults to type=\"submit\" inside a form — a common source of accidental submissions."
+      },
+      {
+        "q": "What is <legend> used for?",
+        "opts": [
+          "Styling a table caption",
+          "Naming the group of controls inside a <fieldset>",
+          "A tooltip on hover",
+          "A required attribute on every input"
+        ],
+        "answer": 1,
+        "explain": "<legend> is the required first child of <fieldset> and announces what the group of controls represents."
+      },
+      {
+        "q": "When must a form's enctype be set to multipart/form-data?",
+        "opts": [
+          "Whenever method=\"get\" is used",
+          "When the form includes a file upload",
+          "Only for search forms",
+          "It's never required"
+        ],
+        "answer": 1,
+        "explain": "File uploads require multipart/form-data so the browser can send binary file content correctly."
+      }
+    ],
+    "forminputs": [
+      {
+        "q": "Which input type gives a native slider control?",
+        "opts": [
+          "type=\"number\"",
+          "type=\"range\"",
+          "type=\"scale\"",
+          "type=\"slider\""
+        ],
+        "answer": 1,
+        "explain": "type=\"range\" renders as a slider between a min and max value."
+      },
+      {
+        "q": "What does the pattern attribute do?",
+        "opts": [
+          "Sets a background pattern via CSS",
+          "Enforces a custom format using a regular expression",
+          "Changes the input's color",
+          "Only works on <select> elements"
+        ],
+        "answer": 1,
+        "explain": "pattern takes a regular expression the input's value must match before the form can submit."
+      },
+      {
+        "q": "Which input type is best for a phone number field?",
+        "opts": [
+          "type=\"number\"",
+          "type=\"tel\"",
+          "type=\"text\" only",
+          "type=\"phone\""
+        ],
+        "answer": 1,
+        "explain": "type=\"tel\" triggers the right mobile keyboard; phone formats still need a pattern since they vary internationally."
+      }
+    ],
+    "formvalidation": [
+      {
+        "q": "What does the novalidate attribute do when added to a <form>?",
+        "opts": [
+          "Makes every field required",
+          "Disables the browser's built-in validation",
+          "Removes all inputs from the form",
+          "Only works with JavaScript forms"
+        ],
+        "answer": 1,
+        "explain": "novalidate turns off the browser's automatic constraint validation, letting a page implement fully custom validation instead."
+      },
+      {
+        "q": "Which CSS pseudo-class matches a field that currently satisfies all its constraints?",
+        "opts": [
+          ":required",
+          ":valid",
+          ":checked",
+          ":focus"
+        ],
+        "answer": 1,
+        "explain": ":valid matches any form control whose current value passes its constraint validation."
+      },
+      {
+        "q": "What does setCustomValidity('') do?",
+        "opts": [
+          "Sets a permanent error message",
+          "Clears a custom error, allowing the field to become valid again",
+          "Disables validation for that field only",
+          "Deletes the field's value"
+        ],
+        "answer": 1,
+        "explain": "Passing an empty string to setCustomValidity() clears any custom error previously set on that field."
+      }
+    ],
+    "tables": [
+      {
+        "q": "What does the scope=\"col\" attribute on a <th> do?",
+        "opts": [
+          "Changes the column's width",
+          "Tells assistive technology the header describes the entire column below it",
+          "Merges cells across columns",
+          "Is purely decorative"
+        ],
+        "answer": 1,
+        "explain": "scope=\"col\" (or \"row\") tells screen readers which cells a header cell applies to."
+      },
+      {
+        "q": "Which attribute merges a table cell across multiple rows?",
+        "opts": [
+          "colspan",
+          "rowspan",
+          "span",
+          "merge"
+        ],
+        "answer": 1,
+        "explain": "rowspan=\"n\" makes a cell occupy n rows vertically; colspan does the equivalent across columns."
+      },
+      {
+        "q": "Where must <caption> appear in a table?",
+        "opts": [
+          "As the last child of <table>",
+          "Immediately after the opening <table> tag",
+          "Inside <tfoot>",
+          "Anywhere in the document"
+        ],
+        "answer": 1,
+        "explain": "<caption> must be the first element inside <table>, right after the opening tag."
+      }
+    ],
+    "a11y-standards": [
+      {
+        "q": "What does WCAG stand for?",
+        "opts": [
+          "Web Content Accessibility Guidelines",
+          "World Compliance and Accessibility Group",
+          "Web Content Analysis Guide",
+          "Website Contrast and Alt Guidelines"
+        ],
+        "answer": 0,
+        "explain": "WCAG is the Web Content Accessibility Guidelines, maintained by the W3C."
+      },
+      {
+        "q": "Which WCAG conformance level is most commonly targeted in practice?",
+        "opts": [
+          "A",
+          "AA",
+          "AAA",
+          "There's only one level"
+        ],
+        "answer": 1,
+        "explain": "Level AA is the most common baseline referenced by organizational policies and legal requirements."
+      },
+      {
+        "q": "Why is manual testing (keyboard, screen reader) still necessary alongside automated tools?",
+        "opts": [
+          "Automated tools are always wrong",
+          "Automated tools only catch a fraction of real accessibility issues",
+          "Manual testing is required by law everywhere",
+          "Automated tools don't work on HTML"
+        ],
+        "answer": 1,
+        "explain": "Automated scanners are estimated to catch only around 30-40% of real accessibility issues — things like illogical focus order need a human to find."
+      }
+    ],
+    "responsive-structure": [
+      {
+        "q": "What happens on mobile browsers without a viewport meta tag?",
+        "opts": [
+          "The page fails to load",
+          "The page renders at a fixed desktop width and zooms out",
+          "All images disappear",
+          "Forms stop working"
+        ],
+        "answer": 1,
+        "explain": "Without it, mobile browsers assume a wide desktop layout and zoom the whole page out to fit, making text tiny."
+      },
+      {
+        "q": "What does a mobile-first approach to media queries mean?",
+        "opts": [
+          "Only supporting mobile devices",
+          "Writing base styles for small screens first, then adding min-width queries for larger ones",
+          "Writing desktop styles first and overriding them for mobile",
+          "Avoiding media queries entirely"
+        ],
+        "answer": 1,
+        "explain": "Mobile-first starts with small-screen base styles and layers on complexity as the viewport grows, via min-width media queries."
+      },
+      {
+        "q": "Why does the flex `order` property need care regarding accessibility?",
+        "opts": [
+          "It doesn't work in most browsers",
+          "It changes visual order only — screen readers and tab order still follow the HTML source order",
+          "It automatically fixes tab order too",
+          "It only works on <table> elements"
+        ],
+        "answer": 1,
+        "explain": "order changes how content looks, not the underlying source order that keyboard/tab navigation and screen readers rely on."
       }
     ]
   }

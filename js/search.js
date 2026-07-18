@@ -65,10 +65,10 @@ function renderRefGrid(){
     col.innerHTML = `
       <div class="ref-card">
         <div class="d-flex justify-content-between align-items-start mb-2">
-          <code class="ref-tag-name">${t.tag}</code>
-          <span class="badge-tag">${t.category}</span>
+          <code class="ref-tag-name">${escapeHtmlRef(t.tag)}</code>
+          <span class="badge-tag">${escapeHtmlRef(t.category)}</span>
         </div>
-        <p class="ref-desc">${t.description}</p>
+        <p class="ref-desc">${escapeHtmlRef(t.description)}</p>
         <div class="ref-syntax"><span class="ref-label">Syntax</span><code>${escapeHtmlRef(t.syntax)}</code></div>
         <div class="ref-example">
           <div class="ref-example-head">
