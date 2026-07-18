@@ -140,8 +140,8 @@ function initPlaygroundPage(){
    ================================================================ */
 const EXERCISES = [
   {
-    id: "ex1", title: "Build a basic page",
-    brief: "Create a valid HTML5 document with a &lt;title&gt; of 'My Page' and one &lt;h1&gt; that says 'Hello, World!'.",
+    id: "ex1", title: "Build a basic page", level: "basic",
+    brief: "Create a valid HTML5 document with a <title> of 'My Page' and one <h1> that says 'Hello, World!'.",
     hint: "Remember: DOCTYPE, html, head with title, body with h1.",
     starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title></title>\n</head>\n<body>\n\n</body>\n</html>",
     checks: [
@@ -151,8 +151,8 @@ const EXERCISES = [
     ]
   },
   {
-    id: "ex2", title: "Format a paragraph",
-    brief: "Write a paragraph where one word is &lt;strong&gt;bold&lt;/strong&gt; and another is &lt;em&gt;italic&lt;/em&gt;.",
+    id: "ex2", title: "Format a paragraph", level: "basic",
+    brief: "Write a paragraph where one word is <strong>bold</strong> and another is <em>italic</em>.",
     hint: "Use <strong> and <em> inside a <p>.",
     starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Formatting</title></head>\n<body>\n  <p></p>\n</body>\n</html>",
     checks: [
@@ -162,8 +162,8 @@ const EXERCISES = [
     ]
   },
   {
-    id: "ex3", title: "Build a navigation list",
-    brief: "Create an unordered list of 3 links: Home, About, Contact — each a real &lt;a&gt; tag.",
+    id: "ex3", title: "Build a navigation list", level: "basic",
+    brief: "Create an unordered list of 3 links: Home, About, Contact — each a real <a> tag.",
     hint: "Wrap <li><a href=\"#\">…</a></li> three times inside a <ul>.",
     starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Nav</title></head>\n<body>\n  <ul>\n\n  </ul>\n</body>\n</html>",
     checks: [
@@ -173,8 +173,8 @@ const EXERCISES = [
     ]
   },
   {
-    id: "ex4", title: "Add an accessible image",
-    brief: "Insert an &lt;img&gt; tag with a src and meaningful alt text (not empty).",
+    id: "ex4", title: "Add an accessible image", level: "basic",
+    brief: "Insert an <img> tag with a src and meaningful alt text (not empty).",
     hint: "alt=\"\" is not enough — describe the image.",
     starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Image</title></head>\n<body>\n\n</body>\n</html>",
     checks: [
@@ -184,7 +184,7 @@ const EXERCISES = [
     ]
   },
   {
-    id: "ex5", title: "Build a simple table",
+    id: "ex5", title: "Build a simple table", level: "basic",
     brief: "Create a table with a header row (Name, Score) and one data row.",
     hint: "Use <table>, <tr>, <th> for headers, <td> for data.",
     starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Table</title></head>\n<body>\n\n</body>\n</html>",
@@ -195,13 +195,88 @@ const EXERCISES = [
     ]
   },
   {
-    id: "ex6", title: "Semantic page layout",
-    brief: "Build a page using &lt;header&gt;, &lt;main&gt;, and &lt;footer&gt; instead of plain &lt;div&gt;s.",
+    id: "ex6", title: "Semantic page layout", level: "basic",
+    brief: "Build a page using <header>, <main>, and <footer> instead of plain <div>s.",
     hint: "Each semantic tag should wrap some content, even a single line.",
     starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Layout</title></head>\n<body>\n\n</body>\n</html>",
     checks: [
       { label:"Has a <header>", test: c => /<header[\s>]/i.test(c) },
       { label:"Has a <main>", test: c => /<main[\s>]/i.test(c) },
+      { label:"Has a <footer>", test: c => /<footer[\s>]/i.test(c) }
+    ]
+  },
+  {
+    id: "ex7", title: "Accessible contact form", level: "advanced", topics: "Forms · Input Types · Accessibility",
+    brief: "Build a contact form: a labeled name field, a required email field, a labeled message <textarea>, and a submit button. Every field needs a properly associated <label>.",
+    hint: "Match each <label for=\"x\"> to an input/textarea with id=\"x\". Use type=\"email\" and the required attribute together on the email field.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Contact</title></head>\n<body>\n  <form>\n\n  </form>\n</body>\n</html>",
+    checks: [
+      { label:"Has a <form>", test: c => /<form[\s>]/i.test(c) },
+      { label:"Has at least 3 <label> elements", test: c => (c.match(/<label[\s>]/gi)||[]).length >= 3 },
+      { label:"Has a required <input type=\"email\">", test: c => { const m = c.match(/<input[^>]*>/gi) || []; return m.some(tag => /type=["']email["']/i.test(tag) && /required/i.test(tag)); } },
+      { label:"Has a <textarea>", test: c => /<textarea[\s>]/i.test(c) },
+      { label:"Has a submit button", test: c => /<button[^>]*>|<input[^>]+type=["']submit["']/i.test(c) }
+    ]
+  },
+  {
+    id: "ex8", title: "Semantic blog post", level: "advanced", topics: "Semantic HTML · Text Formatting",
+    brief: "Build a page with <header>, a <main> containing one <article>, an <aside>, and a <footer>. The article needs an <h1>, at least one <strong> or <em>, and a <time datetime=\"…\">.",
+    hint: "<main> should wrap the <article>. <aside> is a sibling of <article>, not nested inside it, for this exercise.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Blog</title></head>\n<body>\n\n</body>\n</html>",
+    checks: [
+      { label:"Has a <header>", test: c => /<header[\s>]/i.test(c) },
+      { label:"Has <main> containing an <article>", test: c => { const m = c.match(/<main[\s\S]*?<\/main>/i); return !!m && /<article[\s>]/i.test(m[0]); } },
+      { label:"Has an <aside>", test: c => /<aside[\s>]/i.test(c) },
+      { label:"Has a <footer>", test: c => /<footer[\s>]/i.test(c) },
+      { label:"Article has an <h1> and <strong> or <em>", test: c => /<h1[\s>]/i.test(c) && (/<strong[\s>]/i.test(c) || /<em[\s>]/i.test(c)) },
+      { label:"Has a <time datetime=\"…\">", test: c => /<time[^>]+datetime\s*=\s*["'][^"']+["']/i.test(c) }
+    ]
+  },
+  {
+    id: "ex9", title: "Accessible data table", level: "advanced", topics: "Tables and Data Representation",
+    brief: "Build a product table with a <caption>, a <thead> with column headers using scope=\"col\", and a <tbody> with at least 3 rows of 2 cells each.",
+    hint: "<caption> must be the first child right after <table>. Give every <th> in the header row a scope=\"col\" attribute.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Products</title></head>\n<body>\n  <table>\n\n  </table>\n</body>\n</html>",
+    checks: [
+      { label:"Table has a <caption>", test: c => { const m = c.match(/<table[\s\S]*?<\/table>/i); return !!m && /<caption[\s>]/i.test(m[0]); } },
+      { label:"Has a <thead> and a <tbody>", test: c => /<thead[\s>]/i.test(c) && /<tbody[\s>]/i.test(c) },
+      { label:"Has at least 2 <th scope=\"col\"> header cells", test: c => (c.match(/<th[^>]+scope\s*=\s*["']col["']/gi)||[]).length >= 2 },
+      { label:"Has at least 3 data rows (6+ <td> cells)", test: c => (c.match(/<td[\s>]/gi)||[]).length >= 6 }
+    ]
+  },
+  {
+    id: "ex10", title: "Sign-up form with validation", level: "advanced", topics: "Input Types · Form Validation",
+    brief: "Build a sign-up form: a username field (required, minlength 3), a password field (type=\"password\", required, minlength 8), an age field (type=\"number\", min 13), and a required checkbox agreeing to terms.",
+    hint: "Constraint attributes like required, minlength, and min can appear in any order inside the tag — just make sure they're all on the right input.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Sign up</title></head>\n<body>\n  <form>\n\n  </form>\n</body>\n</html>",
+    checks: [
+      { label:"Username input: required + minlength=\"3\"", test: c => { const m = c.match(/<input[^>]*>/gi) || []; return m.some(tag => /required/i.test(tag) && /minlength\s*=\s*["']3["']/i.test(tag)); } },
+      { label:"Password input: type=\"password\" + required", test: c => { const m = c.match(/<input[^>]*>/gi) || []; return m.some(tag => /type=["']password["']/i.test(tag) && /required/i.test(tag)); } },
+      { label:"Age input: type=\"number\" + min=\"13\"", test: c => { const m = c.match(/<input[^>]*>/gi) || []; return m.some(tag => /type=["']number["']/i.test(tag) && /min\s*=\s*["']13["']/i.test(tag)); } },
+      { label:"A required checkbox for terms", test: c => { const m = c.match(/<input[^>]*>/gi) || []; return m.some(tag => /type=["']checkbox["']/i.test(tag) && /required/i.test(tag)); } }
+    ]
+  },
+  {
+    id: "ex11", title: "Responsive image gallery", level: "advanced", topics: "Responsive Structuring · Images",
+    brief: "Build a responsive gallery: a <style> block with a CSS Grid using grid-template-columns, at least 3 <figure>+<img>+<figcaption> groups, and the viewport meta tag.",
+    hint: "Something like grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); inside a <style> tag in <head>. Every <img> still needs real alt text.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Gallery</title>\n</head>\n<body>\n\n</body>\n</html>",
+    checks: [
+      { label:"Has the viewport meta tag", test: c => /<meta[^>]+name=["']viewport["']/i.test(c) },
+      { label:"Has a <style> block using grid-template-columns", test: c => { const m = c.match(/<style[\s\S]*?<\/style>/i); return !!m && /grid-template-columns/i.test(m[0]); } },
+      { label:"Has at least 3 <img> tags with alt text", test: c => (c.match(/<img[^>]+alt\s*=\s*["'][^"']{2,}["']/gi)||[]).length >= 3 },
+      { label:"Has at least 1 <figure> with a <figcaption>", test: c => { const m = c.match(/<figure[\s\S]*?<\/figure>/i); return !!m && /<figcaption[\s>]/i.test(m[0]); } }
+    ]
+  },
+  {
+    id: "ex12", title: "Accessible navigation with a skip link", level: "advanced", topics: "Page Layout · Accessibility",
+    brief: "Build a page with a 'Skip to main content' link as the very first thing in <body>, a <nav> with an aria-label, and a <main id=\"mainContent\"> that the skip link actually points to.",
+    hint: "The skip link's href value (e.g. #mainContent) must exactly match the id on <main>.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Site</title></head>\n<body>\n\n</body>\n</html>",
+    checks: [
+      { label:"First element in <body> is a skip link to #mainContent", test: c => { const m = c.match(/<body[^>]*>([\s\S]*)<\/body>/i); if(!m) return false; const inner = m[1].trim(); return /^<a\s+href=["']#mainContent["']/i.test(inner); } },
+      { label:"Has a <nav> with an aria-label", test: c => /<nav[^>]+aria-label\s*=\s*["'][^"']+["']/i.test(c) },
+      { label:"Has <main id=\"mainContent\">", test: c => /<main[^>]+id\s*=\s*["']mainContent["']/i.test(c) },
       { label:"Has a <footer>", test: c => /<footer[\s>]/i.test(c) }
     ]
   }
@@ -215,7 +290,7 @@ function initPracticePage(){
   EXERCISES.forEach((ex, i)=>{
     const chip = document.createElement("button");
     chip.className = "exercise-chip" + (i===0 ? " active" : "");
-    chip.textContent = (i+1) + ". " + ex.title;
+    chip.innerHTML = (i+1) + ". " + escapeHtml(ex.title) + (ex.level === "advanced" ? ' <span class="exercise-level-badge">Advanced</span>' : "");
     chip.addEventListener("click", ()=> loadExercise(ex.id));
     picker.appendChild(chip);
   });
@@ -238,7 +313,7 @@ function loadExercise(id){
   PRACTICE_ACTIVE = id;
   const ex = EXERCISES.find(e=>e.id===id);
   document.querySelectorAll(".exercise-chip").forEach((c,i)=> c.classList.toggle("active", EXERCISES[i].id===id));
-  document.getElementById("exerciseBrief").innerHTML = `<h2>${escapeHtml(ex.title)}</h2><p>${escapeHtml(ex.brief)}</p><p class="hint"><i class="fa-solid fa-lightbulb me-1"></i>${escapeHtml(ex.hint)}</p>`;
+  document.getElementById("exerciseBrief").innerHTML = `<h2>${escapeHtml(ex.title)}${ex.level === "advanced" ? ' <span class="exercise-level-badge">Advanced</span>' : ""}</h2>${ex.topics ? `<p class="exercise-topics">${escapeHtml(ex.topics)}</p>` : ""}<p>${escapeHtml(ex.brief)}</p><p class="hint"><i class="fa-solid fa-lightbulb me-1"></i>${escapeHtml(ex.hint)}</p>`;
   document.getElementById("checkResult").className = "check-result";
   if(EditorEngine.isReady()){
     EditorEngine.setValue(ex.starter);
