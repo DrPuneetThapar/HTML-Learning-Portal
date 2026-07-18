@@ -109,6 +109,10 @@ const ProgressStore = (function(){
 })();
 
 /* ---------- 3. Shared utilities ---------- */
+function escapeHtml(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
 function showToast(message){
   let toast = document.querySelector(".copy-toast");
   if(!toast){
@@ -153,8 +157,8 @@ function initHomepageTopics(){
             <span class="topic-num">&lt;${String(t.number).padStart(2,'0')}&gt;</span>
             <i class="${t.icon} topic-icon"></i>
           </div>
-          <h4>${t.title}</h4>
-          <p>${t.summary}</p>
+          <h4>${escapeHtml(t.title)}</h4>
+          <p>${escapeHtml(t.summary)}</p>
           <div class="topic-bar"><i style="width:${done?100:0}%;"></i></div>
           <span class="topic-open">Open module <i class="fa-solid fa-arrow-right"></i></span>
         </a>`;

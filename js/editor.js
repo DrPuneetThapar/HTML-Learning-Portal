@@ -238,7 +238,7 @@ function loadExercise(id){
   PRACTICE_ACTIVE = id;
   const ex = EXERCISES.find(e=>e.id===id);
   document.querySelectorAll(".exercise-chip").forEach((c,i)=> c.classList.toggle("active", EXERCISES[i].id===id));
-  document.getElementById("exerciseBrief").innerHTML = `<h2>${ex.title}</h2><p>${ex.brief}</p><p class="hint"><i class="fa-solid fa-lightbulb me-1"></i>${ex.hint}</p>`;
+  document.getElementById("exerciseBrief").innerHTML = `<h2>${escapeHtml(ex.title)}</h2><p>${escapeHtml(ex.brief)}</p><p class="hint"><i class="fa-solid fa-lightbulb me-1"></i>${escapeHtml(ex.hint)}</p>`;
   document.getElementById("checkResult").className = "check-result";
   if(EditorEngine.isReady()){
     EditorEngine.setValue(ex.starter);
@@ -254,7 +254,7 @@ function runExerciseCheck(){
   const box = document.getElementById("checkResult");
   box.className = "check-result show " + (passed===results.length ? "pass" : "fail");
   box.innerHTML = `<b>${passed}/${results.length} checks passed</b><ul style="margin:8px 0 0;padding-left:18px;">${
-    results.map(r=>`<li>${r.pass?'✓':'✗'} ${r.label}</li>`).join('')
+    results.map(r=>`<li>${r.pass?'✓':'✗'} ${escapeHtml(r.label)}</li>`).join('')
   }</ul>`;
   if(passed===results.length){
     ProgressStore.markTopicComplete("practice-" + ex.id);

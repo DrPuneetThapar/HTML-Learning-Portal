@@ -11,14 +11,14 @@
       "tag": "<html>",
       "category": "Document",
       "description": "The root element wrapping the entire page.",
-      "syntax": "<html lang=\"en\">\u2026</html>",
+      "syntax": "<html lang=\"en\">…</html>",
       "example": "<html lang=\"en\"></html>"
     },
     {
       "tag": "<head>",
       "category": "Document",
       "description": "Container for metadata: title, charset, stylesheets.",
-      "syntax": "<head>\u2026</head>",
+      "syntax": "<head>…</head>",
       "example": "<head><title>Page</title></head>"
     },
     {
@@ -46,70 +46,70 @@
       "tag": "<body>",
       "category": "Document",
       "description": "Contains all visible page content.",
-      "syntax": "<body>\u2026</body>",
+      "syntax": "<body>…</body>",
       "example": "<body><h1>Hi</h1></body>"
     },
     {
       "tag": "<header>",
       "category": "Structure",
       "description": "Introductory content or navigation for a page/section.",
-      "syntax": "<header>\u2026</header>",
+      "syntax": "<header>…</header>",
       "example": "<header><h1>Site</h1></header>"
     },
     {
       "tag": "<nav>",
       "category": "Structure",
       "description": "A block of navigation links.",
-      "syntax": "<nav>\u2026</nav>",
+      "syntax": "<nav>…</nav>",
       "example": "<nav><a href=\"/\">Home</a></nav>"
     },
     {
       "tag": "<main>",
       "category": "Structure",
       "description": "The dominant, unique content of the document.",
-      "syntax": "<main>\u2026</main>",
+      "syntax": "<main>…</main>",
       "example": "<main><p>Content</p></main>"
     },
     {
       "tag": "<article>",
       "category": "Structure",
       "description": "Self-contained, independently distributable content.",
-      "syntax": "<article>\u2026</article>",
+      "syntax": "<article>…</article>",
       "example": "<article><h2>Post</h2></article>"
     },
     {
       "tag": "<section>",
       "category": "Structure",
       "description": "A thematic grouping of content.",
-      "syntax": "<section>\u2026</section>",
+      "syntax": "<section>…</section>",
       "example": "<section><h2>About</h2></section>"
     },
     {
       "tag": "<aside>",
       "category": "Structure",
       "description": "Content tangentially related to the main content.",
-      "syntax": "<aside>\u2026</aside>",
+      "syntax": "<aside>…</aside>",
       "example": "<aside>Related links</aside>"
     },
     {
       "tag": "<footer>",
       "category": "Structure",
       "description": "Footer for its nearest sectioning content.",
-      "syntax": "<footer>\u2026</footer>",
+      "syntax": "<footer>…</footer>",
       "example": "<footer>&copy; 2026</footer>"
     },
     {
       "tag": "<div>",
       "category": "Structure",
       "description": "A generic block-level container with no semantic meaning.",
-      "syntax": "<div>\u2026</div>",
+      "syntax": "<div>…</div>",
       "example": "<div class=\"card\">Content</div>"
     },
     {
       "tag": "<span>",
       "category": "Structure",
       "description": "A generic inline container with no semantic meaning.",
-      "syntax": "<span>\u2026</span>",
+      "syntax": "<span>…</span>",
       "example": "<p>Hello <span>world</span></p>"
     },
     {
@@ -291,7 +291,7 @@
       "tag": "<figure>",
       "category": "Media",
       "description": "Groups media with an optional caption.",
-      "syntax": "<figure>\u2026</figure>",
+      "syntax": "<figure>…</figure>",
       "example": "<figure><img src=\"\" alt=\"\"><figcaption>Caption</figcaption></figure>"
     },
     {
@@ -340,7 +340,7 @@
       "tag": "<svg>",
       "category": "Graphics",
       "description": "A container for vector graphics.",
-      "syntax": "<svg>\u2026</svg>",
+      "syntax": "<svg>…</svg>",
       "example": "<svg><circle r=\"10\"/></svg>"
     },
     {
@@ -382,14 +382,14 @@
       "tag": "<table>",
       "category": "Table",
       "description": "A data table.",
-      "syntax": "<table>\u2026</table>",
+      "syntax": "<table>…</table>",
       "example": "<table><tr><td>1</td></tr></table>"
     },
     {
       "tag": "<tr>",
       "category": "Table",
       "description": "A table row.",
-      "syntax": "<tr>\u2026</tr>",
+      "syntax": "<tr>…</tr>",
       "example": "<tr><td>Cell</td></tr>"
     },
     {
@@ -410,27 +410,27 @@
       "tag": "<thead>",
       "category": "Table",
       "description": "Groups header rows in a table.",
-      "syntax": "<thead>\u2026</thead>",
+      "syntax": "<thead>…</thead>",
       "example": "<thead><tr><th>Name</th></tr></thead>"
     },
     {
       "tag": "<tbody>",
       "category": "Table",
       "description": "Groups body rows in a table.",
-      "syntax": "<tbody>\u2026</tbody>",
+      "syntax": "<tbody>…</tbody>",
       "example": "<tbody><tr><td>Ada</td></tr></tbody>"
     },
     {
       "tag": "<form>",
       "category": "Forms",
       "description": "A container for interactive form controls.",
-      "syntax": "<form action=\"\" method=\"\">\u2026</form>",
-      "example": "<form method=\"POST\">\u2026</form>"
+      "syntax": "<form action=\"\" method=\"\">…</form>",
+      "example": "<form method=\"POST\">…</form>"
     },
     {
       "tag": "<input>",
       "category": "Forms",
-      "description": "A form input control (text, email, checkbox\u2026).",
+      "description": "A form input control (text, email, checkbox…).",
       "syntax": "<input type=\"\">",
       "example": "<input type=\"email\">"
     },
@@ -473,7 +473,7 @@
       "tag": "<fieldset>",
       "category": "Forms",
       "description": "Groups related form controls.",
-      "syntax": "<fieldset>\u2026</fieldset>",
+      "syntax": "<fieldset>…</fieldset>",
       "example": "<fieldset><legend>Info</legend></fieldset>"
     },
     {
@@ -531,6 +531,69 @@
       "description": "Keyboard input.",
       "syntax": "<kbd>Text</kbd>",
       "example": "<kbd>Ctrl+C</kbd>"
+    },
+    {
+      "tag": "<datalist>",
+      "category": "Forms",
+      "description": "Provides a list of predefined autocomplete suggestions for an <input>.",
+      "syntax": "<datalist id=\"id\"><option value=\"…\"></datalist>",
+      "example": "<input list=\"cities\"><datalist id=\"cities\"><option value=\"Delhi\"></datalist>"
+    },
+    {
+      "tag": "<output>",
+      "category": "Forms",
+      "description": "Represents the result of a calculation, often updated by JavaScript.",
+      "syntax": "<output name=\"…\" for=\"…\">value</output>",
+      "example": "<output name=\"result\" for=\"a b\">42</output>"
+    },
+    {
+      "tag": "<optgroup>",
+      "category": "Forms",
+      "description": "Groups related <option> elements inside a <select> under a shared label.",
+      "syntax": "<optgroup label=\"…\">…</optgroup>",
+      "example": "<optgroup label=\"Roasts\"><option>Light</option></optgroup>"
+    },
+    {
+      "tag": "<progress>",
+      "category": "Forms",
+      "description": "Displays the completion progress of a task, such as a file upload.",
+      "syntax": "<progress value=\"…\" max=\"…\"></progress>",
+      "example": "<progress value=\"70\" max=\"100\"></progress>"
+    },
+    {
+      "tag": "<meter>",
+      "category": "Forms",
+      "description": "Represents a scalar value within a known range, like disk usage or a rating.",
+      "syntax": "<meter value=\"…\" min=\"…\" max=\"…\"></meter>",
+      "example": "<meter value=\"6\" min=\"0\" max=\"10\"></meter>"
+    },
+    {
+      "tag": "<caption>",
+      "category": "Table",
+      "description": "Provides a title or summary for a <table>, announced by screen readers.",
+      "syntax": "<caption>…</caption>",
+      "example": "<table><caption>Weekly sales</caption></table>"
+    },
+    {
+      "tag": "<colgroup>",
+      "category": "Table",
+      "description": "Groups one or more <col> elements to apply styling to whole table columns.",
+      "syntax": "<colgroup>…</colgroup>",
+      "example": "<colgroup><col><col span=\"2\"></colgroup>"
+    },
+    {
+      "tag": "<col>",
+      "category": "Table",
+      "description": "Defines styling for one or more columns inside a <colgroup>, without wrapping cell content.",
+      "syntax": "<col span=\"…\" style=\"…\">",
+      "example": "<col style=\"background:#eee;\">"
+    },
+    {
+      "tag": "<tfoot>",
+      "category": "Table",
+      "description": "Groups summary or total rows at the bottom of a table's data.",
+      "syntax": "<tfoot>…</tfoot>",
+      "example": "<tfoot><tr><td>Total</td><td>$12.50</td></tr></tfoot>"
     }
   ]
 }

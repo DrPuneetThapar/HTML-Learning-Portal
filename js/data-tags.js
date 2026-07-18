@@ -532,6 +532,69 @@ window.HTML_TAGS_DATA = {
       "description": "Keyboard input.",
       "syntax": "<kbd>Text</kbd>",
       "example": "<kbd>Ctrl+C</kbd>"
+    },
+    {
+      "tag": "<datalist>",
+      "category": "Forms",
+      "description": "Provides a list of predefined autocomplete suggestions for an <input>.",
+      "syntax": "<datalist id=\"id\"><option value=\"…\"></datalist>",
+      "example": "<input list=\"cities\"><datalist id=\"cities\"><option value=\"Delhi\"></datalist>"
+    },
+    {
+      "tag": "<output>",
+      "category": "Forms",
+      "description": "Represents the result of a calculation, often updated by JavaScript.",
+      "syntax": "<output name=\"…\" for=\"…\">value</output>",
+      "example": "<output name=\"result\" for=\"a b\">42</output>"
+    },
+    {
+      "tag": "<optgroup>",
+      "category": "Forms",
+      "description": "Groups related <option> elements inside a <select> under a shared label.",
+      "syntax": "<optgroup label=\"…\">…</optgroup>",
+      "example": "<optgroup label=\"Roasts\"><option>Light</option></optgroup>"
+    },
+    {
+      "tag": "<progress>",
+      "category": "Forms",
+      "description": "Displays the completion progress of a task, such as a file upload.",
+      "syntax": "<progress value=\"…\" max=\"…\"></progress>",
+      "example": "<progress value=\"70\" max=\"100\"></progress>"
+    },
+    {
+      "tag": "<meter>",
+      "category": "Forms",
+      "description": "Represents a scalar value within a known range, like disk usage or a rating.",
+      "syntax": "<meter value=\"…\" min=\"…\" max=\"…\"></meter>",
+      "example": "<meter value=\"6\" min=\"0\" max=\"10\"></meter>"
+    },
+    {
+      "tag": "<caption>",
+      "category": "Table",
+      "description": "Provides a title or summary for a <table>, announced by screen readers.",
+      "syntax": "<caption>…</caption>",
+      "example": "<table><caption>Weekly sales</caption></table>"
+    },
+    {
+      "tag": "<colgroup>",
+      "category": "Table",
+      "description": "Groups one or more <col> elements to apply styling to whole table columns.",
+      "syntax": "<colgroup>…</colgroup>",
+      "example": "<colgroup><col><col span=\"2\"></colgroup>"
+    },
+    {
+      "tag": "<col>",
+      "category": "Table",
+      "description": "Defines styling for one or more columns inside a <colgroup>, without wrapping cell content.",
+      "syntax": "<col span=\"…\" style=\"…\">",
+      "example": "<col style=\"background:#eee;\">"
+    },
+    {
+      "tag": "<tfoot>",
+      "category": "Table",
+      "description": "Groups summary or total rows at the bottom of a table's data.",
+      "syntax": "<tfoot>…</tfoot>",
+      "example": "<tfoot><tr><td>Total</td><td>$12.50</td></tr></tfoot>"
     }
   ]
 };
