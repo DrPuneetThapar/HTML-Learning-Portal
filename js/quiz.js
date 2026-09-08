@@ -13,7 +13,9 @@ function escapeHtml(s){
 
 let QZ_TOPICS = [];
 let QZ_BANK = {};
-let QZ_SESSION = null; // { topicId, questions:[], index, correctCount, answers:[] }
+let QZ_SESSION = null; // { topicId, questions:[], index, correctCount, answers:[], timed }
+let QZ_TIMER = null;
+const QZ_SECONDS_PER_Q = 30;
 
 function initQuizPage(){
   const picker = document.getElementById("quizPickerGrid");
@@ -24,9 +26,18 @@ function initQuizPage(){
     QZ_TOPICS = window.TUTORIALS_DATA.topics;
     QZ_BANK = window.QUIZZES_DATA.quizzes;
     renderPicker();
+    const params = new URLSearchParams(location.search);
+    const topicParam = params.get("topic");
+    if(topicParam && QZ_BANK[topicParam]){
+      startQuiz(topicParam);
+    }
   }catch(e){
     picker.innerHTML = `<p class="text-danger">Couldn't load quiz data: ${e.message}</p>`;
   }
+}
+
+function unitQuestionCount(unit){
+  return QZ_TOPICS.filter(t=>t.unit===unit).reduce((sum,t)=> sum + (QZ_BANK[t.id]||[]).length, 0);
 }
 
 function renderPicker(){
@@ -40,12 +51,23 @@ function renderPicker(){
   allBtn.addEventListener("click", ()=> startQuiz("all"));
   grid.appendChild(allBtn);
 
+  [1,2,3].forEach(unit=>{
+    const count = unitQuestionCount(unit);
+    if(!count) return;
+    const btn = document.createElement("button");
+    btn.className = "quiz-topic-btn";
+    btn.innerHTML = `<b><i class="fa-solid fa-layer-group"></i> Unit ${unit} Challenge</b><span class="qcount">${count} questions, mixed</span>`;
+    btn.addEventListener("click", ()=> startQuiz("unit" + unit));
+    grid.appendChild(btn);
+  });
+
   QZ_TOPICS.forEach(t=>{
     const qs = QZ_BANK[t.id] || [];
     const score = ProgressStore.getQuizScore(t.id);
+    const attempts = ProgressStore.getQuizHistory(t.id).length;
     const btn = document.createElement("button");
     btn.className = "quiz-topic-btn";
-    btn.innerHTML = `<b>${escapeHtml(t.title)}</b><span class="qcount">${qs.length} questions${score ? ' · last score ' + score.score + '/' + score.total : ''}</span>`;
+    btn.innerHTML = `<b>${escapeHtml(t.title)}</b><span class="qcount">${qs.length} questions${score ? ' · best ' + score.score + '/' + score.total + (attempts>1 ? ' · ' + attempts + ' attempts' : '') : ''}</span>`;
     btn.addEventListener("click", ()=> startQuiz(t.id));
     grid.appendChild(btn);
   });
@@ -57,17 +79,27 @@ function startQuiz(topicId){
     Object.entries(QZ_BANK).forEach(([tid, qs])=>{
       qs.forEach(q=> questions.push({ ...q, topicId: tid }));
     });
-    // shuffle for a mixed run
     questions.sort(()=> Math.random() - 0.5);
     questions = questions.slice(0, 12); // keep a mixed run to a manageable length
+  } else if(topicId.startsWith("unit")){
+    const unit = parseInt(topicId.replace("unit",""), 10);
+    QZ_TOPICS.filter(t=>t.unit===unit).forEach(t=>{
+      (QZ_BANK[t.id]||[]).forEach(q=> questions.push({ ...q, topicId: t.id }));
+    });
+    questions.sort(()=> Math.random() - 0.5);
   } else {
     questions = (QZ_BANK[topicId] || []).map(q=> ({ ...q, topicId }));
   }
-  QZ_SESSION = { topicId, questions, index:0, correctCount:0, answers:[] };
+  const timed = document.getElementById("quizTimedToggle") ? document.getElementById("quizTimedToggle").checked : false;
+  QZ_SESSION = { topicId, questions, index:0, correctCount:0, answers:[], timed };
   document.getElementById("quizPickerScreen").classList.add("d-none");
   document.getElementById("quizPlayScreen").classList.remove("d-none");
   document.getElementById("quizResultsScreen").classList.add("d-none");
   renderQuestion();
+}
+
+function clearQuizTimer(){
+  if(QZ_TIMER){ clearInterval(QZ_TIMER); QZ_TIMER = null; }
 }
 
 function renderQuestion(){
@@ -80,6 +112,7 @@ function renderQuestion(){
   const letters = ["A","B","C","D"];
   card.innerHTML = `
     <div class="qnum">Q${s.index+1}</div>
+    ${s.timed ? `<div class="quiz-timer" id="quizTimer"><i class="fa-solid fa-clock"></i> <span id="quizTimerSeconds">${QZ_SECONDS_PER_Q}</span>s</div>` : ""}
     <h2>${escapeHtml(q.q)}</h2>
     <div id="quizOptions"></div>
     <div class="quiz-explain-box" id="quizExplainBox">${escapeHtml(q.explain)}</div>
@@ -90,31 +123,51 @@ function renderQuestion(){
     const b = document.createElement("button");
     b.className = "quiz-option";
     b.innerHTML = `<span class="quiz-option-letter">${letters[oi]}</span>${escapeHtml(optText)}`;
-    b.addEventListener("click", ()=>{
-      if(optsWrap.dataset.answered) return;
-      optsWrap.dataset.answered = "1";
-      const correct = oi === q.answer;
-      if(correct) s.correctCount++;
-      s.answers.push({ q: q.q, correct, chosen: optText, correctText: q.opts[q.answer] });
-      [...optsWrap.children].forEach((c,ci)=>{
-        if(ci===q.answer) c.classList.add("correct");
-        else if(ci===oi) c.classList.add("wrong");
-      });
-      document.getElementById("quizExplainBox").classList.add("show");
-      document.getElementById("quizProgressScore").textContent = `Score: ${s.correctCount}/${s.index+1}`;
-      const nextBtn = document.getElementById("quizNextBtn");
-      nextBtn.classList.remove("d-none");
-      nextBtn.textContent = (s.index === s.questions.length-1) ? "See results" : "Next";
-      nextBtn.onclick = ()=>{
-        s.index++;
-        if(s.index >= s.questions.length) showResults(); else renderQuestion();
-      };
-    });
+    b.addEventListener("click", ()=> answerQuestion(oi, q, optsWrap));
     optsWrap.appendChild(b);
   });
+
+  clearQuizTimer();
+  if(s.timed){
+    let remaining = QZ_SECONDS_PER_Q;
+    const secEl = document.getElementById("quizTimerSeconds");
+    QZ_TIMER = setInterval(()=>{
+      remaining--;
+      if(secEl) secEl.textContent = remaining;
+      if(remaining <= 5){ const t = document.getElementById("quizTimer"); if(t) t.classList.add("urgent"); }
+      if(remaining <= 0){
+        clearQuizTimer();
+        if(!optsWrap.dataset.answered) answerQuestion(-1, q, optsWrap); // time's up, no answer selected
+      }
+    }, 1000);
+  }
+}
+
+function answerQuestion(oi, q, optsWrap){
+  if(optsWrap.dataset.answered) return;
+  optsWrap.dataset.answered = "1";
+  clearQuizTimer();
+  const s = QZ_SESSION;
+  const correct = oi === q.answer;
+  if(correct) s.correctCount++;
+  s.answers.push({ q: q.q, correct, chosen: oi>=0 ? q.opts[oi] : "(no answer — time ran out)", correctText: q.opts[q.answer] });
+  [...optsWrap.children].forEach((c,ci)=>{
+    if(ci===q.answer) c.classList.add("correct");
+    else if(ci===oi) c.classList.add("wrong");
+  });
+  document.getElementById("quizExplainBox").classList.add("show");
+  document.getElementById("quizProgressScore").textContent = `Score: ${s.correctCount}/${s.index+1}`;
+  const nextBtn = document.getElementById("quizNextBtn");
+  nextBtn.classList.remove("d-none");
+  nextBtn.textContent = (s.index === s.questions.length-1) ? "See results" : "Next";
+  nextBtn.onclick = ()=>{
+    s.index++;
+    if(s.index >= s.questions.length) showResults(); else renderQuestion();
+  };
 }
 
 function showResults(){
+  clearQuizTimer();
   const s = QZ_SESSION;
   document.getElementById("quizPlayScreen").classList.add("d-none");
   const resultsScreen = document.getElementById("quizResultsScreen");
@@ -127,10 +180,22 @@ function showResults(){
   document.getElementById("resultsSub").textContent =
     `You answered ${s.correctCount} out of ${s.questions.length} questions correctly (${pct}%).`;
 
-  if(s.topicId !== "all"){
+  if(s.topicId !== "all" && !s.topicId.startsWith("unit")){
     ProgressStore.recordQuizScore(s.topicId, s.correctCount, s.questions.length);
+    const history = ProgressStore.getQuizHistory(s.topicId);
+    const historyEl = document.getElementById("resultsHistory");
+    if(historyEl){
+      if(history.length > 1){
+        const prevBest = Math.max(...history.slice(0, -1).map(h => h.total ? h.score/h.total : 0));
+        const thisScore = s.questions.length ? s.correctCount/s.questions.length : 0;
+        const trend = thisScore > prevBest ? "improved" : thisScore < prevBest ? "dipped" : "matched your best";
+        historyEl.textContent = `Attempt ${history.length} on this topic — you've ${trend} compared to your previous best.`;
+      } else {
+        historyEl.textContent = "This is your first attempt at this topic's quiz.";
+      }
+    }
   } else {
-    // record per-topic results for a mixed run too
+    // record per-topic results for a mixed/unit run too
     const byTopic = {};
     s.questions.forEach((q,i)=>{
       byTopic[q.topicId] = byTopic[q.topicId] || { correct:0, total:0 };
@@ -138,6 +203,8 @@ function showResults(){
       if(s.answers[i] && s.answers[i].correct) byTopic[q.topicId].correct++;
     });
     Object.entries(byTopic).forEach(([tid, r])=> ProgressStore.recordQuizScore(tid, r.correct, r.total));
+    const historyEl = document.getElementById("resultsHistory");
+    if(historyEl) historyEl.textContent = "";
   }
 
   const review = document.getElementById("quizReview");
@@ -151,6 +218,7 @@ function showResults(){
 }
 
 function retakeQuiz(){
+  clearQuizTimer();
   document.getElementById("quizResultsScreen").classList.add("d-none");
   document.getElementById("quizPickerScreen").classList.remove("d-none");
   renderPicker();

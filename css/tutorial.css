@@ -77,3 +77,37 @@
 .progress-mini{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
 .progress-mini .progress-outer{flex:1;height:8px;}
 .progress-mini span{font-size:11.5px;font-family:var(--font-mono);color:var(--ink-soft);white-space:nowrap;}
+
+/* ---------- icon-btn (used in tut-content-head; also shared with editor.css elsewhere) ---------- */
+.icon-btn{
+  background:var(--paper-raised);border:1px solid var(--line);border-radius:8px;padding:7px 13px;
+  font-size:12.5px;color:var(--ink);display:inline-flex;align-items:center;gap:6px;transition:border-color .15s ease, color .15s ease;
+}
+.icon-btn:hover{border-color:var(--tag);color:var(--tag);}
+.icon-btn:disabled{opacity:.5;cursor:not-allowed;}
+.icon-btn.flagged{border-color:var(--tag);color:var(--tag);background:rgba(196,64,107,.08);}
+
+/* ---------- Notes block ---------- */
+.tut-notes-block{margin-top:28px;padding-top:20px;border-top:1px solid var(--line);}
+.tut-notes-block textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13.5px;font-family:var(--font-body);color:var(--ink);resize:vertical;background:var(--paper-raised);}
+.tut-notes-block textarea:focus{outline:none;border-color:var(--tag);}
+
+/* ---------- Related topics ("See also") ---------- */
+.tut-related-block{margin-top:28px;padding-top:20px;border-top:1px solid var(--line);}
+.related-topic-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px;}
+.related-topic-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper-raised);text-decoration:none;color:var(--ink);transition:border-color .15s ease;}
+.related-topic-card:hover{border-color:var(--tag);}
+.related-topic-card i{color:var(--tag);font-size:16px;flex:none;}
+.related-topic-card b{display:block;font-size:13px;}
+.related-topic-card span{display:block;font-size:11px;color:var(--ink-soft);font-family:var(--font-mono);}
+
+/* ---------- Print styles ---------- */
+@media print{
+  #siteHeader, #siteFooter, .tut-sidebar, .no-print, #searchOverlay, .example-sandbox-note{display:none!important;}
+  body{background:#fff!important;}
+  .tut-layout{display:block!important;}
+  .example-preview{display:none!important;}
+  .example-body{grid-template-columns:1fr!important;}
+  .example-card{break-inside:avoid;}
+  a[href]:after{content:none!important;}
+}

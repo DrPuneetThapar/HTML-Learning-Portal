@@ -71,6 +71,8 @@ function renderLesson(topicId){
   const next = TUT_TOPICS[idx+1];
   const done = ProgressStore.isTopicComplete(t.id);
   const bookmarked = ProgressStore.isBookmarked(t.id);
+  const flagged = ProgressStore.isFlagged(t.id);
+  const savedNote = ProgressStore.getNote(t.id);
 
   body.innerHTML = `
     <div class="tut-content-head">
@@ -78,8 +80,10 @@ function renderLesson(topicId){
         <div class="num">&lt;${String(t.number).padStart(2,'0')} / ${TUT_TOPICS.length}&gt;</div>
         <h1>${escapeHtml(t.title)}</h1>
       </div>
-      <div class="d-flex gap-2">
-        <button class="icon-btn" id="tutBookmarkBtn"><i class="fa-${bookmarked?'solid':'regular'} fa-star"></i> ${bookmarked?'Saved':'Save'}</button>
+      <div class="d-flex gap-2 flex-wrap">
+        <button class="icon-btn no-print" id="tutBookmarkBtn"><i class="fa-${bookmarked?'solid':'regular'} fa-star"></i> ${bookmarked?'Saved':'Save'}</button>
+        <button class="icon-btn no-print${flagged?' flagged':''}" id="tutFlagBtn"><i class="fa-solid fa-flag"></i> ${flagged?'Flagged for review':'Still confused?'}</button>
+        <button class="icon-btn no-print" id="tutPrintBtn"><i class="fa-solid fa-print"></i> Print</button>
         <button class="icon-btn" id="tutCompleteBtn"><i class="fa-solid fa-circle-check"></i> ${done?'Completed':'Mark complete'}</button>
       </div>
     </div>
@@ -94,6 +98,14 @@ function renderLesson(topicId){
       <h2>Quick check</h2>
       <div id="tutQuizQuestions"></div>
     </div>
+
+    <div class="tut-notes-block no-print">
+      <h2 style="font-size:1.1rem;"><i class="fa-solid fa-note-sticky me-1"></i> My notes</h2>
+      <textarea id="tutNotesArea" placeholder="Jot down anything worth remembering about this topic — saved automatically in your browser.">${escapeHtml(savedNote)}</textarea>
+      <p class="text-muted small mb-0" id="tutNotesSaved" style="opacity:0;transition:opacity .3s;">Saved</p>
+    </div>
+
+    <div class="tut-related-block" id="tutRelatedBlock"></div>
 
     <div class="tut-footer-nav">
       ${prev ? `<button class="btn btn-outline-lg" id="prevTopicBtn"><i class="fa-solid fa-arrow-left"></i> ${escapeHtml(prev.title)}</button>` : '<span></span>'}
@@ -158,6 +170,27 @@ function renderLesson(topicId){
     renderLesson(t.id);
     showToast("Marked \"" + t.title + "\" complete");
   });
+  document.getElementById("tutFlagBtn").addEventListener("click", ()=>{
+    const nowFlagged = ProgressStore.toggleFlag(t.id);
+    showToast(nowFlagged ? "Added to your review list" : "Removed from your review list");
+    renderLesson(t.id);
+  });
+  document.getElementById("tutPrintBtn").addEventListener("click", ()=> window.print());
+
+  const notesArea = document.getElementById("tutNotesArea");
+  let notesTimer = null;
+  notesArea.addEventListener("input", ()=>{
+    clearTimeout(notesTimer);
+    notesTimer = setTimeout(()=>{
+      ProgressStore.saveNote(t.id, notesArea.value);
+      const savedLabel = document.getElementById("tutNotesSaved");
+      savedLabel.style.opacity = "1";
+      setTimeout(()=> savedLabel.style.opacity = "0", 1200);
+    }, 500);
+  });
+
+  renderRelatedTopics(t);
+
   if(prev) document.getElementById("prevTopicBtn").addEventListener("click", ()=>{
     TUT_ACTIVE = prev.id; history.replaceState(null,"","tutorial.html?topic="+prev.id);
     renderSidebar(); renderLesson(prev.id); window.scrollTo({top:0,behavior:"smooth"});
@@ -165,6 +198,36 @@ function renderLesson(topicId){
   if(next) document.getElementById("nextTopicBtn").addEventListener("click", ()=>{
     TUT_ACTIVE = next.id; history.replaceState(null,"","tutorial.html?topic="+next.id);
     renderSidebar(); renderLesson(next.id); window.scrollTo({top:0,behavior:"smooth"});
+  });
+}
+
+function renderRelatedTopics(t){
+  const mount = document.getElementById("tutRelatedBlock");
+  if(!mount) return;
+  const related = TUT_TOPICS.filter(x => x.id !== t.id && x.tag === t.tag).slice(0, 3);
+  if(!related.length){ mount.innerHTML = ""; return; }
+  mount.innerHTML = `
+    <h2 style="font-size:1.1rem;">See also</h2>
+    <div class="related-topic-list">
+      ${related.map(r => `
+        <a class="related-topic-card" href="tutorial.html?topic=${r.id}">
+          <i class="${r.icon || 'fa-solid fa-book'}"></i>
+          <div>
+            <b>${escapeHtml(r.title)}</b>
+            <span>Unit ${r.unit}</span>
+          </div>
+        </a>
+      `).join("")}
+    </div>
+  `;
+  mount.querySelectorAll(".related-topic-card").forEach(card=>{
+    card.addEventListener("click", (e)=>{
+      e.preventDefault();
+      const id = card.getAttribute("href").split("=")[1];
+      TUT_ACTIVE = id;
+      history.replaceState(null, "", "tutorial.html?topic=" + id);
+      renderSidebar(); renderLesson(id); window.scrollTo({top:0,behavior:"smooth"});
+    });
   });
 }
 

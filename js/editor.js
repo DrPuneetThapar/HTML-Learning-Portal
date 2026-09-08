@@ -279,6 +279,149 @@ const EXERCISES = [
       { label:"Has <main id=\"mainContent\">", test: c => /<main[^>]+id\s*=\s*["']mainContent["']/i.test(c) },
       { label:"Has a <footer>", test: c => /<footer[\s>]/i.test(c) }
     ]
+  },
+  {
+    id: "ex13", title: "Flexbox card gallery with hover effects", level: "advanced",
+    topics: "Flexbox Layout · CSS Transitions · Images",
+    brief: "Build a flex row of at least 3 cards (image + heading each). On hover, each card should lift up and gain a stronger shadow, animated with a transition — not an instant jump.",
+    hint: "Put transition on the card's normal state, and only change transform/box-shadow inside the :hover rule.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Gallery</title>\n<style>\n\n</style>\n</head>\n<body>\n\n</body>\n</html>",
+    checks: [
+      { label:"Has a flex container (display: flex)", test: c => /display\s*:\s*flex/i.test(c) },
+      { label:"Has at least 3 card elements inside it", test: c => (c.match(/<(div|article)[^>]*class=["'][^"']*card[^"']*["']/gi)||[]).length >= 3 },
+      { label:"Cards have a transition property", test: c => /\.card[^{]*\{[^}]*transition\s*:/is.test(c) || /transition\s*:[^;]+;[^}]*\}\s*\.card/is.test(c) || (c.match(/transition\s*:/gi)||[]).length >= 1 },
+      { label:"A :hover rule changes transform or box-shadow", test: c => { const m = c.match(/:hover\s*\{[^}]*\}/gi) || []; return m.some(rule => /transform|box-shadow/i.test(rule)); } },
+      { label:"Has at least 3 <img> tags with alt text", test: c => (c.match(/<img[^>]+alt\s*=\s*["'][^"']{2,}["']/gi)||[]).length >= 3 }
+    ]
+  },
+
+  {
+    id: "ex14", title: "Responsive CSS Grid dashboard", level: "advanced",
+    topics: "CSS Grid · Responsive Web Design · Semantic HTML",
+    brief: "Build a dashboard layout using grid-template-areas with a header, sidebar, and main content area, using semantic <header>, <aside>, and <main>. Add a media query that collapses it to a single column on narrow screens.",
+    hint: "Give each semantic element a matching grid-area name, and redefine grid-template-areas (or grid-template-columns) inside your media query.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Dashboard</title>\n<style>\n\n</style>\n</head>\n<body>\n\n</body>\n</html>",
+    checks: [
+      { label:"Has a grid container (display: grid)", test: c => /display\s*:\s*grid/i.test(c) },
+      { label:"Uses grid-template-areas", test: c => /grid-template-areas/i.test(c) },
+      { label:"Has a media query", test: c => /@media/i.test(c) },
+      { label:"Uses semantic <header>, <aside>, and <main>", test: c => /<header[\s>]/i.test(c) && /<aside[\s>]/i.test(c) && /<main[\s>]/i.test(c) }
+    ]
+  },
+
+  {
+    id: "ex15", title: "Themeable button with CSS variables", level: "advanced",
+    topics: "CSS Variables · Pseudo Classes · CSS Transitions",
+    brief: "Build a button styled entirely through CSS custom properties (a background and text color variable), with a smooth :hover transition. Then add a second 'danger' button that overrides those same variables to a red theme, reusing the same base class.",
+    hint: "Declare --btn-bg and --btn-color on the base .btn class, then override just those two variables on a .btn.danger class — no need to redeclare background/color themselves.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Buttons</title>\n<style>\n\n</style>\n</head>\n<body>\n\n</body>\n</html>",
+    checks: [
+      { label:"Declares at least one custom property (--name: value)", test: c => /--[a-zA-Z-]+\s*:\s*[^;]+;/.test(c) },
+      { label:"Uses var() to apply a custom property", test: c => /var\(\s*--[a-zA-Z-]+/.test(c) },
+      { label:"A second class/element overrides the variable's value", test: c => (c.match(/--[a-zA-Z-]+\s*:\s*[^;]+;/g)||[]).length >= 2 },
+      { label:"Has a transition property", test: c => /transition\s*:/i.test(c) },
+      { label:"Has a :hover rule", test: c => /:hover/i.test(c) }
+    ]
+  },
+
+  {
+    id: "ex16", title: "Animated accessible loading spinner", level: "advanced",
+    topics: "CSS Animations · Accessibility Fundamentals",
+    brief: "Build a spinning loading indicator using @keyframes and the animation property. Give it role=\"status\" and screen-reader-only text announcing 'Loading…', and respect prefers-reduced-motion by disabling the spin for users who've asked for less motion.",
+    hint: "The visually-hidden text pattern from the Accessibility Fundamentals topic works well here — the spinner is decorative, but the loading STATE still needs to be announced.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Loading</title>\n<style>\n\n</style>\n</head>\n<body>\n\n</body>\n</html>",
+    checks: [
+      { label:"Defines a @keyframes animation", test: c => /@keyframes\s+[a-zA-Z-]+/.test(c) },
+      { label:"Applies the animation property to an element", test: c => /animation\s*(-name)?\s*:/i.test(c) },
+      { label:"Has role=\"status\" on the spinner", test: c => /role\s*=\s*["']status["']/i.test(c) },
+      { label:"Has screen-reader-only 'Loading' text in the body", test: c => { const m = c.match(/<body[^>]*>([\s\S]*)<\/body>/i); return !!m && /Loading/i.test(m[1]); } },
+      { label:"Respects prefers-reduced-motion", test: c => /prefers-reduced-motion/i.test(c) }
+    ]
+  },
+
+  {
+    id: "ex17", title: "Styled, validated sign-in form", level: "advanced",
+    topics: "Form Styling · Pseudo Classes · Form Validation · Attribute Selectors",
+    brief: "Build a sign-in form with a required, styled email input and a password input. Style the :focus state, style :invalid fields with a red border, and use an attribute selector (like input[type=\"submit\"] or input[type=\"email\"]) at least once instead of a class.",
+    hint: "input[type=\"email\"] IS an attribute selector — you can use it both for base styling and combined with :invalid.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Sign in</title>\n<style>\n\n</style>\n</head>\n<body>\n  <form>\n\n  </form>\n</body>\n</html>",
+    checks: [
+      { label:"Has a required <input type=\"email\">", test: c => { const m = c.match(/<input[^>]*>/gi) || []; return m.some(tag => /type=["']email["']/i.test(tag) && /required/i.test(tag)); } },
+      { label:"Has an attribute selector in the CSS (e.g. input[type=...])", test: c => /input\s*\[\s*type\s*=/i.test(c) },
+      { label:"Has a :focus rule", test: c => /:focus/i.test(c) },
+      { label:"Has an :invalid rule", test: c => /:invalid/i.test(c) },
+      { label:"Has a <input type=\"password\">", test: c => { const m = c.match(/<input[^>]*>/gi) || []; return m.some(tag => /type=["']password["']/i.test(tag)); } }
+    ]
+  },
+
+  {
+    id: "ex18", title: "Capstone: a fully responsive semantic page", level: "advanced",
+    topics: "Semantic HTML · Flexbox/Grid · CSS Variables · Responsive Web Design",
+    brief: "Build a complete mini page: <header> with a <nav>, a <main> containing at least two <section>s, and a <footer> — laid out with Flexbox or Grid, styled using at least one CSS variable, with a media query that changes the layout on narrow screens.",
+    hint: "This combines everything: semantic structure from Unit 2, and Flexbox/Grid, variables, and responsiveness from Unit 3. Build it piece by piece.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Capstone</title>\n  <style>\n\n  </style>\n</head>\n<body>\n\n</body>\n</html>",
+    checks: [
+      { label:"Has <header> with a <nav>, a <main>, and a <footer>", test: c => { const m = c.match(/<header[\s\S]*?<\/header>/i); return !!m && /<nav[\s>]/i.test(m[0]) && /<main[\s>]/i.test(c) && /<footer[\s>]/i.test(c); } },
+      { label:"Main contains at least 2 <section> elements", test: c => { const m = c.match(/<main[\s\S]*?<\/main>/i); return !!m && (m[0].match(/<section[\s>]/gi)||[]).length >= 2; } },
+      { label:"Uses Flexbox or Grid for layout", test: c => /display\s*:\s*(flex|grid)/i.test(c) },
+      { label:"Declares and uses at least one CSS variable", test: c => /--[a-zA-Z-]+\s*:\s*[^;]+;/.test(c) && /var\(\s*--[a-zA-Z-]+/.test(c) },
+      { label:"Has a media query changing the layout", test: c => /@media[^{]*\{[\s\S]*?(display\s*:|grid-template|flex-direction)[\s\S]*?\}/i.test(c) }
+    ]
+  },
+  {
+    id: "ex19", title: "Debug: A broken profile page", level: "debug", topics: "HTML Fundamentals",
+    brief: "This page has 5 real bugs: a missing language attribute, an unclosed <title>, a mismatched heading tag, an unclosed paragraph, and an image with no alt text. Find and fix all 5.",
+    hint: "Read every opening tag and make sure its closing tag matches exactly. Every <img> needs a real, descriptive alt attribute.",
+    starter: "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>My Profile\n</head>\n<body>\n<h1>Jordan Lee</h2>\n<p>Web developer based in Austin.\n<img src=\"profile.jpg\">\n</body>\n</html>",
+    checks: [
+      { label:"<html> has a lang attribute", test: c => /<html[^>]+lang\s*=\s*["'][a-z-]+["']/i.test(c) },
+      { label:"<title> is properly closed", test: c => /<title>[^<]*<\/title>/i.test(c) },
+      { label:"<h1> is closed with a matching </h1> (not </h2>)", test: c => /<h1[^>]*>[^<]*<\/h1>/i.test(c) },
+      { label:"The paragraph is properly closed with </p>", test: c => /<p>Web developer based in Austin\.<\/p>/i.test(c) },
+      { label:"<img> has real, descriptive alt text", test: c => { const m = c.match(/<img[^>]*>/i); return !!m && /alt\s*=\s*["'][^"']{4,}["']/i.test(m[0]); } }
+    ]
+  },
+  {
+    id: "ex20", title: "Debug: An inaccessible sign-up form", level: "debug", topics: "Forms · Accessibility",
+    brief: "This form has 2 real bugs: neither field has an actual <label> (just plain text), and the email field uses the wrong input type. Fix both.",
+    hint: "Every input needs a <label for=\"...\"> matched to its id. An email field should use type=\"email\", not type=\"text\", so the browser can validate the format and show the right mobile keyboard.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Sign up</title></head>\n<body>\n  <form>\n    Username: <input type=\"text\" id=\"username\" name=\"username\">\n    <br>\n    Email: <input type=\"text\" id=\"email\" name=\"email\">\n    <br>\n    <button type=\"submit\">Submit</button>\n  </form>\n</body>\n</html>",
+    checks: [
+      { label:"Has at least 2 <label> elements", test: c => (c.match(/<label[\s>]/gi)||[]).length >= 2 },
+      { label:"Each label uses for=\"...\" matching a real input id", test: c => {
+          const labelFors = [...c.matchAll(/<label[^>]+for\s*=\s*["']([^"']+)["']/gi)].map(m=>m[1]);
+          const inputIds = [...c.matchAll(/<input[^>]+id\s*=\s*["']([^"']+)["']/gi)].map(m=>m[1]);
+          return labelFors.length >= 2 && labelFors.every(f => inputIds.includes(f));
+        }},
+      { label:"The email field uses type=\"email\", not type=\"text\"", test: c => {
+          const m = c.match(/<input[^>]+id\s*=\s*["']email["'][^>]*>/i);
+          return !!m && /type\s*=\s*["']email["']/i.test(m[0]);
+        }}
+    ]
+  },
+  {
+    id: "ex21", title: "Debug: A CSS specificity bug", level: "debug", topics: "CSS Selectors and Specificity",
+    brief: "This alert message is supposed to be red, but it stays black. An ID selector (higher specificity) is silently overriding a class selector (lower specificity), no matter what order the rules are in. Fix the CSS so the text renders red.",
+    hint: "The #message rule always beats the .alert rule on specificity alone, regardless of source order. You can fix this by removing the conflicting rule, or changing its color, rather than fighting specificity with !important.",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Alert</title>\n<style>\n  #message { color: black; }\n  .alert { color: red; }\n</style>\n</head>\n<body>\n  <p id=\"message\" class=\"alert\">This should be red, but the ID selector is winning.</p>\n</body>\n</html>",
+    checks: [
+      { label:"No rule still sets #message's color to black", test: c => !/#message\s*\{[^}]*color\s*:\s*black/i.test(c) },
+      { label:"The #message rule (if still present) is corrected to red, not black", test: c => {
+          const m = c.match(/#message\s*\{[^}]*\}/i);
+          if(!m) return true;
+          return /color\s*:\s*red/i.test(m[0]);
+        }}
+    ]
+  },
+  {
+    id: "ex22", title: "Debug: A Flexbox centering bug", level: "debug", topics: "Flexbox Layout",
+    brief: "This box is supposed to center its content both horizontally and vertically, but vertical centering silently fails. There's a one-letter typo in a CSS property name — the browser ignores invalid properties without any error, so it fails silently. Find and fix it.",
+    hint: "Check every Flexbox property name character by character against what you learned in the Flexbox Layout topic — align-items is the one that controls the cross-axis (vertical, in a row container).",
+    starter: "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><title>Center</title>\n<style>\n  .box {\n    display: flex;\n    justify-content: center;\n    align-item: center;\n    height: 200px;\n    background: #eee;\n  }\n</style>\n</head>\n<body>\n  <div class=\"box\">\n    <div class=\"inner\">Centered?</div>\n  </div>\n</body>\n</html>",
+    checks: [
+      { label:"align-items is spelled correctly (with the trailing 's')", test: c => /align-items\s*:\s*center/i.test(c) },
+      { label:"The misspelled align-item property is gone", test: c => !/align-item(?!s)\s*:/i.test(c) }
+    ]
   }
 ];
 let PRACTICE_ACTIVE = null;
@@ -290,7 +433,7 @@ function initPracticePage(){
   EXERCISES.forEach((ex, i)=>{
     const chip = document.createElement("button");
     chip.className = "exercise-chip" + (i===0 ? " active" : "");
-    chip.innerHTML = (i+1) + ". " + escapeHtml(ex.title) + (ex.level === "advanced" ? ' <span class="exercise-level-badge">Advanced</span>' : "");
+    chip.innerHTML = (i+1) + ". " + escapeHtml(ex.title) + (ex.level === "advanced" ? ' <span class="exercise-level-badge">Advanced</span>' : ex.level === "debug" ? ' <span class="exercise-level-badge debug">Debug</span>' : "");
     chip.addEventListener("click", ()=> loadExercise(ex.id));
     picker.appendChild(chip);
   });
@@ -313,7 +456,7 @@ function loadExercise(id){
   PRACTICE_ACTIVE = id;
   const ex = EXERCISES.find(e=>e.id===id);
   document.querySelectorAll(".exercise-chip").forEach((c,i)=> c.classList.toggle("active", EXERCISES[i].id===id));
-  document.getElementById("exerciseBrief").innerHTML = `<h2>${escapeHtml(ex.title)}${ex.level === "advanced" ? ' <span class="exercise-level-badge">Advanced</span>' : ""}</h2>${ex.topics ? `<p class="exercise-topics">${escapeHtml(ex.topics)}</p>` : ""}<p>${escapeHtml(ex.brief)}</p><p class="hint"><i class="fa-solid fa-lightbulb me-1"></i>${escapeHtml(ex.hint)}</p>`;
+  document.getElementById("exerciseBrief").innerHTML = `<h2>${escapeHtml(ex.title)}${ex.level === "advanced" ? ' <span class="exercise-level-badge">Advanced</span>' : ex.level === "debug" ? ' <span class="exercise-level-badge debug">Debug</span>' : ""}</h2>${ex.topics ? `<p class="exercise-topics">${escapeHtml(ex.topics)}</p>` : ""}<p>${escapeHtml(ex.brief)}</p><p class="hint"><i class="fa-solid fa-lightbulb me-1"></i>${escapeHtml(ex.hint)}</p>`;
   document.getElementById("checkResult").className = "check-result";
   if(EditorEngine.isReady()){
     EditorEngine.setValue(ex.starter);

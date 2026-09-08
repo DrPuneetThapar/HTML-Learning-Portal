@@ -46,3 +46,9 @@
 .quiz-review-item .status{font-weight:600;margin-right:6px;}
 .quiz-review-item.correct .status{color:var(--string);}
 .quiz-review-item.incorrect .status{color:var(--tag);}
+
+/* ---------- Timed mode toggle + in-quiz timer ---------- */
+.quiz-timed-toggle{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-soft);margin-top:14px;cursor:pointer;user-select:none;}
+.quiz-timed-toggle input{accent-color:var(--tag);}
+.quiz-timer{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:4px 12px;margin-bottom:10px;}
+.quiz-timer.urgent{color:#d9534f;border-color:#d9534f;background:rgba(217,83,79,.08);}

@@ -1,0 +1,304 @@
+{
+  "terms": [
+    {
+      "term": "Internet",
+      "category": "Web Basics",
+      "definition": "The global network of interconnected computers that data travels across. The Web is just one of many services that run on top of it."
+    },
+    {
+      "term": "World Wide Web",
+      "category": "Web Basics",
+      "definition": "A system of linked documents (pages) accessed over the Internet via URLs and the HTTP protocol."
+    },
+    {
+      "term": "URL",
+      "category": "Web Basics",
+      "definition": "Uniform Resource Locator — the address of a specific resource on the web, made up of a scheme, domain, optional port, path, and optional query string."
+    },
+    {
+      "term": "DNS",
+      "category": "Web Basics",
+      "definition": "Domain Name System — translates a human-readable domain name (like example.com) into the numeric IP address a browser needs to actually connect to a server."
+    },
+    {
+      "term": "HTTP / HTTPS",
+      "category": "Web Basics",
+      "definition": "HyperText Transfer Protocol — the protocol browsers and servers use to exchange requests and responses. HTTPS is HTTP encrypted with TLS/SSL for security."
+    },
+    {
+      "term": "Client-server model",
+      "category": "Web Basics",
+      "definition": "The client (usually a browser) sends a request; the server processes it and sends back a response. Nearly all web communication follows this pattern."
+    },
+    {
+      "term": "Static vs. dynamic site",
+      "category": "Web Basics",
+      "definition": "A static site serves fixed files identical for every visitor. A dynamic site generates page content on the server per request, often from a database."
+    },
+    {
+      "term": "DOM",
+      "category": "Core Concepts",
+      "definition": "Document Object Model — the browser's live, in-memory tree representation of a page's HTML, which CSS and JavaScript both read and modify."
+    },
+    {
+      "term": "Element",
+      "category": "Core Concepts",
+      "definition": "A single HTML building block, made of an opening tag, content, and a closing tag (e.g. a whole <p>Hello</p>)."
+    },
+    {
+      "term": "Tag",
+      "category": "Core Concepts",
+      "definition": "The markup itself, like <p> or </p> — technically distinct from an 'element,' which is the tag plus its content, though the words are often used interchangeably."
+    },
+    {
+      "term": "Attribute",
+      "category": "Core Concepts",
+      "definition": "Extra information added inside an opening tag, in the form name=\"value\", such as href on a link or src on an image."
+    },
+    {
+      "term": "Void / empty element",
+      "category": "Core Concepts",
+      "definition": "An element that never wraps content and has no closing tag, like <img>, <br>, or <input>."
+    },
+    {
+      "term": "Block vs. inline element",
+      "category": "Core Concepts",
+      "definition": "A block element starts on a new line and takes the full available width by default (like <div>). An inline element flows within a line of text and only takes up as much width as its content (like <span>)."
+    },
+    {
+      "term": "Semantic HTML",
+      "category": "Core Concepts",
+      "definition": "Using elements that describe what content actually is (like <nav> or <article>) instead of generic containers (<div>/<span>) that carry no meaning."
+    },
+    {
+      "term": "Validation (HTML)",
+      "category": "Core Concepts",
+      "definition": "Checking that markup follows the HTML specification correctly — properly nested and closed tags, required attributes present, etc."
+    },
+    {
+      "term": "Accessibility (a11y)",
+      "category": "Accessibility",
+      "definition": "Designing and building so people with visual, motor, auditory, or cognitive disabilities can perceive, understand, and use a page. \"a11y\" is a numeronym — a, 11 letters, y."
+    },
+    {
+      "term": "POUR",
+      "category": "Accessibility",
+      "definition": "The four accessibility principles behind WCAG: content must be Perceivable, Operable, Understandable, and Robust."
+    },
+    {
+      "term": "WCAG",
+      "category": "Accessibility",
+      "definition": "Web Content Accessibility Guidelines — the W3C standard that most accessibility rules and legal requirements trace back to, with conformance levels A, AA, and AAA."
+    },
+    {
+      "term": "ARIA",
+      "category": "Accessibility",
+      "definition": "Accessible Rich Internet Applications — a set of attributes (role, aria-label, aria-live, etc.) that add accessibility information HTML can't express on its own. Best practice: don't use ARIA if a native HTML element already does the job."
+    },
+    {
+      "term": "Landmark",
+      "category": "Accessibility",
+      "definition": "A page region (like header, nav, main, footer) that assistive technology exposes for quick navigation — created automatically by using the right semantic element."
+    },
+    {
+      "term": "Accessible name",
+      "category": "Accessibility",
+      "definition": "The text a screen reader announces for a control — computed from its label, aria-label, or visible text, in that general order of preference."
+    },
+    {
+      "term": "Focus / focus order",
+      "category": "Accessibility",
+      "definition": "Focus is which element is currently active for keyboard input. Focus order is the sequence the Tab key moves through — it should follow the visual/logical reading order."
+    },
+    {
+      "term": "Skip link",
+      "category": "Accessibility",
+      "definition": "A link, usually the first thing in the page, that lets keyboard/screen-reader users jump straight past repeated navigation to the main content."
+    },
+    {
+      "term": "Alt text",
+      "category": "Accessibility",
+      "definition": "The alt attribute on an <img> — a text description read by screen readers and shown if the image fails to load. Empty (alt=\"\") marks an image as purely decorative."
+    },
+    {
+      "term": "Form (HTML)",
+      "category": "Forms",
+      "definition": "A <form> element groups controls that get submitted together to a server, via the action and method attributes."
+    },
+    {
+      "term": "Label association",
+      "category": "Forms",
+      "definition": "Connecting a <label> to its control, either via a matching for/id pair or by wrapping the control inside the label — required for accessibility and larger click targets."
+    },
+    {
+      "term": "Constraint validation",
+      "category": "Forms",
+      "definition": "The browser's built-in form validation (required, pattern, min/max, type checks, etc.) that runs with zero JavaScript."
+    },
+    {
+      "term": "Fieldset / legend",
+      "category": "Forms",
+      "definition": "<fieldset> groups related form controls; its required first child <legend> names the group — especially useful for radio/checkbox groups."
+    },
+    {
+      "term": "Table (data)",
+      "category": "Data & Tables",
+      "definition": "A <table> structured as genuinely tabular data — rows and columns of related values — as opposed to using a table purely to visually arrange page layout, which is discouraged."
+    },
+    {
+      "term": "scope (table attribute)",
+      "category": "Data & Tables",
+      "definition": "An attribute on <th> (scope=\"col\" or scope=\"row\") that tells assistive technology exactly which cells that header describes."
+    },
+    {
+      "term": "CSS",
+      "category": "CSS Basics",
+      "definition": "Cascading Style Sheets — the language that controls how HTML content looks: color, spacing, layout, typography, and more."
+    },
+    {
+      "term": "Selector",
+      "category": "CSS Basics",
+      "definition": "The part of a CSS rule that determines which elements the rule applies to — e.g. a type selector (p), a class (.name), or an ID (#name)."
+    },
+    {
+      "term": "Specificity",
+      "category": "CSS Basics",
+      "definition": "The scoring system the browser uses to decide which of several conflicting CSS rules wins. Roughly: inline styles > IDs > classes/attributes/pseudo-classes > elements."
+    },
+    {
+      "term": "The cascade",
+      "category": "CSS Basics",
+      "definition": "The overall algorithm that resolves which declaration applies when multiple rules could — based on specificity, source order, and importance (!important)."
+    },
+    {
+      "term": "Inheritance (CSS)",
+      "category": "CSS Basics",
+      "definition": "Some CSS properties (like color and font-family) pass down automatically from a parent element to its children unless overridden; others (like border) don't inherit by default."
+    },
+    {
+      "term": "Box model",
+      "category": "CSS Basics",
+      "definition": "Every element is a box made of content, padding, border, and margin, from the inside out — the foundation of how sizing and spacing work in CSS."
+    },
+    {
+      "term": "box-sizing",
+      "category": "CSS Basics",
+      "definition": "Controls whether an element's set width/height includes padding and border (border-box) or excludes them (content-box, the default)."
+    },
+    {
+      "term": "Shorthand property",
+      "category": "CSS Basics",
+      "definition": "A single CSS property that sets several related values at once, like margin (sets all four sides) or font (sets style, weight, size, line-height, and family together)."
+    },
+    {
+      "term": "Viewport",
+      "category": "CSS Basics",
+      "definition": "The visible area of a web page in the browser window (or on a device screen) — the basis for viewport units (vw/vh) and the viewport meta tag."
+    },
+    {
+      "term": "Responsive design",
+      "category": "Layout",
+      "definition": "Building a page so its layout adapts to different screen sizes, using flexible units, media queries, and flexible layout systems like Flexbox and Grid."
+    },
+    {
+      "term": "Media query",
+      "category": "Layout",
+      "definition": "A CSS rule block, like @media (min-width: 768px){...}, that only applies its styles when a condition about the viewport (or other device feature) is true."
+    },
+    {
+      "term": "Breakpoint",
+      "category": "Layout",
+      "definition": "The specific viewport width where a design's layout changes via a media query, e.g. switching from a stacked mobile layout to a multi-column desktop one."
+    },
+    {
+      "term": "Mobile-first",
+      "category": "Layout",
+      "definition": "Writing base CSS for small screens first, then using min-width media queries to add complexity as the screen grows — the opposite of desktop-first."
+    },
+    {
+      "term": "Flexbox",
+      "category": "Layout",
+      "definition": "A one-dimensional CSS layout system (display: flex) for arranging items in a row or column, with powerful alignment and spacing controls."
+    },
+    {
+      "term": "CSS Grid",
+      "category": "Layout",
+      "definition": "A two-dimensional CSS layout system (display: grid) for arranging items across both rows and columns at once, ideal for whole-page layouts."
+    },
+    {
+      "term": "Positioning (CSS)",
+      "category": "Layout",
+      "definition": "The position property (static, relative, absolute, fixed, sticky) that controls how an element is placed relative to normal flow, an ancestor, or the viewport."
+    },
+    {
+      "term": "z-index",
+      "category": "Layout",
+      "definition": "Controls which of several overlapping positioned elements renders in front — higher numbers appear on top. Only affects elements with a position other than static."
+    },
+    {
+      "term": "Pseudo-class",
+      "category": "CSS Selectors",
+      "definition": "A selector (single colon, like :hover or :nth-child()) that matches an element based on a state or position it's already in, without needing an extra class in the HTML."
+    },
+    {
+      "term": "Pseudo-element",
+      "category": "CSS Selectors",
+      "definition": "A selector (double colon, like ::before or ::first-letter) that targets or inserts content into a sub-part of an element that has no node of its own in the HTML."
+    },
+    {
+      "term": "Attribute selector",
+      "category": "CSS Selectors",
+      "definition": "A selector that matches based on an HTML attribute's presence or value, like [type=\"email\"] or [href^=\"https\"]."
+    },
+    {
+      "term": "Combinator",
+      "category": "CSS Selectors",
+      "definition": "A symbol connecting two selectors that describes a relationship between them — descendant (space), child (>), adjacent sibling (+), or general sibling (~)."
+    },
+    {
+      "term": "CSS custom property (variable)",
+      "category": "CSS Advanced",
+      "definition": "A reusable value declared with two dashes (--name: value;) and read with var(--name) — unlike a preprocessor variable, it's live in the browser and can change at runtime."
+    },
+    {
+      "term": "calc()",
+      "category": "CSS Advanced",
+      "definition": "A CSS function that lets you mix units in one expression, like calc(100% - 40px)."
+    },
+    {
+      "term": "em vs. rem",
+      "category": "CSS Advanced",
+      "definition": "em is relative to the parent element's font-size (compounds when nested); rem is always relative to the root <html> font-size, making it more predictable."
+    },
+    {
+      "term": "@keyframes",
+      "category": "CSS Advanced",
+      "definition": "Defines a named sequence of style states at percentage checkpoints (0% to 100%), used to drive a CSS animation."
+    },
+    {
+      "term": "Transition vs. animation",
+      "category": "CSS Advanced",
+      "definition": "A transition needs a trigger (like :hover) and moves once from state A to state B. An animation (via @keyframes) can run automatically and loop through many steps with no trigger."
+    },
+    {
+      "term": "prefers-reduced-motion",
+      "category": "CSS Advanced",
+      "definition": "A media feature that matches when a user has requested less motion at the OS level — respecting it by disabling/simplifying animations is an accessibility best practice."
+    },
+    {
+      "term": "JSON",
+      "category": "Tools & Practices",
+      "definition": "JavaScript Object Notation — a lightweight, text-based data format (used throughout this site's own tutorial/quiz/reference content) that's easy for both humans and machines to read."
+    },
+    {
+      "term": "localStorage",
+      "category": "Tools & Practices",
+      "definition": "A browser storage API that saves small amounts of data on the user's own device, persisting between visits — this is how the site remembers your progress with no backend server."
+    },
+    {
+      "term": "SEO",
+      "category": "Tools & Practices",
+      "definition": "Search Engine Optimization — structuring content so search engines can understand and rank it well, e.g. via a good <title>, meta description, and semantic HTML."
+    }
+  ]
+}

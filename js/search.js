@@ -15,6 +15,11 @@ function initReferencePage(){
     if(!window.HTML_TAGS_DATA) throw new Error("Tag reference data script (js/data-tags.js) did not load");
     REF_TAGS = window.HTML_TAGS_DATA.tags;
     buildCategoryChips();
+    const params = new URLSearchParams(location.search);
+    const tagParam = params.get("tag");
+    if(tagParam){
+      document.getElementById("refSearch").value = tagParam;
+    }
     renderRefGrid();
     document.getElementById("refSearch").addEventListener("input", renderRefGrid);
   }catch(e){

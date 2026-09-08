@@ -43,21 +43,37 @@ const Theme = {
 
 /* ---------- 2. Progress Store ----------
    Shape kept in localStorage under one key:
-   { completedTopics: string[], quizScores: { [topicId]: {score,total,at} }, notes: {}, bookmarks: string[] }
+   { completedTopics: string[], quizScores: { [topicId]: {score,total,at} },
+     quizHistory: { [topicId]: {score,total,at}[] }, notes: {}, bookmarks: string[],
+     flagged: string[] }
    All reads/writes are wrapped in try/catch: if storage is blocked
    (e.g. a restricted preview sandbox), the app falls back to an
    in-memory object for the current page view instead of throwing.
+   read() always merges in defaults for any field missing from data saved
+   by an earlier version of the site, so old localStorage data upgrades safely.
 ------------------------------------------------------------------ */
 const ProgressStore = (function(){
   const KEY = "hlp_progress_v1";
-  let memoryFallback = { completedTopics:[], quizScores:{}, notes:{}, bookmarks:[] };
+  const DEFAULTS = { completedTopics:[], quizScores:{}, quizHistory:{}, notes:{}, bookmarks:[], flagged:[] };
+  let memoryFallback = { ...DEFAULTS };
   let usingFallback = false;
+
+  function withDefaults(d){
+    return {
+      completedTopics: d.completedTopics || [],
+      quizScores: d.quizScores || {},
+      quizHistory: d.quizHistory || {},
+      notes: d.notes || {},
+      bookmarks: d.bookmarks || [],
+      flagged: d.flagged || []
+    };
+  }
 
   function read(){
     if(usingFallback) return memoryFallback;
     try{
       const raw = localStorage.getItem(KEY);
-      return raw ? JSON.parse(raw) : { completedTopics:[], quizScores:{}, notes:{}, bookmarks:[] };
+      return raw ? withDefaults(JSON.parse(raw)) : { ...DEFAULTS };
     }catch(e){
       usingFallback = true;
       return memoryFallback;
@@ -82,11 +98,15 @@ const ProgressStore = (function(){
     isTopicComplete(topicId){ return read().completedTopics.includes(topicId); },
     recordQuizScore(topicId, score, total){
       const d = read();
-      d.quizScores[topicId] = { score, total, at: new Date().toISOString() };
+      const attempt = { score, total, at: new Date().toISOString() };
+      d.quizScores[topicId] = attempt;
+      if(!d.quizHistory[topicId]) d.quizHistory[topicId] = [];
+      d.quizHistory[topicId].push(attempt);
       if(score === total) this.markTopicComplete(topicId);
       write(d);
     },
     getQuizScore(topicId){ return read().quizScores[topicId] || null; },
+    getQuizHistory(topicId){ return read().quizHistory[topicId] || []; },
     toggleBookmark(topicId){
       const d = read();
       const i = d.bookmarks.indexOf(topicId);
@@ -95,6 +115,15 @@ const ProgressStore = (function(){
       return d.bookmarks.includes(topicId);
     },
     isBookmarked(topicId){ return read().bookmarks.includes(topicId); },
+    toggleFlag(topicId){
+      const d = read();
+      const i = d.flagged.indexOf(topicId);
+      if(i>-1) d.flagged.splice(i,1); else d.flagged.push(topicId);
+      write(d);
+      return d.flagged.includes(topicId);
+    },
+    isFlagged(topicId){ return read().flagged.includes(topicId); },
+    getFlagged(){ return read().flagged; },
     saveNote(topicId, text){
       const d = read(); d.notes[topicId] = text; write(d);
     },
@@ -104,7 +133,7 @@ const ProgressStore = (function(){
       const done = d.completedTopics.length;
       return { done, total: totalTopics, pct: totalTopics ? Math.round((done/totalTopics)*100) : 0 };
     },
-    reset(){ write({ completedTopics:[], quizScores:{}, notes:{}, bookmarks:[] }); }
+    reset(){ write({ ...DEFAULTS }); }
   };
 })();
 
@@ -164,17 +193,20 @@ function initHomepageTopics(){
         </a>`;
       grid.appendChild(col);
     });
-    updateHomeDashboard(topics.length);
+    updateHomeDashboard(topics);
   }catch(e){
     grid.innerHTML = `<div class="col-12 text-center text-muted py-4">Couldn't load the curriculum (data/tutorials.json). ${e.message}</div>`;
   }
 }
 
-function updateHomeDashboard(totalTopics){
+const UNIT_NAMES = { 1: "Unit 1 — Web &amp; HTML Fundamentals", 2: "Unit 2 — Semantic HTML and Forms", 3: "Unit 3 — Cascading Style Sheets" };
+
+function updateHomeDashboard(topics){
   const bar = document.getElementById("homeProgressBar");
   const pct = document.getElementById("homeProgressPct");
   const label = document.getElementById("homeProgressLabel");
   if(!bar) return;
+  const totalTopics = topics.length;
   const stats = ProgressStore.stats(totalTopics);
   bar.style.width = stats.pct + "%";
   pct.textContent = stats.pct + "%";
@@ -186,23 +218,115 @@ function updateHomeDashboard(totalTopics){
     if(!el) return;
     el.classList.toggle("earned", (stats.done/stats.total) >= threshold && stats.total>0);
   });
+
+  const unitWrap = document.getElementById("homeUnitProgress");
+  if(unitWrap){
+    const units = {};
+    topics.forEach(t=>{
+      const u = t.unit || 1;
+      if(!units[u]) units[u] = { total:0, done:0 };
+      units[u].total++;
+      if(ProgressStore.isTopicComplete(t.id)) units[u].done++;
+    });
+    unitWrap.innerHTML = Object.keys(units).sort().map(u=>{
+      const { total, done } = units[u];
+      const upct = total ? Math.round((done/total)*100) : 0;
+      return `<div class="unit-progress-row">
+        <div class="unit-progress-top"><span>${UNIT_NAMES[u] || ("Unit " + u)}</span><span>${done}/${total}</span></div>
+        <div class="progress-outer small"><div class="progress-inner" style="width:${upct}%;"></div></div>
+      </div>`;
+    }).join("");
+  }
 }
 
-/* ---------- 5. Nav active-link highlighting ---------- */
+/* ---------- 5. Site-wide Search ---------- */
+const SiteSearch = {
+  open(){
+    const overlay = document.getElementById("searchOverlay");
+    if(!overlay) return;
+    overlay.classList.add("show");
+    const input = document.getElementById("searchInput");
+    input.value = "";
+    document.getElementById("searchResults").innerHTML = "";
+    setTimeout(()=> input.focus(), 30);
+  },
+  close(){
+    const overlay = document.getElementById("searchOverlay");
+    if(overlay) overlay.classList.remove("show");
+  },
+  render(query){
+    const results = document.getElementById("searchResults");
+    if(!query){ results.innerHTML = ""; return; }
+    if(!window.SEARCH_INDEX){ results.innerHTML = `<p class="text-muted p-3">Search index unavailable.</p>`; return; }
+    const q = query.toLowerCase();
+    const matches = window.SEARCH_INDEX.filter(item =>
+      item.title.toLowerCase().includes(q) || item.sub.toLowerCase().includes(q)
+    ).slice(0, 30);
+    if(!matches.length){
+      results.innerHTML = `<p class="text-muted p-3">No matches for &quot;${escapeHtml(query)}&quot;.</p>`;
+      return;
+    }
+    results.innerHTML = matches.map(item => `
+      <a class="search-result-item" href="${item.url}">
+        <i class="${item.icon}"></i>
+        <div>
+          <div class="search-result-title">${escapeHtml(item.title)} <span class="search-result-type">${item.type}</span></div>
+          <div class="search-result-sub">${escapeHtml(item.sub)}</div>
+        </div>
+      </a>
+    `).join("");
+  },
+  init(){
+    const trigger = document.getElementById("searchTrigger");
+    const overlay = document.getElementById("searchOverlay");
+    const closeBtn = document.getElementById("searchClose");
+    const input = document.getElementById("searchInput");
+    if(!trigger || !overlay) return;
+    trigger.addEventListener("click", ()=> this.open());
+    closeBtn.addEventListener("click", ()=> this.close());
+    overlay.addEventListener("click", (e)=>{ if(e.target === overlay) this.close(); });
+    input.addEventListener("input", ()=> this.render(input.value));
+    document.addEventListener("keydown", (e)=>{
+      if(e.key === "/" && document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA"){
+        e.preventDefault();
+        this.open();
+      } else if(e.key === "Escape" && overlay.classList.contains("show")){
+        this.close();
+      }
+    });
+  }
+};
+
+/* ---------- 6. Nav active-link highlighting ---------- */
 function highlightActiveNav(){
   const page = location.pathname.split("/").pop() || "index.html";
+  let dropdownHasActive = false;
   document.querySelectorAll(".nav-link").forEach(link=>{
     const href = link.getAttribute("href");
-    if(href === page) link.classList.add("active"); else link.classList.remove("active");
+    if(href === page){
+      link.classList.add("active");
+      if(link.classList.contains("dropdown-item")) dropdownHasActive = true;
+    } else {
+      link.classList.remove("active");
+    }
   });
+  const dropdownToggle = document.getElementById("moreDropdown");
+  if(dropdownToggle) dropdownToggle.classList.toggle("active", dropdownHasActive);
 }
 
-/* ---------- 6. Init ---------- */
+/* ---------- 7. Init ---------- */
 document.addEventListener("DOMContentLoaded", ()=>{
   Theme.init();
   highlightActiveNav();
+  SiteSearch.init();
   const themeBtn = document.getElementById("themeToggle");
   if(themeBtn) themeBtn.addEventListener("click", ()=> Theme.toggle());
   initHomepageTopics();
   initScrollReveal();
 });
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{
+    navigator.serviceWorker.register("sw.js").catch(()=>{ /* offline support unavailable, fail silently */ });
+  });
+}

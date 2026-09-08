@@ -595,6 +595,13 @@ window.HTML_TAGS_DATA = {
       "description": "Groups summary or total rows at the bottom of a table's data.",
       "syntax": "<tfoot>…</tfoot>",
       "example": "<tfoot><tr><td>Total</td><td>$12.50</td></tr></tfoot>"
+    },
+    {
+      "tag": "<style>",
+      "category": "Document",
+      "description": "Embeds CSS rules directly inside the document, usually in <head>.",
+      "syntax": "<style>selector { property: value; }</style>",
+      "example": "<style>p { color: navy; }</style>"
     }
   ]
 };

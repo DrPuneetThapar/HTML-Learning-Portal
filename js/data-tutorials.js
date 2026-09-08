@@ -2001,6 +2001,1337 @@ window.TUTORIALS_DATA = {
         }
       ],
       "unit": 2
+    },
+    {
+      "id": "css-intro",
+      "number": 26,
+      "tag": "css-basics",
+      "unit": 3,
+      "title": "Introduction to CSS",
+      "icon": "fa-solid fa-palette",
+      "summary": "What CSS is for, the three ways to add it to a page, and the basic syntax of a rule.",
+      "lessons": [
+        {
+          "heading": "What CSS Does",
+          "content": "CSS (Cascading Style Sheets) separates presentation from content. HTML describes what a piece of content *is* — a heading, a list, a paragraph. CSS describes how it *looks* — its color, spacing, size, and position. Keeping the two separate means the same HTML can be restyled completely without touching its structure."
+        },
+        {
+          "heading": "Three Ways to Add CSS",
+          "content": "Inline CSS lives in a style attribute on one element. Internal CSS lives in a <code>&lt;style&gt;</code> block inside <code>&lt;head&gt;</code> and applies to the whole page. External CSS lives in a separate .css file linked with <code>&lt;link rel=\"stylesheet\"&gt;</code>, and is almost always the best choice — it's cacheable, reusable across many pages, and keeps markup clean."
+        },
+        {
+          "heading": "The Cascade, Briefly",
+          "content": "When more than one rule targets the same element, the browser has to decide which one wins. This decision — the 'cascade' — depends on specificity, source order, and importance. This topic introduces just enough to get started; the next topic covers specificity in depth."
+        },
+        {
+          "heading": "Basic Rule Syntax",
+          "content": "A CSS rule is a selector followed by a declaration block in curly braces: selector { property: value; }. Each declaration is a property and a value separated by a colon, ending in a semicolon."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Inline CSS with the style attribute",
+          "code": "<p style=\"color: navy; font-weight: bold;\">Styled directly on the element.</p>",
+          "note": "Inline styles have very high specificity and are hard to reuse or override — reach for them rarely, mostly for one-off JavaScript-driven changes."
+        },
+        {
+          "title": "Internal CSS in a <style> block",
+          "code": "<head>\n  <style>\n    p { color: navy; }\n  </style>\n</head>\n<body>\n  <p>Styled by the internal stylesheet.</p>\n</body>",
+          "note": ""
+        },
+        {
+          "title": "External CSS via <link>",
+          "code": "<head>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n\n<!-- styles.css -->\n<!-- p { color: navy; } -->",
+          "note": "This is the recommended approach for anything beyond a quick demo — one file, reused across every page that links it."
+        },
+        {
+          "title": "Anatomy of a rule, annotated",
+          "code": "p {              /* selector: targets every <p> */\n  color: navy;   /* property: value; */\n  font-size: 16px;\n}",
+          "note": ""
+        },
+        {
+          "title": "Multiple declarations in one rule",
+          "code": "<style>\n  .card {\n    background: white;\n    border-radius: 8px;\n    padding: 16px;\n  }\n</style>\n<div class=\"card\">A styled card</div>",
+          "note": ""
+        },
+        {
+          "title": "Comments in CSS",
+          "code": "<style>\n  /* This comment is ignored by the browser */\n  p { color: navy; }\n</style>",
+          "note": "CSS comments use /* ... */, not // or <!-- -->."
+        },
+        {
+          "title": "One rule targeting multiple selectors",
+          "code": "<style>\n  h1, h2, h3 {\n    font-family: Georgia, serif;\n  }\n</style>",
+          "note": "A comma-separated selector list applies the same declarations to every listed selector, avoiding repetition."
+        },
+        {
+          "title": "A first look at the cascade: last rule wins on a tie",
+          "code": "<style>\n  p { color: navy; }\n  p { color: crimson; }  /* wins: same specificity, comes later */\n</style>\n<p>This text is crimson.</p>",
+          "note": "When two rules have equal specificity, the one that appears later in the stylesheet wins."
+        }
+      ]
+    },
+    {
+      "id": "css-selectors",
+      "number": 27,
+      "tag": "css-basics",
+      "unit": 3,
+      "title": "CSS Selectors and Specificity",
+      "icon": "fa-solid fa-crosshairs",
+      "summary": "Type, class, ID, and combinator selectors, and how the browser resolves conflicting rules.",
+      "lessons": [
+        {
+          "heading": "Basic Selectors",
+          "content": "A type selector matches every element of that tag (p, div). A class selector (.name) matches every element with that class. An ID selector (#name) matches the one element with that ID. The universal selector (*) matches everything."
+        },
+        {
+          "heading": "Combinators",
+          "content": "A descendant combinator (a space) matches an element nested anywhere inside another: div p. A child combinator (>) matches only a direct child: div > p. An adjacent sibling combinator (+) matches an element immediately after another at the same level: h2 + p. A general sibling combinator (~) matches any later sibling: h2 ~ p."
+        },
+        {
+          "heading": "Grouping and Compound Selectors",
+          "content": "A comma groups independent selectors that should get the same rule. Writing selectors with no space between them, like p.intro, creates a compound selector: it matches only a <code>&lt;p&gt;</code> that also has the class intro — both conditions on the same element."
+        },
+        {
+          "heading": "Specificity",
+          "content": "When multiple rules could apply, the browser scores each selector's specificity: inline styles score highest, then ID selectors, then classes/attribute selectors/pseudo-classes, then element selectors/pseudo-elements. The highest-specificity rule wins regardless of source order; !important overrides normal specificity entirely and should be used sparingly, since it makes later overrides harder."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Type (element) selector",
+          "code": "<style>\n  p { line-height: 1.6; }\n</style>",
+          "note": ""
+        },
+        {
+          "title": "Class selector",
+          "code": "<style>\n  .highlight { background: yellow; }\n</style>\n<p class=\"highlight\">Highlighted text</p>",
+          "note": ""
+        },
+        {
+          "title": "ID selector",
+          "code": "<style>\n  #pageHeader { font-size: 2rem; }\n</style>\n<h1 id=\"pageHeader\">Title</h1>",
+          "note": "IDs must be unique per page, so an ID selector should only ever match one element."
+        },
+        {
+          "title": "Universal selector",
+          "code": "<style>\n  * { box-sizing: border-box; }\n</style>",
+          "note": "A very common reset rule — applies border-box sizing to literally every element."
+        },
+        {
+          "title": "Descendant combinator",
+          "code": "<style>\n  article p { color: #333; }\n</style>\n<article><p>Matched — nested anywhere inside article</p></article>",
+          "note": ""
+        },
+        {
+          "title": "Child combinator >",
+          "code": "<style>\n  ul > li { list-style: square; }\n</style>\n<ul><li>Direct child — matched</li></ul>",
+          "note": "Unlike the descendant combinator, this only matches li elements that are direct children of ul, not nested deeper."
+        },
+        {
+          "title": "Adjacent sibling combinator +",
+          "code": "<style>\n  h2 + p { font-weight: bold; }\n</style>\n<h2>Heading</h2>\n<p>Only this first paragraph is bold.</p>\n<p>This one is not.</p>",
+          "note": ""
+        },
+        {
+          "title": "General sibling combinator ~",
+          "code": "<style>\n  h2 ~ p { color: gray; }\n</style>\n<h2>Heading</h2>\n<p>Gray</p>\n<p>Also gray</p>",
+          "note": "Matches every <p> that comes after the <h2> at the same level, not just the first one."
+        },
+        {
+          "title": "Specificity resolving a conflict",
+          "code": "<style>\n  p { color: navy; }          /* specificity: 0-0-1 */\n  .note { color: green; }     /* specificity: 0-1-0 — wins over p */\n  #warning { color: red; }    /* specificity: 1-0-0 — wins over both */\n</style>\n<p id=\"warning\" class=\"note\">This text is red.</p>",
+          "note": "The ID selector has the highest specificity of the three, so it wins regardless of source order."
+        }
+      ]
+    },
+    {
+      "id": "css-colors-backgrounds",
+      "number": 28,
+      "tag": "css-basics",
+      "unit": 3,
+      "title": "Colors and Backgrounds",
+      "icon": "fa-solid fa-fill-drip",
+      "summary": "Color formats, background images and gradients, and the difference between opacity and alpha transparency.",
+      "lessons": [
+        {
+          "heading": "Color Formats",
+          "content": "Colors can be written as named keywords (crimson, navy), hex codes (#c4406b), rgb()/rgba() (red, green, blue, and an optional alpha channel), or hsl()/hsla() (hue, saturation, lightness). hsl() is often the easiest for humans to reason about — sliding just the lightness value gives predictable lighter/darker shades of the same color."
+        },
+        {
+          "heading": "Background Color and Images",
+          "content": "background-color sets a solid fill. background-image sets one or more images (or gradients) drawn on top of that color. background-repeat, background-position, and background-size control how that image tiles, where it sits, and how large it renders."
+        },
+        {
+          "heading": "Gradients",
+          "content": "linear-gradient() and radial-gradient() generate a gradient image on the fly, used as a background-image value — no image file needed. A direction and a list of color stops control the transition."
+        },
+        {
+          "heading": "Opacity vs. Alpha Transparency",
+          "content": "opacity makes an entire element — including its text and children — partially transparent as a whole. An alpha channel in rgba()/hsla() only makes that one color value (like just the background) partially transparent, leaving text and children fully opaque."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Named color keyword",
+          "code": "<p style=\"color: crimson;\">Crimson text</p>",
+          "note": ""
+        },
+        {
+          "title": "Hex color",
+          "code": "<p style=\"color: #c4406b;\">Hex-coded pink</p>",
+          "note": ""
+        },
+        {
+          "title": "rgb() and rgba()",
+          "code": "<div style=\"background: rgb(196, 64, 107);\">Solid</div>\n<div style=\"background: rgba(196, 64, 107, 0.4);\">40% opacity fill</div>",
+          "note": ""
+        },
+        {
+          "title": "hsl() and hsla()",
+          "code": "<div style=\"background: hsl(340, 60%, 45%);\"></div>\n<div style=\"background: hsl(340, 60%, 75%);\"></div>",
+          "note": "Same hue and saturation, only lightness changed — an easy way to build a consistent color palette."
+        },
+        {
+          "title": "background-image with size, position, and repeat",
+          "code": "<style>\n  .hero {\n    background-image: url('media/hero.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    height: 200px;\n  }\n</style>\n<div class=\"hero\"></div>",
+          "note": ""
+        },
+        {
+          "title": "linear-gradient background",
+          "code": "<div style=\"height:100px; background: linear-gradient(135deg, #c4406b, #211f2e);\"></div>",
+          "note": ""
+        },
+        {
+          "title": "radial-gradient background",
+          "code": "<div style=\"height:100px; background: radial-gradient(circle, #f7f4ec, #211f2e);\"></div>",
+          "note": ""
+        },
+        {
+          "title": "Multiple background layers",
+          "code": "<div style=\"height:120px; background:\n  linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)),\n  url('media/hero.jpg');\n  background-size: cover;\">\n</div>",
+          "note": "Layers stack in the order listed — the first is on top. This is a common pattern for a readable text overlay on a photo."
+        },
+        {
+          "title": "opacity vs. rgba alpha, compared",
+          "code": "<!-- opacity: fades the box AND its text together -->\n<div style=\"opacity:0.5; background:navy; color:white; padding:10px;\">Everything faded</div>\n\n<!-- rgba: only the background is translucent -->\n<div style=\"background:rgba(0,0,128,0.5); color:white; padding:10px;\">Only background faded</div>",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "css-units",
+      "number": 29,
+      "tag": "css-basics",
+      "unit": 3,
+      "title": "Units and Measurements",
+      "icon": "fa-solid fa-ruler",
+      "summary": "Absolute vs. relative units, viewport units, percentages, and the calc() function.",
+      "lessons": [
+        {
+          "heading": "Absolute Units",
+          "content": "px is the most common absolute unit — a fixed size regardless of any parent or the viewport. Other absolute units like cm, mm, and pt exist mostly for print stylesheets and are rarely used for screen design."
+        },
+        {
+          "heading": "Relative Units: em and rem",
+          "content": "1em equals the font-size of the current element's parent — which means em values compound as they nest, sometimes unpredictably. 1rem always equals the root <code>&lt;html&gt;</code> element's font-size (typically 16px by default), regardless of nesting, which makes rem far more predictable for consistent sizing."
+        },
+        {
+          "heading": "Viewport Units",
+          "content": "vw and vh are 1% of the viewport's width and height respectively. vmin and vmax are 1% of whichever of the two is currently smaller or larger. These make an element's size respond directly to the browser window, without a media query."
+        },
+        {
+          "heading": "Percentages",
+          "content": "A percentage value is relative to the corresponding property on the parent element — width: 50% means half the parent's width, not half the viewport."
+        },
+        {
+          "heading": "The calc() Function",
+          "content": "calc() lets you mix units in one expression, like calc(100% - 40px) — full width minus a fixed margin. This is something percentages or fixed units alone can't express."
+        }
+      ],
+      "examples": [
+        {
+          "title": "px — an absolute unit",
+          "code": "<p style=\"font-size: 16px;\">Always 16px, everywhere.</p>",
+          "note": ""
+        },
+        {
+          "title": "em — relative to the parent's font-size",
+          "code": "<div style=\"font-size: 20px;\">\n  <span style=\"font-size: 1.5em;\">This is 30px (1.5 &times; 20px)</span>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "rem — relative to the root font-size",
+          "code": "<html style=\"font-size: 16px;\">\n<!-- ... -->\n<p style=\"font-size: 1.5rem;\">Always 24px, regardless of nesting.</p>",
+          "note": ""
+        },
+        {
+          "title": "em compounding across nested elements",
+          "code": "<div style=\"font-size: 1.2em;\">\n  <div style=\"font-size: 1.2em;\">\n    <div style=\"font-size: 1.2em;\">Compounded — much bigger than 1.2em!</div>\n  </div>\n</div>",
+          "note": "Each nested 1.2em multiplies against its own parent, growing fast. This is exactly the surprise rem avoids."
+        },
+        {
+          "title": "Viewport units: vw and vh",
+          "code": "<div style=\"width: 50vw; height: 30vh; background: #eee;\">\n  Half the viewport's width, 30% of its height.\n</div>",
+          "note": ""
+        },
+        {
+          "title": "Percentage width relative to the parent",
+          "code": "<div style=\"width: 400px;\">\n  <div style=\"width: 50%; background: #eee;\">200px — half of the 400px parent</div>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "calc() mixing units",
+          "code": "<div style=\"width: calc(100% - 60px); background: #eee;\">\n  Full width minus a fixed 60px, always.\n</div>",
+          "note": ""
+        },
+        {
+          "title": "Unitless line-height (best practice)",
+          "code": "<p style=\"font-size: 16px; line-height: 1.6;\">\n  A unitless line-height scales proportionally if font-size changes later — safer than a fixed px line-height.\n</p>",
+          "note": ""
+        },
+        {
+          "title": "The same value in different units, compared",
+          "code": "<p style=\"font-size: 16px;\">16px</p>\n<p style=\"font-size: 1rem;\">1rem (= 16px, if root is 16px)</p>\n<p style=\"font-size: 100%;\">100% (= 16px, same context)</p>",
+          "note": "All three render identically here — the difference shows up once you start changing the root font-size or nesting."
+        }
+      ]
+    },
+    {
+      "id": "css-typography",
+      "number": 30,
+      "tag": "css-text",
+      "unit": 3,
+      "title": "Typography",
+      "icon": "fa-solid fa-font",
+      "summary": "Font families and fallback stacks, sizing and weight, line height, letter spacing, and web fonts.",
+      "lessons": [
+        {
+          "heading": "Font Family and Fallback Stacks",
+          "content": "font-family takes a comma-separated list, tried in order until one is available on the user's device, ending in a generic family (serif, sans-serif, monospace) as a guaranteed fallback."
+        },
+        {
+          "heading": "Font Size, Weight, and Style",
+          "content": "font-size sets the text size (rem is the usual recommended unit). font-weight can be a keyword (normal, bold) or a numeric value from 100 to 900, if the loaded font supports those weights. font-style sets italic or oblique text."
+        },
+        {
+          "heading": "Line Height and Letter Spacing",
+          "content": "line-height controls the vertical space a line of text occupies — a value like 1.5 or 1.6 (unitless, multiplying the font-size) usually reads more comfortably than the browser default. letter-spacing adds or removes space between characters, useful for small caps or tightly-set headings."
+        },
+        {
+          "heading": "Web Fonts",
+          "content": "@font-face (or a service like Google Fonts) loads a custom font file so text isn't limited to whatever's already installed on a user's device. This is how a design achieves a distinctive typeface rather than defaulting to system fonts."
+        }
+      ],
+      "examples": [
+        {
+          "title": "A font-family fallback stack",
+          "code": "<p style=\"font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;\">\n  Falls through the list until one font is found.\n</p>",
+          "note": ""
+        },
+        {
+          "title": "font-size with rem",
+          "code": "<h1 style=\"font-size: 2.5rem;\">Heading</h1>\n<p style=\"font-size: 1rem;\">Body text</p>",
+          "note": ""
+        },
+        {
+          "title": "font-weight: named vs. numeric",
+          "code": "<p style=\"font-weight: normal;\">Normal (400)</p>\n<p style=\"font-weight: bold;\">Bold (700)</p>\n<p style=\"font-weight: 300;\">Light (300), if supported</p>",
+          "note": ""
+        },
+        {
+          "title": "font-style: italic",
+          "code": "<p style=\"font-style: italic;\">Italicized text</p>",
+          "note": ""
+        },
+        {
+          "title": "line-height for readability",
+          "code": "<p style=\"line-height: 1.6; max-width: 500px;\">\n  A generous line-height like 1.6 makes multi-line paragraphs noticeably easier to read than the tight browser default.\n</p>",
+          "note": ""
+        },
+        {
+          "title": "letter-spacing",
+          "code": "<h2 style=\"letter-spacing: 0.08em; text-transform: uppercase;\">Section Title</h2>",
+          "note": "A little positive letter-spacing is a common finishing touch on small uppercase headings."
+        },
+        {
+          "title": "The font shorthand property",
+          "code": "<p style=\"font: italic bold 1.2rem/1.5 Georgia, serif;\">\n  style weight size/line-height family, all in one declaration.\n</p>",
+          "note": "The shorthand order is strict: style, weight, size/line-height, then family."
+        },
+        {
+          "title": "@font-face for a custom web font (annotated)",
+          "code": "<style>\n  @font-face {\n    font-family: 'BrandSans';\n    src: url('fonts/brand-sans.woff2') format('woff2');\n    font-weight: 400;\n  }\n  body { font-family: 'BrandSans', sans-serif; }\n</style>",
+          "note": "This declares the font once; every rule can then reference 'BrandSans' by name like any system font."
+        }
+      ]
+    },
+    {
+      "id": "css-text-styling",
+      "number": 31,
+      "tag": "css-text",
+      "unit": 3,
+      "title": "Text Styling",
+      "icon": "fa-solid fa-text-height",
+      "summary": "Alignment, decoration, case transforms, and controlling overflow of long or unbreakable text.",
+      "lessons": [
+        {
+          "heading": "Alignment and Decoration",
+          "content": "text-align controls horizontal alignment (left, right, center, justify). text-decoration adds or removes lines like underline or line-through, and its sub-properties (text-decoration-color, -style, -thickness) style that line independently of the text color."
+        },
+        {
+          "heading": "Case and Transform",
+          "content": "text-transform changes the displayed case — uppercase, lowercase, or capitalize — without altering the actual text content in the HTML, which matters for accessibility tools and copy-pasting."
+        },
+        {
+          "heading": "Whitespace and Overflow",
+          "content": "white-space: nowrap prevents text from wrapping onto a new line. Combined with overflow: hidden and text-overflow: ellipsis, it produces the classic single-line truncation with a trailing \"…\" when text is too long for its box."
+        },
+        {
+          "heading": "Text Shadow and Indent",
+          "content": "text-shadow adds one or more drop shadows behind text (horizontal offset, vertical offset, blur radius, color). text-indent pushes just the first line of a block inward, a traditional print-style paragraph convention."
+        }
+      ],
+      "examples": [
+        {
+          "title": "text-align values",
+          "code": "<p style=\"text-align: center;\">Centered</p>\n<p style=\"text-align: right;\">Right-aligned</p>\n<p style=\"text-align: justify;\">Justified text stretches to fill the line on both edges, like a newspaper column, which can look great or leave odd gaps depending on the content.</p>",
+          "note": ""
+        },
+        {
+          "title": "text-decoration with sub-properties",
+          "code": "<a href=\"#\" style=\"text-decoration: underline wavy red;\">A wavy red underline</a>",
+          "note": "The shorthand can combine the line, style, and color in one declaration."
+        },
+        {
+          "title": "text-transform",
+          "code": "<p style=\"text-transform: uppercase;\">shouting, visually only</p>\n<p style=\"text-transform: capitalize;\">each word capitalized</p>",
+          "note": "The underlying HTML text stays lowercase — only the display changes."
+        },
+        {
+          "title": "text-shadow",
+          "code": "<h1 style=\"text-shadow: 2px 2px 4px rgba(0,0,0,0.4);\">Shadowed heading</h1>",
+          "note": ""
+        },
+        {
+          "title": "text-indent",
+          "code": "<p style=\"text-indent: 2em;\">Only the first line of this paragraph is pushed inward, in a classic print-style layout.</p>",
+          "note": ""
+        },
+        {
+          "title": "white-space: nowrap",
+          "code": "<p style=\"white-space: nowrap; width: 150px; border: 1px solid #ccc;\">This text refuses to wrap and will overflow its box.</p>",
+          "note": ""
+        },
+        {
+          "title": "The 3-property ellipsis truncation pattern",
+          "code": "<p style=\"width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border: 1px solid #ccc;\">\n  This long sentence gets cut off with a trailing ellipsis.\n</p>",
+          "note": "All three properties are required together — text-overflow alone does nothing without nowrap and overflow:hidden."
+        },
+        {
+          "title": "word-break for long unbreakable words",
+          "code": "<p style=\"width: 120px; overflow-wrap: break-word; border: 1px solid #ccc;\">\n  Supercalifragilisticexpialidocious\n</p>",
+          "note": "overflow-wrap: break-word lets a single long word break mid-word rather than overflowing its container."
+        }
+      ]
+    },
+    {
+      "id": "css-box-model",
+      "number": 32,
+      "tag": "css-layout",
+      "unit": 3,
+      "title": "Box Model",
+      "icon": "fa-solid fa-square",
+      "summary": "Content, padding, border, and margin — and the box-sizing property that changes what width actually measures.",
+      "lessons": [
+        {
+          "heading": "Content, Padding, Border, Margin",
+          "content": "Every element is a box made of four layers, from the inside out: the content itself, padding (space inside the border), the border, and margin (space outside the border, separating it from other elements)."
+        },
+        {
+          "heading": "box-sizing: content-box vs. border-box",
+          "content": "By default (content-box), width and height set only the content area's size — padding and border are added on top, making the box bigger than the width you set. box-sizing: border-box instead makes width and height include padding and border, so the box you set is the box you get. Most modern stylesheets set border-box globally."
+        },
+        {
+          "heading": "Margin Collapsing",
+          "content": "When two block elements stack vertically, the space between them is not the sum of both their margins — the larger of the two margins wins, and they 'collapse' into just that one gap."
+        },
+        {
+          "heading": "Shorthand Properties",
+          "content": "margin and padding accept 1, 2, 3, or 4 values: one value applies to all sides; two are vertical then horizontal; four go clockwise from the top (top, right, bottom, left)."
+        }
+      ],
+      "examples": [
+        {
+          "title": "The four box-model layers, annotated",
+          "code": "<div style=\"\n  margin: 20px;      /* outside the border */\n  border: 2px solid #333;\n  padding: 16px;     /* inside the border */\n  width: 200px;      /* the content area */\n\">\n  Content\n</div>",
+          "note": ""
+        },
+        {
+          "title": "content-box vs. border-box, compared",
+          "code": "<div style=\"box-sizing: content-box; width: 200px; padding: 20px; border: 5px solid; background:#eee;\">\n  Renders 250px wide total (200 + 40 + 10)\n</div>\n<div style=\"box-sizing: border-box; width: 200px; padding: 20px; border: 5px solid; background:#eee;\">\n  Renders exactly 200px wide total\n</div>",
+          "note": ""
+        },
+        {
+          "title": "A global border-box reset",
+          "code": "<style>\n  *, *::before, *::after { box-sizing: border-box; }\n</style>",
+          "note": "This single rule is one of the most common lines in any modern stylesheet — it makes sizing behave predictably everywhere."
+        },
+        {
+          "title": "margin shorthand: 1, 2, and 4 values",
+          "code": "<div style=\"margin: 10px;\">All sides 10px</div>\n<div style=\"margin: 10px 20px;\">Vertical 10px, horizontal 20px</div>\n<div style=\"margin: 10px 20px 5px 0;\">Top 10, right 20, bottom 5, left 0</div>",
+          "note": ""
+        },
+        {
+          "title": "padding shorthand",
+          "code": "<div style=\"padding: 8px 16px; background:#eee;\">8px top/bottom, 16px left/right</div>",
+          "note": ""
+        },
+        {
+          "title": "border shorthand",
+          "code": "<div style=\"border: 2px dashed crimson; padding: 10px;\">width style color, in one declaration</div>",
+          "note": ""
+        },
+        {
+          "title": "margin: auto for horizontal centering",
+          "code": "<div style=\"width: 300px; margin: 0 auto; background:#eee;\">\n  Centered inside its parent (needs a defined width)\n</div>",
+          "note": ""
+        },
+        {
+          "title": "Margin collapsing between two paragraphs",
+          "code": "<p style=\"margin-bottom: 30px;\">First paragraph</p>\n<p style=\"margin-top: 10px;\">Second paragraph — the gap between them is 30px, not 40px</p>",
+          "note": "The larger of the two adjoining margins (30px) wins; they don't add together."
+        },
+        {
+          "title": "box-shadow, a common box-model companion",
+          "code": "<div style=\"width:150px; padding:16px; box-shadow: 0 4px 10px rgba(0,0,0,.2); background:#fff;\">\n  A soft drop shadow\n</div>",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "css-positioning",
+      "number": 33,
+      "tag": "css-layout",
+      "unit": 3,
+      "title": "Positioning Techniques",
+      "icon": "fa-solid fa-arrows-up-down-left-right",
+      "summary": "static, relative, absolute, fixed, and sticky positioning, plus z-index stacking.",
+      "lessons": [
+        {
+          "heading": "static and relative",
+          "content": "position: static is the default — an element sits in normal document flow and top/left/etc. have no effect. position: relative also stays in normal flow, but now top/right/bottom/left can nudge it from where it would otherwise be, and — just as importantly — it becomes an anchor point for any absolutely positioned children."
+        },
+        {
+          "heading": "absolute and fixed",
+          "content": "position: absolute removes an element from normal flow entirely and positions it relative to its nearest ancestor that has a position other than static (falling back to the page itself if none exists). position: fixed positions relative to the viewport and stays in place even as the page scrolls."
+        },
+        {
+          "heading": "sticky",
+          "content": "position: sticky behaves like relative until the element would scroll out of view past a given offset (like top: 0), at which point it 'sticks' in place — like a fixed element, but only within its containing block."
+        },
+        {
+          "heading": "z-index and Stacking Context",
+          "content": "When positioned elements overlap, z-index (a plain number, higher on top) decides which one renders in front. z-index only has an effect on elements that have a position value other than static."
+        }
+      ],
+      "examples": [
+        {
+          "title": "position: static (the default)",
+          "code": "<div style=\"position: static; top: 50px;\">\n  top:50px does nothing here — static ignores offset properties.\n</div>",
+          "note": ""
+        },
+        {
+          "title": "position: relative with an offset",
+          "code": "<div style=\"position: relative; top: 10px; left: 10px; background:#eee;\">\n  Nudged 10px down and right from its normal spot.\n</div>",
+          "note": ""
+        },
+        {
+          "title": "position: absolute inside a relative parent",
+          "code": "<div style=\"position: relative; height: 120px; border: 1px solid #ccc;\">\n  <span style=\"position: absolute; top: 8px; right: 8px;\">Badge</span>\n</div>",
+          "note": "The badge positions relative to the nearest ancestor with position:relative — not the whole page."
+        },
+        {
+          "title": "position: fixed navbar",
+          "code": "<nav style=\"position: fixed; top: 0; left: 0; width: 100%; background:#211f2e; color:white; padding:10px;\">\n  Stays pinned to the top of the viewport while scrolling.\n</nav>",
+          "note": ""
+        },
+        {
+          "title": "position: sticky section header",
+          "code": "<div style=\"height: 200px; overflow-y: auto; border:1px solid #ccc;\">\n  <h3 style=\"position: sticky; top: 0; background: #f7f4ec; margin:0; padding:6px;\">Sticky Header</h3>\n  <p>Scroll inside this box — the header sticks to the top once it reaches it.</p>\n  <p style=\"height:250px;\">(tall filler content)</p>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "z-index stacking two overlapping boxes",
+          "code": "<div style=\"position: relative;\">\n  <div style=\"position:absolute; top:0; left:0; width:80px; height:80px; background:crimson; z-index:1;\"></div>\n  <div style=\"position:absolute; top:20px; left:20px; width:80px; height:80px; background:navy; z-index:2;\"></div>\n</div>",
+          "note": "The navy box (z-index:2) renders on top of the crimson one (z-index:1)."
+        },
+        {
+          "title": "Centering an element with absolute + transform",
+          "code": "<div style=\"position: relative; height: 150px; border:1px solid #ccc;\">\n  <div style=\"position:absolute; top:50%; left:50%; transform: translate(-50%, -50%); background:#eee; padding:10px;\">\n    Perfectly centered\n  </div>\n</div>",
+          "note": "transform: translate(-50%, -50%) shifts the element back by half its own size — a classic centering trick that works without knowing the element's exact dimensions."
+        },
+        {
+          "title": "A practical badge on a card",
+          "code": "<div style=\"position: relative; width: 220px; border:1px solid #ccc; padding:12px;\">\n  <span style=\"position:absolute; top:-8px; right:-8px; background:crimson; color:white; border-radius:999px; padding:2px 8px; font-size:11px;\">New</span>\n  <p>Product name</p>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "A stacking-context gotcha",
+          "code": "<div style=\"position: relative; z-index: 1;\">\n  <div style=\"position: absolute; z-index: 999;\">Trapped — can't escape above siblings of its parent's stacking context.</div>\n</div>\n<div style=\"position: relative; z-index: 2;\">This sits above the whole block above, regardless of the 999.</div>",
+          "note": "A high z-index only wins within its own stacking context — it can't out-rank an ancestor's stacking context from the outside."
+        }
+      ]
+    },
+    {
+      "id": "css-flexbox",
+      "number": 34,
+      "tag": "css-layout",
+      "unit": 3,
+      "title": "Flexbox Layout",
+      "icon": "fa-solid fa-arrows-left-right",
+      "summary": "One-dimensional layout: flex containers and items, axis alignment, and growing/shrinking/wrapping.",
+      "lessons": [
+        {
+          "heading": "Flex Container and Flex Items",
+          "content": "Setting display: flex on an element turns it into a flex container, and every one of its direct children automatically becomes a flex item, arranged along a main axis (row by default, or column with flex-direction: column)."
+        },
+        {
+          "heading": "Main Axis Alignment: justify-content",
+          "content": "justify-content controls how flex items are spaced along the main axis: flex-start, flex-end, center, space-between (edges flush, gaps between), space-around (equal space around each item), and space-evenly (perfectly equal gaps everywhere)."
+        },
+        {
+          "heading": "Cross Axis Alignment: align-items and align-self",
+          "content": "align-items controls how items align along the cross axis (perpendicular to the main axis) — stretch (default), flex-start, flex-end, or center. align-self overrides that alignment for just one individual item."
+        },
+        {
+          "heading": "Growing, Shrinking, and Wrapping",
+          "content": "flex-grow lets an item expand to absorb extra space; flex-shrink lets it shrink when space is tight; flex-basis sets its starting size — combined in the flex shorthand. flex-wrap: wrap lets items flow onto multiple lines instead of squeezing onto one; gap adds space between items without needing margins."
+        }
+      ],
+      "examples": [
+        {
+          "title": "display: flex turns children into flex items",
+          "code": "<div style=\"display: flex; background:#eee;\">\n  <div style=\"padding:10px; background:#fff; margin:4px;\">One</div>\n  <div style=\"padding:10px; background:#fff; margin:4px;\">Two</div>\n  <div style=\"padding:10px; background:#fff; margin:4px;\">Three</div>\n</div>",
+          "note": "The three divs now sit in a row automatically, instead of stacking as blocks."
+        },
+        {
+          "title": "flex-direction: row vs. column",
+          "code": "<div style=\"display:flex; flex-direction: column; gap:8px;\">\n  <div style=\"background:#eee; padding:8px;\">A</div>\n  <div style=\"background:#eee; padding:8px;\">B</div>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "justify-content values, compared",
+          "code": "<div style=\"display:flex; justify-content: space-between; background:#eee;\">\n  <div style=\"padding:10px; background:#fff;\">Left</div>\n  <div style=\"padding:10px; background:#fff;\">Right</div>\n</div>",
+          "note": "space-between pushes the first item to the start and the last to the end, distributing any remaining space between them."
+        },
+        {
+          "title": "align-items values, compared",
+          "code": "<div style=\"display:flex; align-items: center; height:100px; background:#eee;\">\n  <div style=\"padding:10px; background:#fff;\">Vertically centered</div>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "align-self overriding one item",
+          "code": "<div style=\"display:flex; align-items: flex-start; height:100px; background:#eee;\">\n  <div style=\"padding:10px; background:#fff;\">Top</div>\n  <div style=\"padding:10px; background:#fff; align-self:flex-end;\">Bottom — overridden</div>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "flex-wrap wrapping onto multiple lines",
+          "code": "<div style=\"display:flex; flex-wrap: wrap; gap:8px; width:220px;\">\n  <div style=\"padding:10px; background:#eee;\">One</div>\n  <div style=\"padding:10px; background:#eee;\">Two</div>\n  <div style=\"padding:10px; background:#eee;\">Three</div>\n  <div style=\"padding:10px; background:#eee;\">Four</div>\n</div>",
+          "note": "Without flex-wrap, all four items would squeeze onto one line instead of flowing onto a second."
+        },
+        {
+          "title": "gap between flex items",
+          "code": "<div style=\"display:flex; gap:16px;\">\n  <div style=\"padding:10px; background:#eee;\">A</div>\n  <div style=\"padding:10px; background:#eee;\">B</div>\n</div>",
+          "note": "gap is a cleaner alternative to adding margins to every item individually."
+        },
+        {
+          "title": "flex-grow distributing extra space",
+          "code": "<div style=\"display:flex; width:300px; background:#eee;\">\n  <div style=\"flex-grow:1; background:#fff; padding:8px;\">Grows 1x</div>\n  <div style=\"flex-grow:2; background:#fff; padding:8px;\">Grows 2x</div>\n</div>",
+          "note": "The second item absorbs twice as much of the leftover space as the first."
+        },
+        {
+          "title": "The flex shorthand",
+          "code": "<div style=\"display:flex;\">\n  <div style=\"flex: 1 1 200px; background:#eee; padding:8px;\">grow shrink basis</div>\n</div>",
+          "note": "flex: 1 1 200px means: grow=1, shrink=1, basis=200px — a common 'flexible but starts at 200px' pattern."
+        },
+        {
+          "title": "A flexbox navbar",
+          "code": "<nav style=\"display:flex; justify-content:space-between; align-items:center; padding:12px; background:#211f2e; color:white;\">\n  <span>Logo</span>\n  <div style=\"display:flex; gap:16px;\">\n    <a href=\"#\" style=\"color:white;\">Home</a>\n    <a href=\"#\" style=\"color:white;\">About</a>\n  </div>\n</nav>",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "css-grid",
+      "number": 35,
+      "tag": "css-layout",
+      "unit": 3,
+      "title": "CSS Grid Layout",
+      "icon": "fa-solid fa-table-cells",
+      "summary": "Two-dimensional layout: grid tracks, placing and spanning items, named areas, and responsive grids.",
+      "lessons": [
+        {
+          "heading": "Grid Container and Tracks",
+          "content": "display: grid turns an element into a grid container. grid-template-columns and grid-template-rows define the size of each column and row 'track' — using any mix of px, %, or the flexible fr unit, which divides remaining space proportionally."
+        },
+        {
+          "heading": "Placing Items: grid-column and grid-row",
+          "content": "By default, items fill the grid in source order, one per cell. grid-column and grid-row can place an item explicitly, and span lets one item stretch across multiple tracks — e.g. grid-column: span 2."
+        },
+        {
+          "heading": "Gaps and Alignment",
+          "content": "gap (or row-gap/column-gap individually) adds space between tracks. justify-items/align-items align content within each cell; justify-content/align-content align the grid's tracks as a whole within the container, which matters when the tracks don't fill all the available space."
+        },
+        {
+          "heading": "Named Areas and Responsive Grids",
+          "content": "grid-template-areas lets you sketch a layout in the CSS itself using named regions, which items then claim with grid-area. Combining repeat() with minmax() and auto-fit builds a grid that reflows its own column count as the container resizes, with no media query needed."
+        }
+      ],
+      "examples": [
+        {
+          "title": "display: grid with grid-template-columns",
+          "code": "<div style=\"display:grid; grid-template-columns: 100px 100px 100px; gap:8px;\">\n  <div style=\"background:#eee; padding:8px;\">1</div>\n  <div style=\"background:#eee; padding:8px;\">2</div>\n  <div style=\"background:#eee; padding:8px;\">3</div>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "fr units for flexible tracks",
+          "code": "<div style=\"display:grid; grid-template-columns: 2fr 1fr; gap:8px;\">\n  <div style=\"background:#eee; padding:8px;\">Takes 2 parts</div>\n  <div style=\"background:#eee; padding:8px;\">Takes 1 part</div>\n</div>",
+          "note": "fr divides the container's remaining space proportionally — 2fr is always twice as wide as 1fr here."
+        },
+        {
+          "title": "Spanning an item across columns",
+          "code": "<div style=\"display:grid; grid-template-columns: repeat(3, 1fr); gap:8px;\">\n  <div style=\"grid-column: span 2; background:#eee; padding:8px;\">Spans 2 columns</div>\n  <div style=\"background:#eee; padding:8px;\">Normal</div>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "gap property",
+          "code": "<div style=\"display:grid; grid-template-columns: repeat(2, 1fr); gap: 20px;\">\n  <div style=\"background:#eee; padding:8px;\">A</div>\n  <div style=\"background:#eee; padding:8px;\">B</div>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "grid-template-areas named layout",
+          "code": "<div style=\"display:grid; grid-template-columns: 1fr 3fr; grid-template-areas: 'sidebar main';\">\n  <div style=\"grid-area: sidebar; background:#eee; padding:8px;\">Sidebar</div>\n  <div style=\"grid-area: main; background:#fff; padding:8px;\">Main</div>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "repeat() shorthand",
+          "code": "<div style=\"display:grid; grid-template-columns: repeat(4, 1fr); gap:8px;\">\n  <div style=\"background:#eee;\">1</div><div style=\"background:#eee;\">2</div>\n  <div style=\"background:#eee;\">3</div><div style=\"background:#eee;\">4</div>\n</div>",
+          "note": "repeat(4, 1fr) is shorthand for typing 1fr 1fr 1fr 1fr."
+        },
+        {
+          "title": "minmax() with auto-fit — a responsive card grid",
+          "code": "<div style=\"display:grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap:8px;\">\n  <div style=\"background:#eee; padding:8px;\">Card</div>\n  <div style=\"background:#eee; padding:8px;\">Card</div>\n  <div style=\"background:#eee; padding:8px;\">Card</div>\n</div>",
+          "note": "The number of columns adjusts automatically as the container resizes — no media query needed."
+        },
+        {
+          "title": "A full page layout with named areas",
+          "code": "<div style=\"display:grid; grid-template-columns: 200px 1fr; grid-template-rows: auto 1fr auto;\n  grid-template-areas: 'header header' 'sidebar main' 'footer footer'; min-height:250px; gap:8px;\">\n  <header style=\"grid-area:header; background:#211f2e; color:white; padding:8px;\">Header</header>\n  <aside style=\"grid-area:sidebar; background:#eee; padding:8px;\">Sidebar</aside>\n  <main style=\"grid-area:main; background:#fff; padding:8px;\">Main</main>\n  <footer style=\"grid-area:footer; background:#211f2e; color:white; padding:8px;\">Footer</footer>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "justify-content vs. justify-items",
+          "code": "<!-- justify-items: aligns content WITHIN each cell -->\n<div style=\"display:grid; grid-template-columns: repeat(3,60px); justify-items:center;\">\n  <div style=\"background:#eee;\">A</div>\n</div>\n\n<!-- justify-content: aligns the whole set of tracks within the container -->\n<div style=\"display:grid; grid-template-columns: repeat(3,60px); justify-content:center; width:400px;\">\n  <div style=\"background:#eee;\">A</div>\n</div>",
+          "note": ""
+        },
+        {
+          "title": "Grid vs. Flexbox — when to reach for which",
+          "code": "<!-- Flexbox: one dimension — a row of nav links -->\n<nav style=\"display:flex; gap:12px;\">...</nav>\n\n<!-- Grid: two dimensions — a whole page skeleton -->\n<div style=\"display:grid; grid-template-columns: 200px 1fr; grid-template-rows: auto 1fr;\">...</div>",
+          "note": "Rule of thumb: reach for Flexbox for a single row or column of items, and Grid when you need to control rows AND columns together."
+        }
+      ]
+    },
+    {
+      "id": "css-pseudo-classes",
+      "number": 36,
+      "tag": "css-selectors",
+      "unit": 3,
+      "title": "Pseudo Classes",
+      "icon": "fa-solid fa-hand-pointer",
+      "summary": "Interaction states, structural position selectors, form state, and negation.",
+      "lessons": [
+        {
+          "heading": "Interaction States",
+          "content": ":hover matches an element while the pointer is over it, :focus while it has keyboard focus, and :active while it's being clicked/pressed — these respond to what the user is doing right now, with no JavaScript required."
+        },
+        {
+          "heading": "Structural Pseudo-classes",
+          "content": ":first-child and :last-child match an element based on its position among its siblings. :nth-child(2), :nth-child(odd), or :nth-child(3n) match by position or a repeating pattern — commonly used for zebra-striping table rows. :only-child matches an element that has no sibling elements at all."
+        },
+        {
+          "heading": "Form State Pseudo-classes",
+          "content": ":checked matches a checked checkbox or radio, :disabled matches a disabled control, :required matches a field with the required attribute, and :valid/:invalid reflect the field's current constraint-validation state."
+        },
+        {
+          "heading": "Negation and Combining",
+          "content": ":not(selector) matches anything that does NOT match the given selector — useful for excluding one case from an otherwise broad rule. Pseudo-classes can be chained together on one selector, like a:hover:not(.disabled)."
+        }
+      ],
+      "examples": [
+        {
+          "title": ":hover on a link or button",
+          "code": "<style>\n  button:hover { background: #211f2e; color: white; }\n</style>\n<button>Hover over me</button>",
+          "note": ""
+        },
+        {
+          "title": ":focus-visible on an input",
+          "code": "<style>\n  input:focus-visible { outline: 3px solid #2563eb; outline-offset: 2px; }\n</style>\n<input type=\"text\" placeholder=\"Tab to me\">",
+          "note": ":focus-visible only shows the outline for keyboard focus, not every mouse click, in browsers that support it."
+        },
+        {
+          "title": ":nth-child(odd) for zebra-striped rows",
+          "code": "<style>\n  tr:nth-child(odd) { background: #f7f4ec; }\n</style>\n<table>\n  <tr><td>Row 1</td></tr>\n  <tr><td>Row 2</td></tr>\n  <tr><td>Row 3</td></tr>\n</table>",
+          "note": ""
+        },
+        {
+          "title": ":first-child and :last-child",
+          "code": "<style>\n  li:first-child { font-weight: bold; }\n  li:last-child { color: crimson; }\n</style>\n<ul><li>First</li><li>Middle</li><li>Last</li></ul>",
+          "note": ""
+        },
+        {
+          "title": ":checked styling a label",
+          "code": "<style>\n  input:checked + span { color: green; font-weight: bold; }\n</style>\n<label><input type=\"checkbox\"> <span>Check me</span></label>",
+          "note": "This combines :checked with the adjacent-sibling combinator to style the text next to a checked box."
+        },
+        {
+          "title": ":disabled dimming a button",
+          "code": "<style>\n  button:disabled { opacity: 0.5; cursor: not-allowed; }\n</style>\n<button disabled>Can't click this</button>",
+          "note": ""
+        },
+        {
+          "title": ":required marking mandatory fields",
+          "code": "<style>\n  input:required { border-left: 3px solid crimson; }\n</style>\n<input type=\"text\" required placeholder=\"Required field\">",
+          "note": ""
+        },
+        {
+          "title": ":not() excluding an element",
+          "code": "<style>\n  li:not(.skip) { color: navy; }\n</style>\n<ul>\n  <li>Styled navy</li>\n  <li class=\"skip\">Excluded from the rule</li>\n</ul>",
+          "note": ""
+        },
+        {
+          "title": "Combining :hover with :not(:disabled)",
+          "code": "<style>\n  button:not(:disabled):hover { background: #211f2e; color: white; }\n</style>\n<button>Hover works</button>\n<button disabled>Hover has no effect</button>",
+          "note": "Chaining pseudo-classes prevents a hover effect from applying to a button that's disabled."
+        }
+      ]
+    },
+    {
+      "id": "css-pseudo-elements",
+      "number": 37,
+      "tag": "css-selectors",
+      "unit": 3,
+      "title": "Pseudo Elements",
+      "icon": "fa-solid fa-paintbrush",
+      "summary": "Styling and inserting content into parts of an element that have no HTML node of their own.",
+      "lessons": [
+        {
+          "heading": "What a Pseudo-element Is",
+          "content": "A pseudo-element targets a sub-part of an element that doesn't exist as its own tag in the HTML — like the first letter of a paragraph, or content inserted purely by CSS. Pseudo-elements are written with a double colon (::) to distinguish them from pseudo-classes (:), though older code sometimes uses a single colon for compatibility."
+        },
+        {
+          "heading": "::before and ::after",
+          "content": "::before and ::after insert generated content immediately before or after an element's actual content, driven by the required content property — even content: \"\" (empty) is valid, often used just to create a styleable decorative box."
+        },
+        {
+          "heading": "::first-line and ::first-letter",
+          "content": "::first-line styles only the first rendered line of a text block (which can change with the viewport width). ::first-letter styles just the first character — the classic way to build a decorative drop-cap."
+        },
+        {
+          "heading": "::placeholder and ::selection",
+          "content": "::placeholder styles an input's placeholder text specifically, separate from the text the user actually types. ::selection styles text while the user has it highlighted/selected."
+        }
+      ],
+      "examples": [
+        {
+          "title": "::before inserting an icon-like label",
+          "code": "<style>\n  .warning::before { content: \"⚠ \"; }\n</style>\n<p class=\"warning\">This action can't be undone.</p>",
+          "note": ""
+        },
+        {
+          "title": "::after inserting decorative content",
+          "code": "<style>\n  .external::after { content: \" ↗\"; }\n</style>\n<a href=\"#\" class=\"external\">Visit site</a>",
+          "note": ""
+        },
+        {
+          "title": "A visual-only divider with ::before",
+          "code": "<style>\n  .divider::before {\n    content: \"\";\n    display: block;\n    height: 2px;\n    background: #ccc;\n    margin: 16px 0;\n  }\n</style>\n<div class=\"divider\"></div>",
+          "note": "content: \"\" is required even when there's no text — the pseudo-element wouldn't render at all without it."
+        },
+        {
+          "title": "::first-letter drop-cap",
+          "code": "<style>\n  p::first-letter { font-size: 2.5em; font-weight: bold; float: left; margin-right: 4px; }\n</style>\n<p>Once upon a time, in a small café...</p>",
+          "note": ""
+        },
+        {
+          "title": "::first-line styling",
+          "code": "<style>\n  p::first-line { font-weight: bold; color: #211f2e; }\n</style>\n<p>This first line renders bold, no matter how the text wraps as the container resizes.</p>",
+          "note": ""
+        },
+        {
+          "title": "::placeholder styling",
+          "code": "<style>\n  input::placeholder { color: #aaa; font-style: italic; }\n</style>\n<input type=\"text\" placeholder=\"Search…\">",
+          "note": ""
+        },
+        {
+          "title": "::selection styling",
+          "code": "<style>\n  ::selection { background: #c4406b; color: white; }\n</style>\n<p>Select this text to see the custom highlight color.</p>",
+          "note": ""
+        },
+        {
+          "title": "A tooltip built with ::after and attr()",
+          "code": "<style>\n  .tooltip { position: relative; }\n  .tooltip::after {\n    content: attr(data-tip);\n    position: absolute; bottom: 100%; left: 0;\n    background: #211f2e; color: white; padding: 4px 8px; border-radius: 4px;\n    font-size: 12px; white-space: nowrap; display: none;\n  }\n  .tooltip:hover::after { display: block; }\n</style>\n<span class=\"tooltip\" data-tip=\"I'm a tooltip!\">Hover me</span>",
+          "note": "attr(data-tip) reads the value straight from the HTML's data-tip attribute into the generated content."
+        },
+        {
+          "title": "Numbered list items with ::before and counters",
+          "code": "<style>\n  ol.custom { list-style: none; counter-reset: step; }\n  ol.custom li { counter-increment: step; }\n  ol.custom li::before { content: \"Step \" counter(step) \": \"; font-weight: bold; }\n</style>\n<ol class=\"custom\">\n  <li>Preheat the oven</li>\n  <li>Mix the batter</li>\n</ol>",
+          "note": "A brief look at CSS counters — a more flexible alternative to the browser's built-in numbering."
+        }
+      ]
+    },
+    {
+      "id": "css-attribute-selectors",
+      "number": 38,
+      "tag": "css-selectors",
+      "unit": 3,
+      "title": "Attribute Selectors",
+      "icon": "fa-solid fa-at",
+      "summary": "Selecting elements by the presence, exact value, or partial match of an HTML attribute.",
+      "lessons": [
+        {
+          "heading": "Presence and Exact Value",
+          "content": "[attr] matches any element that has that attribute at all, regardless of its value. [attr=\"value\"] matches only when the attribute's value is exactly that string."
+        },
+        {
+          "heading": "Partial Matches",
+          "content": "[attr~=\"value\"] matches a value appearing as a whole word in a space-separated list. [attr^=\"value\"] matches values starting with that string, [attr$=\"value\"] matches values ending with it, and [attr*=\"value\"] matches values containing it anywhere."
+        },
+        {
+          "heading": "Case Sensitivity",
+          "content": "Adding a space and the letter i just before the closing bracket, like [attr=\"value\" i], makes the value comparison case-insensitive."
+        },
+        {
+          "heading": "Practical Uses",
+          "content": "Attribute selectors let you style elements based on data already in the markup — like an input's type, or a link's href pattern — without adding extra classes just for styling hooks."
+        }
+      ],
+      "examples": [
+        {
+          "title": "[attr] — presence selector",
+          "code": "<style>\n  [title] { border-bottom: 1px dotted #999; cursor: help; }\n</style>\n<span title=\"More info here\">Hover for a tooltip</span>",
+          "note": ""
+        },
+        {
+          "title": "[attr=\"value\"] — exact match",
+          "code": "<style>\n  [data-status=\"active\"] { color: green; }\n</style>\n<span data-status=\"active\">Active</span>",
+          "note": ""
+        },
+        {
+          "title": "[href^=\"https\"] — starts with",
+          "code": "<style>\n  a[href^=\"https\"]::after { content: \" 🔒\"; }\n</style>\n<a href=\"https://example.com\">Secure link</a>",
+          "note": "A common pattern for flagging secure or external links purely through CSS."
+        },
+        {
+          "title": "[href$=\".pdf\"] — ends with",
+          "code": "<style>\n  a[href$=\".pdf\"]::after { content: \" (PDF)\"; font-size: 0.85em; color: #666; }\n</style>\n<a href=\"report.pdf\">Annual report</a>",
+          "note": ""
+        },
+        {
+          "title": "[class*=\"btn\"] — contains",
+          "code": "<style>\n  [class*=\"btn\"] { padding: 8px 16px; border-radius: 6px; }\n</style>\n<button class=\"btn-primary\">Matched</button>",
+          "note": "Matches any class containing \"btn\" anywhere, like btn-primary or my-btn-large."
+        },
+        {
+          "title": "[lang=\"fr\"] — language-based styling",
+          "code": "<style>\n  [lang=\"fr\"] { font-style: italic; }\n</style>\n<span lang=\"fr\">Bonjour le monde</span>",
+          "note": ""
+        },
+        {
+          "title": "input[type=\"checkbox\"] — styling by type, no class needed",
+          "code": "<style>\n  input[type=\"checkbox\"] { width: 18px; height: 18px; }\n</style>\n<input type=\"checkbox\">",
+          "note": ""
+        },
+        {
+          "title": "[target=\"_blank\"] — flagging new-tab links",
+          "code": "<style>\n  a[target=\"_blank\"]::after { content: \" ↗\"; }\n</style>\n<a href=\"#\" target=\"_blank\">Opens in a new tab</a>",
+          "note": ""
+        },
+        {
+          "title": "Case-insensitive attribute match with the i flag",
+          "code": "<style>\n  [data-type=\"warning\" i] { color: orange; }\n</style>\n<span data-type=\"Warning\">Matches despite the capital W</span>",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "css-form-styling",
+      "number": 39,
+      "tag": "forms",
+      "unit": 3,
+      "title": "Form Styling",
+      "icon": "fa-solid fa-pen-ruler",
+      "summary": "Styling inputs, buttons, and selects, and pairing validation state with clear visual feedback.",
+      "lessons": [
+        {
+          "heading": "Styling Text Inputs and Textareas",
+          "content": "border, padding, and border-radius reshape a field's basic appearance; changing border-color (or adding a box-shadow) on :focus gives clear feedback about which field is currently active."
+        },
+        {
+          "heading": "Custom Buttons",
+          "content": "appearance: none strips a control's native OS-drawn appearance as a clean base, after which background, border, padding, and border-radius can build a fully custom look."
+        },
+        {
+          "heading": "Styling Selects and Checkboxes",
+          "content": "A <code>&lt;select&gt;</code>'s border, padding, and background are straightforward to restyle. Its native dropdown arrow, and native checkbox/radio glyphs, are notoriously inconsistent to restyle across browsers — many teams either accept the native look for these specific pieces or replace them with a custom-built widget entirely."
+        },
+        {
+          "heading": "Validation State Styling",
+          "content": "Pairing the :valid, :invalid, and :focus pseudo-classes with color changes (and a short transition) gives the user immediate, low-friction feedback as they fill out a form, before they even reach the submit button."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Styling a text input's border and padding",
+          "code": "<style>\n  input[type=\"text\"] {\n    border: 1px solid #ccc;\n    border-radius: 6px;\n    padding: 8px 12px;\n    font-size: 14px;\n  }\n</style>\n<input type=\"text\" placeholder=\"Your name\">",
+          "note": ""
+        },
+        {
+          "title": ":focus state styling",
+          "code": "<style>\n  input:focus {\n    border-color: #2563eb;\n    box-shadow: 0 0 0 3px rgba(37,99,235,0.2);\n    outline: none;\n  }\n</style>\n<input type=\"text\" placeholder=\"Click me\">",
+          "note": "Removing the default outline is only acceptable because it's replaced here with an equally visible focus style."
+        },
+        {
+          "title": "A custom-styled submit button",
+          "code": "<style>\n  .btn {\n    background: #c4406b; color: white; border: none;\n    padding: 10px 20px; border-radius: 8px; font-weight: 600;\n  }\n  .btn:hover { background: #a8355a; }\n</style>\n<button class=\"btn\" type=\"submit\">Submit</button>",
+          "note": ""
+        },
+        {
+          "title": "appearance: none as a reset base",
+          "code": "<style>\n  select {\n    appearance: none;\n    border: 1px solid #ccc;\n    border-radius: 6px;\n    padding: 8px 12px;\n    background: #fff;\n  }\n</style>\n<select><option>Choice A</option></select>",
+          "note": "This removes the OS-native styling; a common follow-up is adding a custom-drawn dropdown arrow with a background-image."
+        },
+        {
+          "title": "Styling a select's border and padding",
+          "code": "<style>\n  select { border: 1px solid #ccc; border-radius: 6px; padding: 8px; }\n</style>\n<select><option>Small</option><option>Medium</option></select>",
+          "note": ""
+        },
+        {
+          "title": "A styled checkbox using :checked and a sibling selector",
+          "code": "<style>\n  .toggle input { display: none; }\n  .toggle span { border: 2px solid #ccc; border-radius: 4px; padding: 4px 10px; display:inline-block; }\n  .toggle input:checked + span { background: #c4406b; color: white; border-color: #c4406b; }\n</style>\n<label class=\"toggle\"><input type=\"checkbox\"><span>Toggle me</span></label>",
+          "note": "Hiding the native checkbox and styling a sibling element is a common way to build a fully custom toggle."
+        },
+        {
+          "title": ":invalid and :valid border coloring",
+          "code": "<style>\n  input:invalid { border-color: #d9534f; }\n  input:valid { border-color: #3c9a5f; }\n</style>\n<input type=\"email\" required placeholder=\"you@example.com\">",
+          "note": ""
+        },
+        {
+          "title": "Disabled input styling",
+          "code": "<style>\n  input:disabled { background: #f0f0f0; color: #999; cursor: not-allowed; }\n</style>\n<input type=\"text\" value=\"Can't edit\" disabled>",
+          "note": ""
+        },
+        {
+          "title": "A complete styled form",
+          "code": "<style>\n  form { display:flex; flex-direction:column; gap:12px; max-width:280px; }\n  form input { border:1px solid #ccc; border-radius:6px; padding:8px 12px; }\n  form input:focus { border-color:#2563eb; outline:none; }\n  form button { background:#211f2e; color:white; border:none; border-radius:6px; padding:10px; }\n</style>\n<form>\n  <input type=\"text\" placeholder=\"Name\">\n  <input type=\"email\" placeholder=\"Email\">\n  <button type=\"submit\">Send</button>\n</form>",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "css-variables",
+      "number": 40,
+      "tag": "css-basics",
+      "unit": 3,
+      "title": "CSS Variables",
+      "icon": "fa-solid fa-code-branch",
+      "summary": "Custom properties: declaring, scoping, providing fallbacks, and using them for live, runtime-editable theming.",
+      "lessons": [
+        {
+          "heading": "Declaring and Using Custom Properties",
+          "content": "A custom property is declared with two leading dashes, like --main-color: #c4406b;, usually on :root for page-wide scope. It's read anywhere with var(--main-color)."
+        },
+        {
+          "heading": "Scope",
+          "content": "A custom property is available to the element it's declared on and every one of its descendants. Redeclaring the same variable name on a nested element overrides it locally, without affecting the rest of the page."
+        },
+        {
+          "heading": "Fallback Values",
+          "content": "var(--name, fallback) supplies a fallback value to use if --name hasn't been defined (or was defined with an invalid value) — handy for components meant to be dropped into pages that might not define every variable."
+        },
+        {
+          "heading": "Why Custom Properties Beat Preprocessor Variables Here",
+          "content": "A Sass or Less variable is replaced with its value at build time and is fixed forever after that. A CSS custom property is live in the browser — it can be changed at runtime with JavaScript, or redefined inside a media query, letting one line of change (like flipping a theme) cascade through everywhere it's used."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Declaring variables on :root",
+          "code": "<style>\n  :root {\n    --brand-color: #c4406b;\n    --spacing: 16px;\n  }\n</style>",
+          "note": ":root has the highest specificity typically used for global variables, making them available everywhere on the page."
+        },
+        {
+          "title": "Using var() in multiple declarations",
+          "code": "<style>\n  :root { --brand-color: #c4406b; }\n  h1 { color: var(--brand-color); }\n  .btn { background: var(--brand-color); }\n</style>",
+          "note": "Both rules pull from the same single source of truth."
+        },
+        {
+          "title": "A fallback value with var()",
+          "code": "<style>\n  .card { padding: var(--card-padding, 12px); }\n</style>\n<div class=\"card\">Uses 12px since --card-padding isn't defined anywhere.</div>",
+          "note": ""
+        },
+        {
+          "title": "Overriding a variable in a nested scope",
+          "code": "<style>\n  :root { --text-color: black; }\n  .dark-panel { --text-color: white; background: #211f2e; }\n  p { color: var(--text-color); }\n</style>\n<div class=\"dark-panel\"><p>White text, only inside this panel</p></div>\n<p>Black text, everywhere else</p>",
+          "note": ""
+        },
+        {
+          "title": "A variable-driven color theme",
+          "code": "<style>\n  :root { --brand: #c4406b; }\n  h2 { color: var(--brand); }\n  .btn { background: var(--brand); color: white; }\n  .badge { border: 1px solid var(--brand); }\n</style>\n<!-- Change just --brand once, and all three update together -->",
+          "note": ""
+        },
+        {
+          "title": "Variables combined with calc()",
+          "code": "<style>\n  :root { --gap: 8px; }\n  .stack > * + * { margin-top: calc(var(--gap) * 2); }\n</style>",
+          "note": ""
+        },
+        {
+          "title": "Redefining a variable inside a media query",
+          "code": "<style>\n  :root { --bg: white; --text: black; }\n  @media (prefers-color-scheme: dark) {\n    :root { --bg: #1a1a1a; --text: #f0f0f0; }\n  }\n  body { background: var(--bg); color: var(--text); }\n</style>",
+          "note": "A dark-mode switch driven entirely by redefining two variables, rather than duplicating every rule."
+        },
+        {
+          "title": "Component-scoped variables",
+          "code": "<style>\n  .card { --card-gap: 12px; padding: var(--card-gap); }\n  .card.compact { --card-gap: 6px; }\n</style>\n<div class=\"card compact\">Tighter padding, same rule</div>",
+          "note": ""
+        },
+        {
+          "title": "Hardcoded values vs. variables, compared",
+          "code": "<!-- Hardcoded: change the color in 3 different places -->\n<style>\n  h2 { color: #c4406b; }\n  .btn { background: #c4406b; }\n</style>\n\n<!-- Variable: change it in exactly 1 place -->\n<style>\n  :root { --brand: #c4406b; }\n  h2 { color: var(--brand); }\n  .btn { background: var(--brand); }\n</style>",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "css-responsive",
+      "number": 41,
+      "tag": "css-layout",
+      "unit": 3,
+      "title": "Responsive Web Design",
+      "icon": "fa-solid fa-tablet-screen-button",
+      "summary": "Breakpoint strategy, responsive media, dark mode and print media features, and container queries.",
+      "lessons": [
+        {
+          "heading": "Media Query Breakpoints in Practice",
+          "content": "A mobile-first approach uses min-width media queries to layer on complexity as the screen grows; a desktop-first approach uses max-width to strip complexity away for smaller screens. Mixing both styles inconsistently in the same project is a common source of confusing, hard-to-maintain CSS — pick one convention and stick to it."
+        },
+        {
+          "heading": "Responsive Media",
+          "content": "object-fit: cover scales an image or video to fill its box without distorting its aspect ratio, cropping whatever doesn't fit — much like a CSS background-size:cover, but for a real <code>&lt;img&gt;</code> or <code>&lt;video&gt;</code> element. aspect-ratio reserves the right amount of space for media before it even finishes loading, preventing layout jumps."
+        },
+        {
+          "heading": "Other Useful Media Features",
+          "content": "prefers-color-scheme: dark matches when the user's OS is set to a dark theme. orientation: landscape/portrait matches the device's current rotation. A @media print block defines styles that only apply when a page is actually printed."
+        },
+        {
+          "heading": "Container Queries",
+          "content": "A newer alternative to viewport-based media queries: with container-type set on a wrapper, a @container query lets a component respond to the size of its own container, not the whole browser window — useful for a component that might be dropped into a wide main column or a narrow sidebar."
+        }
+      ],
+      "examples": [
+        {
+          "title": "A mobile-first min-width breakpoint",
+          "code": "<style>\n  .box { font-size: 14px; }\n  @media (min-width: 768px) {\n    .box { font-size: 18px; }\n  }\n</style>",
+          "note": "Base styles target the smallest screens; the media query only adds complexity once there's room."
+        },
+        {
+          "title": "A desktop-first max-width breakpoint",
+          "code": "<style>\n  .box { font-size: 18px; }\n  @media (max-width: 767px) {\n    .box { font-size: 14px; }\n  }\n</style>",
+          "note": "The opposite convention — base styles assume a large screen, then simplify downward. Pick one convention per project."
+        },
+        {
+          "title": "object-fit: cover on an image",
+          "code": "<img src=\"media/hero.jpg\" alt=\"Team photo\" style=\"width:100%; height:150px; object-fit:cover;\">",
+          "note": "The image fills the box exactly, cropping as needed, instead of squishing out of proportion."
+        },
+        {
+          "title": "aspect-ratio reserving space before content loads",
+          "code": "<img src=\"media/hero.jpg\" alt=\"Team photo\" style=\"width:100%; aspect-ratio: 16/9; object-fit:cover;\">",
+          "note": "The browser reserves this exact box before the image finishes downloading, preventing a layout jump."
+        },
+        {
+          "title": "prefers-color-scheme: dark",
+          "code": "<style>\n  body { background: white; color: black; }\n  @media (prefers-color-scheme: dark) {\n    body { background: #1a1a1a; color: #f0f0f0; }\n  }\n</style>",
+          "note": ""
+        },
+        {
+          "title": "orientation: landscape",
+          "code": "<style>\n  .banner { height: 100px; }\n  @media (orientation: landscape) {\n    .banner { height: 60px; }\n  }\n</style>",
+          "note": ""
+        },
+        {
+          "title": "A print-only stylesheet rule",
+          "code": "<style>\n  @media print {\n    nav, footer, .no-print { display: none; }\n    body { color: black; }\n  }\n</style>",
+          "note": "Hides navigation and other on-screen-only elements when the page is actually printed."
+        },
+        {
+          "title": "A @container query (a modern, newer feature)",
+          "code": "<style>\n  .card-wrap { container-type: inline-size; }\n  .card { display: block; }\n  @container (min-width: 400px) {\n    .card { display: flex; gap: 12px; }\n  }\n</style>",
+          "note": "Support varies by browser version — check current compatibility before relying on this for critical layout."
+        },
+        {
+          "title": "Combining several media features together",
+          "code": "<style>\n  @media (min-width: 768px) and (orientation: landscape) {\n    .grid { grid-template-columns: repeat(3, 1fr); }\n  }\n</style>",
+          "note": "and chains multiple conditions that must all be true for the rule to apply."
+        }
+      ]
+    },
+    {
+      "id": "css-animations",
+      "number": 42,
+      "tag": "css-motion",
+      "unit": 3,
+      "title": "CSS Animations",
+      "icon": "fa-solid fa-film",
+      "summary": "@keyframes, the animation shorthand, playback control, and performance-friendly properties to animate.",
+      "lessons": [
+        {
+          "heading": "@keyframes",
+          "content": "@keyframes defines a named sequence of style states at percentage checkpoints from 0% to 100% (or the from/to shorthand for just two steps). An element is then linked to that sequence with the animation-name property."
+        },
+        {
+          "heading": "The animation Shorthand and Its Longhands",
+          "content": "animation-duration sets how long one cycle takes, animation-timing-function shapes its pacing (ease, linear, cubic-bezier), animation-iteration-count sets how many times it repeats (a number, or infinite), animation-direction can alternate back and forth, and animation-fill-mode controls what the element looks like before/after the animation runs. The animation shorthand combines all of these in one declaration."
+        },
+        {
+          "heading": "Controlling Playback",
+          "content": "animation-play-state can pause and resume an animation (often toggled with :hover or JavaScript). prefers-reduced-motion is a media feature that matches when a user has requested less motion at the OS level — respecting it (usually by disabling or simplifying animations) is an accessibility best practice."
+        },
+        {
+          "heading": "Animating Practically",
+          "content": "transform and opacity animate smoothly because the browser can handle them without recalculating page layout. Animating properties like width, top, or margin forces the browser to repeatedly recompute layout, which can look janky — prefer a transform-based equivalent (like translateX instead of changing left) wherever possible."
+        }
+      ],
+      "examples": [
+        {
+          "title": "A basic @keyframes fade-in",
+          "code": "<style>\n  @keyframes fadeIn {\n    from { opacity: 0; }\n    to { opacity: 1; }\n  }\n  .box { animation: fadeIn 1s ease; }\n</style>\n<div class=\"box\">Fades in on load</div>",
+          "note": ""
+        },
+        {
+          "title": "Multiple keyframe steps",
+          "code": "<style>\n  @keyframes pulse {\n    0% { transform: scale(1); }\n    50% { transform: scale(1.1); }\n    100% { transform: scale(1); }\n  }\n  .box { animation: pulse 1.5s ease infinite; }\n</style>\n<div class=\"box\">Pulses continuously</div>",
+          "note": ""
+        },
+        {
+          "title": "animation-iteration-count: infinite — a loading spinner",
+          "code": "<style>\n  @keyframes spin { to { transform: rotate(360deg); } }\n  .spinner {\n    width:30px; height:30px; border:4px solid #eee; border-top-color:#c4406b;\n    border-radius:50%; animation: spin 0.8s linear infinite;\n  }\n</style>\n<div class=\"spinner\"></div>",
+          "note": ""
+        },
+        {
+          "title": "animation-direction: alternate",
+          "code": "<style>\n  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(40px); } }\n  .box { animation: slide 1s ease infinite alternate; }\n</style>\n<div class=\"box\" style=\"width:20px;height:20px;background:#c4406b;\"></div>",
+          "note": "alternate makes the animation reverse on every other cycle, instead of always snapping back to the start."
+        },
+        {
+          "title": "animation-fill-mode: forwards",
+          "code": "<style>\n  @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }\n  .box { animation: fadeUp 0.6s ease forwards; }\n</style>\n<div class=\"box\">Stays visible after the animation ends</div>",
+          "note": "Without forwards, the element would snap back to its 0% (from) styles the instant the animation finished."
+        },
+        {
+          "title": "animation-timing-function compared",
+          "code": "<style>\n  @keyframes move { to { transform: translateX(100px); } }\n  .linear { animation: move 2s linear infinite alternate; }\n  .ease { animation: move 2s ease infinite alternate; }\n</style>\n<div class=\"linear\" style=\"width:20px;height:20px;background:#333;margin-bottom:8px;\"></div>\n<div class=\"ease\" style=\"width:20px;height:20px;background:#c4406b;\"></div>",
+          "note": "linear moves at a constant speed; ease starts and ends slower, which usually feels more natural."
+        },
+        {
+          "title": "Respecting prefers-reduced-motion",
+          "code": "<style>\n  .box { animation: pulse 1.5s ease infinite; }\n  @media (prefers-reduced-motion: reduce) {\n    .box { animation: none; }\n  }\n</style>",
+          "note": "Turns off the animation entirely for users who've asked their OS for reduced motion."
+        },
+        {
+          "title": "Pausing an animation on hover",
+          "code": "<style>\n  .spinner { animation: spin 1s linear infinite; }\n  .spinner:hover { animation-play-state: paused; }\n  @keyframes spin { to { transform: rotate(360deg); } }\n</style>\n<div class=\"spinner\" style=\"width:24px;height:24px;border:3px solid #ccc;border-top-color:#333;border-radius:50%;\"></div>",
+          "note": ""
+        },
+        {
+          "title": "Animating transform instead of top/left",
+          "code": "<!-- Prefer: animates smoothly, no layout recalculation -->\n<style>\n  @keyframes moveGood { to { transform: translateX(50px); } }\n</style>\n\n<!-- Avoid for animation: forces layout recalculation every frame -->\n<style>\n  @keyframes moveBad { to { left: 50px; } }\n</style>",
+          "note": "Both can produce the same visual result, but the transform version is far cheaper for the browser to render smoothly."
+        }
+      ]
+    },
+    {
+      "id": "css-transitions",
+      "number": 43,
+      "tag": "css-motion",
+      "unit": 3,
+      "title": "CSS Transitions",
+      "icon": "fa-solid fa-wand-magic-sparkles",
+      "summary": "Smoothly animating between two states in response to a trigger like :hover or a class change.",
+      "lessons": [
+        {
+          "heading": "The transition Property",
+          "content": "transition-property names which property to animate, transition-duration sets how long, transition-timing-function shapes the pacing, and transition-delay waits before starting. The transition shorthand combines all four: transition: background-color 0.3s ease 0s;"
+        },
+        {
+          "heading": "Transitions vs. Animations",
+          "content": "A transition needs a state change to trigger it — like :hover, :focus, or a class being toggled by JavaScript — and only moves from one state (A) to another (B). A @keyframes animation can run automatically on its own, looping through as many steps as you define, with no trigger required."
+        },
+        {
+          "heading": "Transitioning Multiple Properties",
+          "content": "Comma-separate several transition-property values (each can have its own duration/timing), or use the all keyword to transition every animatable property that changes — though all can be a performance and predictability trade-off, since it transitions properties you might not have intended."
+        },
+        {
+          "heading": "Common Transition Patterns",
+          "content": "A button that shifts color and lifts slightly on hover, a dropdown or accordion whose max-height transitions open and closed, and an image that scales up slightly on hover — a small set of patterns covers most real-world use of transitions."
+        }
+      ],
+      "examples": [
+        {
+          "title": "A basic hover color transition",
+          "code": "<style>\n  .btn { background: #211f2e; color:white; padding:10px 18px; border:none; border-radius:6px; transition: background 0.3s ease; }\n  .btn:hover { background: #c4406b; }\n</style>\n<button class=\"btn\">Hover me</button>",
+          "note": ""
+        },
+        {
+          "title": "The transition shorthand syntax",
+          "code": "<style>\n  .box { transition: transform 0.4s ease-out; }\n  .box:hover { transform: scale(1.05); }\n</style>",
+          "note": "property duration timing-function delay, in that order — delay can be omitted when it's zero."
+        },
+        {
+          "title": "Transitioning multiple properties with different timings",
+          "code": "<style>\n  .card {\n    transition: transform 0.3s ease, box-shadow 0.5s ease;\n  }\n  .card:hover {\n    transform: translateY(-4px);\n    box-shadow: 0 8px 16px rgba(0,0,0,0.15);\n  }\n</style>",
+          "note": ""
+        },
+        {
+          "title": "transition-timing-function compared",
+          "code": "<style>\n  .linear { transition: transform 1s linear; }\n  .bounce { transition: transform 1s cubic-bezier(.68,-0.55,.27,1.55); }\n</style>",
+          "note": "cubic-bezier() lets you define a fully custom pacing curve, like a slight overshoot/bounce."
+        },
+        {
+          "title": "transition-delay",
+          "code": "<style>\n  .box { transition: opacity 0.4s ease 0.2s; }\n  .box:hover { opacity: 0.5; }\n</style>",
+          "note": "The change waits 0.2s after the hover starts before it begins animating."
+        },
+        {
+          "title": "A button hover lift-and-shadow effect",
+          "code": "<style>\n  .btn {\n    transition: transform 0.2s ease, box-shadow 0.2s ease;\n    padding:10px 20px; border:none; border-radius:8px; background:#c4406b; color:white;\n  }\n  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.2); }\n</style>\n<button class=\"btn\">Hover me</button>",
+          "note": ""
+        },
+        {
+          "title": "Image zoom-on-hover with transition + transform",
+          "code": "<style>\n  .thumb { overflow: hidden; width:120px; height:80px; }\n  .thumb img { width:100%; height:100%; object-fit:cover; transition: transform 0.4s ease; }\n  .thumb:hover img { transform: scale(1.15); }\n</style>\n<div class=\"thumb\"><img src=\"media/g1.jpg\" alt=\"Sunset over the bay\"></div>",
+          "note": "overflow:hidden on the wrapper clips the zoomed image so it doesn't spill outside its box."
+        },
+        {
+          "title": "A smooth accordion reveal using max-height",
+          "code": "<style>\n  .panel { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }\n  .accordion:hover .panel { max-height: 100px; }\n</style>\n<div class=\"accordion\">\n  <div>Click/hover to reveal</div>\n  <div class=\"panel\"><p>Hidden content that smoothly expands into view.</p></div>\n</div>",
+          "note": "Transitioning height directly doesn't work from 0 to auto — animating max-height to a large-enough fixed value is the common workaround."
+        },
+        {
+          "title": "transition: all, and why to prefer being explicit",
+          "code": "<!-- Works, but transitions everything that happens to change -->\n<style>\n  .box { transition: all 0.3s ease; }\n</style>\n\n<!-- Clearer and more predictable -->\n<style>\n  .box { transition: background-color 0.3s ease, transform 0.3s ease; }\n</style>",
+          "note": "Being explicit about which properties transition avoids accidentally animating something unexpected, and can be cheaper to render."
+        }
+      ]
     }
   ]
 };

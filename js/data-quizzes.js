@@ -875,6 +875,636 @@ window.QUIZZES_DATA = {
         "answer": 1,
         "explain": "order changes how content looks, not the underlying source order that keyboard/tab navigation and screen readers rely on."
       }
+    ],
+    "css-intro": [
+      {
+        "q": "Which method of adding CSS is generally recommended for a multi-page site?",
+        "opts": [
+          "Inline styles on every element",
+          "An internal <style> block on each page",
+          "An external stylesheet via <link>",
+          "None — CSS should be avoided"
+        ],
+        "answer": 2,
+        "explain": "External stylesheets are cacheable and reusable across every page that links them, keeping markup clean."
+      },
+      {
+        "q": "What is the correct syntax for a CSS comment?",
+        "opts": [
+          "// comment",
+          "<!-- comment -->",
+          "/* comment */",
+          "# comment"
+        ],
+        "answer": 2,
+        "explain": "CSS comments use /* ... */, unlike HTML's <!-- --> or JavaScript's //."
+      },
+      {
+        "q": "When two rules have equal specificity, which one wins?",
+        "opts": [
+          "The shorter one",
+          "The one written first",
+          "The one that appears later in the stylesheet",
+          "Neither applies"
+        ],
+        "answer": 2,
+        "explain": "On a specificity tie, the cascade falls back to source order — the later rule wins."
+      }
+    ],
+    "css-selectors": [
+      {
+        "q": "Which selector has the highest specificity?",
+        "opts": [
+          "p",
+          ".intro",
+          "#header",
+          "*"
+        ],
+        "answer": 2,
+        "explain": "ID selectors outrank class selectors, which outrank type/element selectors; the universal selector has the lowest specificity of all."
+      },
+      {
+        "q": "What does `div > p` select, that `div p` would not?",
+        "opts": [
+          "Any <p> nested anywhere inside a <div>",
+          "Only <p> elements that are direct children of a <div>",
+          "Only the first <p> in the document",
+          "Nothing — they're identical"
+        ],
+        "answer": 1,
+        "explain": "The child combinator (>) only matches direct children, while a plain space (descendant combinator) matches at any nesting depth."
+      },
+      {
+        "q": "What does !important do?",
+        "opts": [
+          "Makes text bold",
+          "Overrides normal specificity rules for that declaration",
+          "Adds a CSS comment",
+          "Increases font size"
+        ],
+        "answer": 1,
+        "explain": "!important overrides the normal cascade, which is powerful but should be used sparingly since it makes later overrides harder."
+      }
+    ],
+    "css-colors-backgrounds": [
+      {
+        "q": "What's the key difference between opacity and an rgba() alpha value?",
+        "opts": [
+          "They're identical",
+          "opacity fades the whole element including children; rgba alpha only fades that one color value",
+          "rgba only works on backgrounds",
+          "opacity only works in Firefox"
+        ],
+        "answer": 1,
+        "explain": "opacity affects the entire element and everything inside it, while an alpha channel in rgba()/hsla() only makes that specific color translucent."
+      },
+      {
+        "q": "Which CSS function creates a smooth color transition as a background image?",
+        "opts": [
+          "blend()",
+          "linear-gradient()",
+          "fade()",
+          "mix-color()"
+        ],
+        "answer": 1,
+        "explain": "linear-gradient() (and radial-gradient()) generate a gradient image on the fly, used as a background-image value."
+      },
+      {
+        "q": "In hsl(340, 60%, 45%), what does the third value control?",
+        "opts": [
+          "Hue",
+          "Saturation",
+          "Lightness",
+          "Alpha"
+        ],
+        "answer": 2,
+        "explain": "hsl() takes hue, saturation, and lightness in that order — lightness is the easiest to adjust for consistent shade variations."
+      }
+    ],
+    "css-units": [
+      {
+        "q": "Why is rem often preferred over em for font sizing?",
+        "opts": [
+          "rem is faster to render",
+          "rem is always relative to the root font-size, avoiding compounding when nested",
+          "em doesn't work in modern browsers",
+          "rem is the only unit supported on mobile"
+        ],
+        "answer": 1,
+        "explain": "em compounds against each nested parent's font-size, which can grow unpredictably; rem always refers back to the root, staying consistent."
+      },
+      {
+        "q": "What does calc(100% - 40px) let you do that plain percentages can't?",
+        "opts": [
+          "Nothing extra",
+          "Mix different units in one calculation",
+          "Only works with colors",
+          "Requires JavaScript"
+        ],
+        "answer": 1,
+        "explain": "calc() lets you combine units like % and px in a single expression."
+      },
+      {
+        "q": "1vh is equal to what?",
+        "opts": [
+          "1% of the element's own height",
+          "1% of the viewport's height",
+          "1 pixel",
+          "1% of the root font-size"
+        ],
+        "answer": 1,
+        "explain": "vh is 1% of the viewport's height, regardless of any parent element's size."
+      }
+    ],
+    "css-typography": [
+      {
+        "q": "Why should a font-family list end in a generic family like sans-serif?",
+        "opts": [
+          "It's required by HTML validators",
+          "It guarantees a fallback if none of the earlier fonts are available",
+          "It makes text bold",
+          "It has no real purpose"
+        ],
+        "answer": 1,
+        "explain": "The generic family at the end guarantees the browser always has something to fall back to."
+      },
+      {
+        "q": "What does a unitless line-height value like 1.5 do?",
+        "opts": [
+          "Sets a fixed 1.5px line height",
+          "Scales proportionally to the element's own font-size",
+          "Is invalid CSS",
+          "Only works with rem font sizes"
+        ],
+        "answer": 1,
+        "explain": "A unitless line-height multiplies against the element's own font-size, scaling safely if font-size changes later."
+      },
+      {
+        "q": "What does @font-face let you do?",
+        "opts": [
+          "Change the page's language",
+          "Load a custom font file for use in font-family",
+          "Resize all text on the page",
+          "Bold text automatically"
+        ],
+        "answer": 1,
+        "explain": "@font-face declares a custom font so it can be referenced by name in any font-family list."
+      }
+    ],
+    "css-text-styling": [
+      {
+        "q": "Which three properties together are needed for the classic text-truncation-with-ellipsis effect?",
+        "opts": [
+          "color, font-size, font-weight",
+          "white-space: nowrap, overflow: hidden, text-overflow: ellipsis",
+          "text-align, text-indent, line-height",
+          "display: flex, gap, justify-content"
+        ],
+        "answer": 1,
+        "explain": "All three are required together — text-overflow: ellipsis alone does nothing without the other two."
+      },
+      {
+        "q": "Does text-transform: uppercase change the actual text content in the HTML?",
+        "opts": [
+          "Yes, permanently",
+          "No — only the visual display changes",
+          "Only in Chrome",
+          "Only if !important is used"
+        ],
+        "answer": 1,
+        "explain": "text-transform is purely visual; the underlying text (and what a screen reader announces, in most cases) stays as written."
+      },
+      {
+        "q": "What does overflow-wrap: break-word help with?",
+        "opts": [
+          "Centering text",
+          "Letting a single long word break mid-word instead of overflowing its box",
+          "Removing all spaces",
+          "Changing font color"
+        ],
+        "answer": 1,
+        "explain": "It allows unbreakable long words (like a long URL) to wrap within a narrow container instead of spilling out."
+      }
+    ],
+    "css-box-model": [
+      {
+        "q": "In the default content-box model, does padding add to an element's set width?",
+        "opts": [
+          "No, padding is always outside the width",
+          "Yes — width sets only the content area, padding and border are added on top",
+          "Padding replaces the width value",
+          "Only border adds to width, not padding"
+        ],
+        "answer": 1,
+        "explain": "With content-box (the default), the box's rendered size is width + padding + border combined."
+      },
+      {
+        "q": "What does box-sizing: border-box change?",
+        "opts": [
+          "Nothing visible",
+          "Makes width/height include padding and border, so the set size is the final rendered size",
+          "Removes all borders",
+          "Only affects margin"
+        ],
+        "answer": 1,
+        "explain": "border-box makes the box you set the box you get, since padding and border are now included within that width/height."
+      },
+      {
+        "q": "When two block elements stack vertically, what happens to their margins?",
+        "opts": [
+          "They always add together",
+          "The larger of the two collapses into a single gap",
+          "Margins are ignored between blocks",
+          "The smaller one is used"
+        ],
+        "answer": 1,
+        "explain": "Adjacent vertical margins collapse — the browser uses the larger value, not the sum of both."
+      }
+    ],
+    "css-positioning": [
+      {
+        "q": "What makes an element eligible to be the reference point for an absolutely positioned child?",
+        "opts": [
+          "Any element can be a reference point",
+          "The ancestor must have a position value other than static",
+          "The ancestor must have a fixed width",
+          "Only <body> can be a reference point"
+        ],
+        "answer": 1,
+        "explain": "An absolutely positioned element positions relative to its nearest ancestor with position: relative, absolute, fixed, or sticky — not a static one."
+      },
+      {
+        "q": "What's the key difference between position: fixed and position: sticky?",
+        "opts": [
+          "They're identical",
+          "fixed always stays in the viewport; sticky only sticks within its containing block once scrolled to its offset",
+          "sticky doesn't work with top",
+          "fixed only works on <nav>"
+        ],
+        "answer": 1,
+        "explain": "sticky behaves like relative until it hits its scroll offset, then behaves like fixed — but only within its own container's bounds."
+      },
+      {
+        "q": "What does z-index control?",
+        "opts": [
+          "Horizontal position",
+          "Which overlapping positioned element renders in front",
+          "Font size",
+          "Page zoom level"
+        ],
+        "answer": 1,
+        "explain": "z-index resolves stacking order among overlapping positioned elements — higher values render on top."
+      }
+    ],
+    "css-flexbox": [
+      {
+        "q": "What does display: flex do to an element's direct children?",
+        "opts": [
+          "Nothing until flex-grow is added",
+          "Turns them into flex items arranged along a main axis",
+          "Deletes them",
+          "Forces them into a grid"
+        ],
+        "answer": 1,
+        "explain": "Every direct child of a flex container automatically becomes a flex item."
+      },
+      {
+        "q": "Which property distributes items with equal space between them, edges flush?",
+        "opts": [
+          "align-items: center",
+          "justify-content: space-between",
+          "flex-wrap: wrap",
+          "gap: 10px"
+        ],
+        "answer": 1,
+        "explain": "justify-content: space-between pushes the first and last items to the edges, distributing remaining space between the rest."
+      },
+      {
+        "q": "What does flex-wrap: wrap allow?",
+        "opts": [
+          "Items to change color",
+          "Items to flow onto multiple lines instead of squeezing onto one",
+          "Items to disappear",
+          "Items to become circular"
+        ],
+        "answer": 1,
+        "explain": "Without flex-wrap, all flex items are forced onto a single line/column by default, shrinking to fit."
+      }
+    ],
+    "css-grid": [
+      {
+        "q": "What does the fr unit represent in CSS Grid?",
+        "opts": [
+          "A fixed number of pixels",
+          "A fraction of the container's remaining free space",
+          "Font-relative units, like em",
+          "Frames per second for animations"
+        ],
+        "answer": 1,
+        "explain": "fr divides the container's remaining space proportionally among tracks."
+      },
+      {
+        "q": "What does grid-template-areas let you do?",
+        "opts": [
+          "Add borders to grid cells",
+          "Sketch a layout with named regions that items claim with grid-area",
+          "Animate grid items",
+          "Only works with 2 columns"
+        ],
+        "answer": 1,
+        "explain": "grid-template-areas defines a readable, named layout map directly in the CSS."
+      },
+      {
+        "q": "What does repeat(auto-fit, minmax(120px, 1fr)) achieve?",
+        "opts": [
+          "A fixed 3-column grid always",
+          "A grid that automatically adjusts its column count based on available space",
+          "Disables the grid",
+          "Only works with flexbox"
+        ],
+        "answer": 1,
+        "explain": "auto-fit combined with minmax() lets the grid reflow its own column count as the container resizes — no media query needed."
+      }
+    ],
+    "css-pseudo-classes": [
+      {
+        "q": "Which pseudo-class matches an element while the pointer is over it?",
+        "opts": [
+          ":focus",
+          ":hover",
+          ":active",
+          ":checked"
+        ],
+        "answer": 1,
+        "explain": ":hover matches for as long as the pointer is positioned over the element."
+      },
+      {
+        "q": "What does :nth-child(odd) commonly get used for?",
+        "opts": [
+          "Styling every image",
+          "Zebra-striping alternating table rows",
+          "Disabling buttons",
+          "Hiding the last item"
+        ],
+        "answer": 1,
+        "explain": ":nth-child(odd) matches every odd-positioned sibling — a common pattern for alternating row colors."
+      },
+      {
+        "q": "What does :not(.disabled) do in a selector like button:not(.disabled):hover?",
+        "opts": [
+          "Selects only disabled buttons",
+          "Excludes elements with the disabled class from matching",
+          "Is invalid syntax",
+          "Removes the class entirely"
+        ],
+        "answer": 1,
+        "explain": ":not() excludes anything matching its argument, letting a rule apply to everything except that case."
+      }
+    ],
+    "css-pseudo-elements": [
+      {
+        "q": "What symbol distinguishes a pseudo-element from a pseudo-class in modern CSS?",
+        "opts": [
+          "A single colon (:) for pseudo-elements",
+          "A double colon (::) for pseudo-elements",
+          "A hash (#)",
+          "A dot (.)"
+        ],
+        "answer": 1,
+        "explain": "Modern syntax uses :: for pseudo-elements (like ::before) and : for pseudo-classes (like :hover), though older code sometimes uses a single colon for both."
+      },
+      {
+        "q": "What CSS property is required for ::before or ::after to render anything at all?",
+        "opts": [
+          "display",
+          "content",
+          "color",
+          "position"
+        ],
+        "answer": 1,
+        "explain": "Without a content property — even content: \"\" — a ::before/::after pseudo-element won't render."
+      },
+      {
+        "q": "What does ::first-letter typically get used for?",
+        "opts": [
+          "Styling all italic text",
+          "Creating a decorative drop-cap effect",
+          "Hiding the first word",
+          "Changing link colors"
+        ],
+        "answer": 1,
+        "explain": "::first-letter targets just the first character of a text block, commonly used for a large decorative drop-cap."
+      }
+    ],
+    "css-attribute-selectors": [
+      {
+        "q": "What does [href^=\"https\"] select?",
+        "opts": [
+          "Links ending in https",
+          "Links whose href attribute starts with https",
+          "Only links with no href",
+          "Links containing https anywhere"
+        ],
+        "answer": 1,
+        "explain": "The ^= operator matches values that start with the given string."
+      },
+      {
+        "q": "What does [class*=\"btn\"] match?",
+        "opts": [
+          "Only class=\"btn\" exactly",
+          "Any class attribute containing \"btn\" anywhere in its value",
+          "Elements with no class",
+          "Only <button> elements"
+        ],
+        "answer": 1,
+        "explain": "The *= operator matches a substring appearing anywhere within the attribute's value."
+      },
+      {
+        "q": "How do you make an attribute selector's value match case-insensitively?",
+        "opts": [
+          "Add !important",
+          "Add a space and the letter i before the closing bracket",
+          "Use uppercase in the selector",
+          "It's automatic by default"
+        ],
+        "answer": 1,
+        "explain": "[attr=\"value\" i] makes the comparison case-insensitive."
+      }
+    ],
+    "css-form-styling": [
+      {
+        "q": "What does appearance: none do when styling a <select> or button?",
+        "opts": [
+          "Hides the element completely",
+          "Removes the browser's native OS-drawn styling as a clean base",
+          "Disables the control",
+          "Changes its HTML tag"
+        ],
+        "answer": 1,
+        "explain": "appearance: none strips native styling so custom background, border, and padding can fully take over."
+      },
+      {
+        "q": "Which part of form controls is notoriously hard to restyle consistently across browsers?",
+        "opts": [
+          "border-radius",
+          "A native <select>'s dropdown arrow and checkbox/radio glyphs",
+          "background-color",
+          "padding"
+        ],
+        "answer": 1,
+        "explain": "Borders and colors are easy to restyle; the native arrow/glyph rendering varies significantly by browser and OS."
+      },
+      {
+        "q": "What's a common way to give a user immediate feedback while filling out a form field?",
+        "opts": [
+          "Only showing errors after final submit",
+          "Pairing :valid/:invalid/:focus with color changes as they type",
+          "Disabling the field entirely",
+          "Removing all labels"
+        ],
+        "answer": 1,
+        "explain": "Styling based on the field's live validation state gives low-friction, immediate feedback before the user even submits."
+      }
+    ],
+    "css-variables": [
+      {
+        "q": "How do you declare a CSS custom property?",
+        "opts": [
+          "$name: value;",
+          "@name: value;",
+          "--name: value;",
+          "#name: value;"
+        ],
+        "answer": 2,
+        "explain": "Custom properties use a double-dash prefix, like --brand-color: #c4406b;."
+      },
+      {
+        "q": "What does var(--name, fallback) do if --name isn't defined?",
+        "opts": [
+          "Throws an error",
+          "Uses the provided fallback value instead",
+          "Renders nothing",
+          "Ignores the whole rule"
+        ],
+        "answer": 1,
+        "explain": "The second argument to var() is a fallback used only if the custom property isn't defined."
+      },
+      {
+        "q": "What's a key advantage of CSS custom properties over Sass/Less variables?",
+        "opts": [
+          "They're shorter to type",
+          "They're live in the browser and can change at runtime, unlike build-time preprocessor variables",
+          "They don't need a browser",
+          "They only work with px units"
+        ],
+        "answer": 1,
+        "explain": "A preprocessor variable is baked in at build time; a CSS custom property can be changed live, e.g. via a media query or JavaScript."
+      }
+    ],
+    "css-responsive": [
+      {
+        "q": "What does a mobile-first approach to media queries use?",
+        "opts": [
+          "max-width queries only",
+          "min-width queries to add complexity as the screen grows",
+          "No media queries at all",
+          "Only px units"
+        ],
+        "answer": 1,
+        "explain": "Mobile-first starts with small-screen base styles, then layers on more complexity via min-width media queries."
+      },
+      {
+        "q": "What does object-fit: cover do for an <img>?",
+        "opts": [
+          "Stretches the image, distorting its aspect ratio",
+          "Scales the image to fill its box, cropping as needed without distortion",
+          "Hides the image",
+          "Only works on background-image"
+        ],
+        "answer": 1,
+        "explain": "object-fit: cover fills the box while preserving the image's aspect ratio, cropping any overflow."
+      },
+      {
+        "q": "What do container queries respond to, unlike traditional media queries?",
+        "opts": [
+          "The user's mouse position",
+          "The size of the component's own container, not the whole viewport",
+          "The page's URL",
+          "The user's login state"
+        ],
+        "answer": 1,
+        "explain": "Container queries let a component adapt based on the space it's actually given, regardless of the overall screen size."
+      }
+    ],
+    "css-animations": [
+      {
+        "q": "What does @keyframes define?",
+        "opts": [
+          "A single color value",
+          "A named sequence of style states at percentage checkpoints",
+          "A media query breakpoint",
+          "A CSS variable"
+        ],
+        "answer": 1,
+        "explain": "@keyframes defines the steps of an animation from 0% to 100% (or from/to)."
+      },
+      {
+        "q": "Why are transform and opacity generally preferred for animating over properties like width or top?",
+        "opts": [
+          "They only work in Chrome",
+          "They animate smoothly without forcing the browser to recalculate page layout",
+          "They're deprecated otherwise",
+          "There's no real difference"
+        ],
+        "answer": 1,
+        "explain": "transform and opacity can be animated efficiently by the browser, while properties like width/top force expensive layout recalculation on every frame."
+      },
+      {
+        "q": "What does prefers-reduced-motion let a stylesheet respond to?",
+        "opts": [
+          "The browser's zoom level",
+          "A user's OS-level request for reduced motion",
+          "The device's battery level",
+          "The page's load time"
+        ],
+        "answer": 1,
+        "explain": "Respecting prefers-reduced-motion (usually by disabling or simplifying animations) is an accessibility best practice."
+      }
+    ],
+    "css-transitions": [
+      {
+        "q": "What triggers a CSS transition?",
+        "opts": [
+          "Nothing — it runs automatically like an animation",
+          "A state change, such as :hover or a class toggle",
+          "Page load only",
+          "Only JavaScript can trigger it"
+        ],
+        "answer": 1,
+        "explain": "Unlike a @keyframes animation, a transition needs some state change to move from its starting value to its ending value."
+      },
+      {
+        "q": "What is the correct order of values in the transition shorthand?",
+        "opts": [
+          "duration, property, delay, timing-function",
+          "property, duration, timing-function, delay",
+          "timing-function, property, duration, delay",
+          "There is no fixed order"
+        ],
+        "answer": 1,
+        "explain": "The shorthand order is property, then duration, then timing-function, then delay."
+      },
+      {
+        "q": "Why might transition: all be less ideal than listing specific properties?",
+        "opts": [
+          "all is invalid CSS",
+          "It can accidentally transition properties you didn't intend to animate, and can be costlier to render",
+          "It only works on buttons",
+          "It disables hover effects"
+        ],
+        "answer": 1,
+        "explain": "Being explicit about which properties transition is more predictable and can be more efficient than transitioning everything that happens to change."
+      }
     ]
   }
 };
