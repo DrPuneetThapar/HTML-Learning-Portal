@@ -317,23 +317,22 @@ function highlightActiveNav(){
 /* ---------- 7. Visitor Counter (homepage only) ----------
    Uses visitor-badge.laobi.icu — a free, no-signup counter badge
    service that's been running for years and is embedded across
-   thousands of GitHub READMEs and project pages, making it a far
-   more durable choice than smaller/newer counter services.
+   thousands of GitHub READMEs and project pages.
 
-   Two layers, so the counter can never look broken:
-   1. A hidden <img> tag (see index.html) requests the real counting
-      endpoint. Images never trigger CORS restrictions, so this
-      reliably increments the badge service's own count on every
-      visit — the same proven mechanism used everywhere else this
-      service is embedded.
-   2. This script then tries to also fetch that same badge as text,
-      read the number out of the returned SVG, and display it as
-      OFFSET + that number, so the number starts around 13,000 as
-      requested. If that fetch is blocked (e.g. no CORS headers in
-      some environment), it falls back to showing the flat starting
-      number — visit #1 still reliably incremented behind the scenes
-      either way, it just won't be reflected in the displayed number
-      until a fetch succeeds.
+   Earlier version of this tried to fetch() the badge as text to read
+   the number back out and add a +13,000 offset to it — but this
+   service doesn't send CORS headers on that endpoint, so the fetch
+   was permanently blocked and logged a CORS error in the console on
+   every visit (harmless to visitors, but noisy and unprofessional in
+   DevTools). Rather than keep retrying something that can never
+   succeed against this particular service, this version uses ONLY a
+   plain <img> tag — the exact same proven mechanism used everywhere
+   else this badge is embedded, which cannot trigger a CORS error
+   because rendering an image never requires reading its cross-origin
+   response. The badge shows the service's own real, live, incrementing
+   count; a separate "13,000 +" label sits next to it so the total
+   reads the way you asked for, without needing to read/modify a
+   number from a cross-origin response at all.
 
    This counts page LOADS of the homepage, not verified unique humans
    (no static site can determine that on its own) — the honest framing
@@ -345,29 +344,14 @@ const VISITOR_BADGE_PAGE_ID = (location.hostname || "local-preview").replace(/[^
 function initVisitorCounter(){
   const el = document.getElementById("visitorCountValue");
   if(!el) return; // not on the homepage
+  el.textContent = VISITOR_COUNTER_OFFSET.toLocaleString() + " +";
 
-  // Layer 1: a hidden real <img> request reliably increments the badge
-  // service's counter — images never trigger CORS restrictions, so this
-  // works even in browsers/environments that would block the fetch below.
-  const countImg = new Image();
-  countImg.src = `https://visitor-badge.laobi.icu/badge?page_id=${VISITOR_BADGE_PAGE_ID}`;
-  countImg.width = 1; countImg.height = 1; countImg.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;";
-  countImg.alt = "";
-  document.body.appendChild(countImg);
-
-  // Layer 2: best-effort read-back to display OFFSET + the real count.
-  fetch(`https://visitor-badge.laobi.icu/badge?page_id=${VISITOR_BADGE_PAGE_ID}&query_only=true`)
-    .then(res => { if(!res.ok) throw new Error("bad response"); return res.text(); })
-    .then(svgText => {
-      // svg text-node layout varies by badge renderer; scan all <text> content for the last numeric one
-      const numbers = [...svgText.matchAll(/<text[^>]*>([\d][\d,]*)<\/text>/g)].map(m => parseInt(m[1].replace(/,/g,""), 10));
-      const count = numbers.length ? numbers[numbers.length - 1] : 0;
-      el.textContent = (VISITOR_COUNTER_OFFSET + count).toLocaleString();
-    })
-    .catch(() => {
-      el.textContent = VISITOR_COUNTER_OFFSET.toLocaleString();
-      el.title = "Live count unavailable right now — showing the starting count.";
-    });
+  const badge = document.createElement("img");
+  badge.src = `https://visitor-badge.laobi.icu/badge?page_id=${VISITOR_BADGE_PAGE_ID}&left_text=visits&left_color=%23211f2e&right_color=%23c4406b`;
+  badge.alt = "Live visit count";
+  badge.className = "visitor-counter-live-badge";
+  badge.onerror = () => { badge.style.display = "none"; }; // hide gracefully if the service is ever unreachable
+  document.getElementById("visitorCounterBadge").appendChild(badge);
 }
 
 /* ---------- 8. Init ---------- */
