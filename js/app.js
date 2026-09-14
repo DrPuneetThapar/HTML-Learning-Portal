@@ -315,36 +315,54 @@ function highlightActiveNav(){
 }
 
 /* ---------- 7. Visitor Counter (homepage only) ----------
-   Calls a free, no-signup counter service (visitor.6developer.com)
-   that tracks visits per domain. The service's own count always
-   starts at 0/1 for a new domain, so VISITOR_COUNTER_OFFSET is added
-   on the DISPLAY side only, to make the number start around 13,000
-   as requested — the true value is offset + the service's real count.
+   Uses visitor-badge.laobi.icu — a free, no-signup counter badge
+   service that's been running for years and is embedded across
+   thousands of GitHub READMEs and project pages, making it a far
+   more durable choice than smaller/newer counter services.
+
+   Two layers, so the counter can never look broken:
+   1. A hidden <img> tag (see index.html) requests the real counting
+      endpoint. Images never trigger CORS restrictions, so this
+      reliably increments the badge service's own count on every
+      visit — the same proven mechanism used everywhere else this
+      service is embedded.
+   2. This script then tries to also fetch that same badge as text,
+      read the number out of the returned SVG, and display it as
+      OFFSET + that number, so the number starts around 13,000 as
+      requested. If that fetch is blocked (e.g. no CORS headers in
+      some environment), it falls back to showing the flat starting
+      number — visit #1 still reliably incremented behind the scenes
+      either way, it just won't be reflected in the displayed number
+      until a fetch succeeds.
+
    This counts page LOADS of the homepage, not verified unique humans
    (no static site can determine that on its own) — the honest framing
    is "visits", the same way classic web hit-counters always worked.
-   If the service is unreachable, the offset alone is shown so the
-   page never displays an error to visitors.
 ------------------------------------------------------------------ */
 const VISITOR_COUNTER_OFFSET = 13000;
+const VISITOR_BADGE_PAGE_ID = (location.hostname || "local-preview").replace(/[^a-zA-Z0-9.-]/g, "-") + ".html-learning-portal";
 
 function initVisitorCounter(){
   const el = document.getElementById("visitorCountValue");
   if(!el) return; // not on the homepage
-  fetch("https://visitor.6developer.com/visit", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      domain: location.hostname || "local-preview",
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      page_path: location.pathname,
-      page_title: document.title
-    })
-  })
-    .then(res => { if(!res.ok) throw new Error("bad response"); return res.json(); })
-    .then(data => {
-      const total = (typeof data.totalCount === "number") ? data.totalCount : 0;
-      el.textContent = (VISITOR_COUNTER_OFFSET + total).toLocaleString();
+
+  // Layer 1: a hidden real <img> request reliably increments the badge
+  // service's counter — images never trigger CORS restrictions, so this
+  // works even in browsers/environments that would block the fetch below.
+  const countImg = new Image();
+  countImg.src = `https://visitor-badge.laobi.icu/badge?page_id=${VISITOR_BADGE_PAGE_ID}`;
+  countImg.width = 1; countImg.height = 1; countImg.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;";
+  countImg.alt = "";
+  document.body.appendChild(countImg);
+
+  // Layer 2: best-effort read-back to display OFFSET + the real count.
+  fetch(`https://visitor-badge.laobi.icu/badge?page_id=${VISITOR_BADGE_PAGE_ID}&query_only=true`)
+    .then(res => { if(!res.ok) throw new Error("bad response"); return res.text(); })
+    .then(svgText => {
+      // svg text-node layout varies by badge renderer; scan all <text> content for the last numeric one
+      const numbers = [...svgText.matchAll(/<text[^>]*>([\d][\d,]*)<\/text>/g)].map(m => parseInt(m[1].replace(/,/g,""), 10));
+      const count = numbers.length ? numbers[numbers.length - 1] : 0;
+      el.textContent = (VISITOR_COUNTER_OFFSET + count).toLocaleString();
     })
     .catch(() => {
       el.textContent = VISITOR_COUNTER_OFFSET.toLocaleString();
