@@ -314,7 +314,45 @@ function highlightActiveNav(){
   if(dropdownToggle) dropdownToggle.classList.toggle("active", dropdownHasActive);
 }
 
-/* ---------- 7. Init ---------- */
+/* ---------- 7. Visitor Counter (homepage only) ----------
+   Calls a free, no-signup counter service (visitor.6developer.com)
+   that tracks visits per domain. The service's own count always
+   starts at 0/1 for a new domain, so VISITOR_COUNTER_OFFSET is added
+   on the DISPLAY side only, to make the number start around 13,000
+   as requested — the true value is offset + the service's real count.
+   This counts page LOADS of the homepage, not verified unique humans
+   (no static site can determine that on its own) — the honest framing
+   is "visits", the same way classic web hit-counters always worked.
+   If the service is unreachable, the offset alone is shown so the
+   page never displays an error to visitors.
+------------------------------------------------------------------ */
+const VISITOR_COUNTER_OFFSET = 13000;
+
+function initVisitorCounter(){
+  const el = document.getElementById("visitorCountValue");
+  if(!el) return; // not on the homepage
+  fetch("https://visitor.6developer.com/visit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      domain: location.hostname || "local-preview",
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      page_path: location.pathname,
+      page_title: document.title
+    })
+  })
+    .then(res => { if(!res.ok) throw new Error("bad response"); return res.json(); })
+    .then(data => {
+      const total = (typeof data.totalCount === "number") ? data.totalCount : 0;
+      el.textContent = (VISITOR_COUNTER_OFFSET + total).toLocaleString();
+    })
+    .catch(() => {
+      el.textContent = VISITOR_COUNTER_OFFSET.toLocaleString();
+      el.title = "Live count unavailable right now — showing the starting count.";
+    });
+}
+
+/* ---------- 8. Init ---------- */
 document.addEventListener("DOMContentLoaded", ()=>{
   Theme.init();
   highlightActiveNav();
@@ -323,6 +361,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
   if(themeBtn) themeBtn.addEventListener("click", ()=> Theme.toggle());
   initHomepageTopics();
   initScrollReveal();
+  initVisitorCounter();
 });
 
 if("serviceWorker" in navigator){
